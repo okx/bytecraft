@@ -4,7 +4,7 @@ import { writeFile, existsSync } from 'fs-extra';
 import { join } from 'path';
 import dedent from 'dedent';
 import runCommand from '../../lib/runCommand';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 
 export default class TaskNew extends Command {
   static description = 'create new task';
@@ -26,7 +26,7 @@ export default class TaskNew extends Command {
       await writeFile(
         newTaskPath,
         dedent`
-          import { Env, task } from "Knife";
+          import { Env, task } from "@okex/wasmknife";
 
           task(async (env:Env) => {
             console.log(env);
@@ -40,7 +40,7 @@ export default class TaskNew extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync(newTaskPath)) {
-        TerrainCLI.error(
+        CLI.error(
           `A task with the name "${args.task}" already exists in the "tasks/" directory. Try using another name for the task.`,
           'Task Available',
         );

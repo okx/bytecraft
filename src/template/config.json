@@ -10,19 +10,19 @@
   },
   "mainnet": {
     "_connection": {
-      "chainID": "columbus-5",
-      "URL": "https://lcd.terra.dev"
+      "chainID": "enchain-66",
+      "URL": "https://exchaintmrpc.okex.org"
     }
   },
   "testnet": {
     "_connection": {
-      "chainID": "pisco-1",
-      "URL": "https://pisco-lcd.terra.dev"
+      "chainID": "enchain-65",
+      "URL": "https://exchaintesttmrpc.okex.org"
     }
   },
-  "localexchain": {
+  "localnet": {
     "_connection": {
-      "chainID": "localexchain",
+      "chainID": "exchain-67",
       "URL": "http://localhost:26657"
     }
   }

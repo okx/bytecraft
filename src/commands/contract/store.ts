@@ -5,7 +5,7 @@ import { loadConfig, loadConnections } from '../../config';
 import { storeCode } from '../../lib/deployment';
 import { getSigner } from '../../lib/signer';
 import * as flag from '../../lib/flag';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 
 export default class CodeStore extends Command {
@@ -16,18 +16,18 @@ export default class CodeStore extends Command {
     network: flag.network,
     'no-rebuild': flag.noRebuild,
     'code-id': flags.integer({}),
-    ...flag.terrainPaths,
+    ...flag.cliPaths,
   };
 
   static args = [{
     name: 'contract',
-    required: true
+    required: true,
   }];
 
   async run() {
     const {
       args,
-      flags
+      flags,
     } = this.parse(CodeStore);
 
     // Command execution path.
@@ -61,7 +61,7 @@ export default class CodeStore extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(join('contracts', args.contract))) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract "${args.contract}" not available in "contracts/" directory.`,
           'Contract Unavailable',
         );

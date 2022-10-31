@@ -6,7 +6,7 @@ import { Env, getEnv } from '../../lib/env';
 import * as flag from '../../lib/flag';
 import runScript from '../../lib/runScript';
 import runCommand from '../../lib/runCommand';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 
 export const task = async (fn: (env: Env) => Promise<void>) => {
   try {
@@ -37,9 +37,9 @@ export default class Run extends Command {
   static flags = {
     signer: flag.signer,
     network: flags.string({ default: 'localexchain' }),
-    'config-path': flags.string({ default: 'config.terrain.json' }),
-    'refs-path': flags.string({ default: 'refs.terrain.json' }),
-    'keys-path': flags.string({ default: 'keys.terrain.js' }),
+    'config-path': flags.string({ default: 'config.json' }),
+    'refs-path': flags.string({ default: 'refs.json' }),
+    'keys-path': flags.string({ default: 'keys.js' }),
   };
 
   static args = [{ name: 'task' }];
@@ -90,7 +90,7 @@ export default class Run extends Command {
             );
           });
         }
-        TerrainCLI.error(
+        CLI.error(
           `Task "${args.task}" not available in "tasks/" directory.`,
           'Task Not Found',
         );

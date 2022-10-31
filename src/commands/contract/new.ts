@@ -3,16 +3,16 @@ import { cli } from 'cli-ux';
 import { TemplateScaffolding } from '@terra-money/template-scaffolding';
 import { join } from 'path';
 import { existsSync } from 'fs';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 
 export default class CodeNew extends Command {
   static description = 'Generate new contract.';
 
   static examples = [
-    '$ terrain code:new awesome_contract',
-    '$ terrain code:new awesome_contract --path path/to/dapp',
-    '$ terrain code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"',
+    '$ wasmknife code:new awesome_contract',
+    '$ wasmknife code:new awesome_contract --path path/to/dapp',
+    '$ wasmknife code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"',
   ];
 
   static flags = {
@@ -62,7 +62,7 @@ export default class CodeNew extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync(join(flags.path, args.name))) {
-        TerrainCLI.error(`Project '${args.name}' already exists under path '${flags.path}'.\nTip: Use another path or contract name`);
+        CLI.error(`Project '${args.name}' already exists under path '${flags.path}'.\nTip: Use another path or contract name`);
       }
     };
 

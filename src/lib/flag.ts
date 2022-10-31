@@ -1,6 +1,6 @@
 import { flags } from '@oclif/command';
 
-export const signer = flags.string({ default: 'test1' });
+export const signer = flags.string({ default: 'test' });
 
 export const noRebuild = flags.boolean({
   description: 'deploy the wasm bytecode as is.',
@@ -9,20 +9,16 @@ export const noRebuild = flags.boolean({
 
 export const instanceId = flags.string({ default: 'default', description: 'enable management of multiple instances of the same contract' });
 
-export const network = flags.string({ default: 'localexchain', description: 'network to deploy to from config.terrain.json' });
+export const network = flags.string({ default: 'localnet', description: 'network to deploy to from config.json' });
 
-export const configPath = flags.string({ default: './config.terrain.json' });
+export const configPath = flags.string({ default: './config.json' });
 
-export const refsPath = flags.string({ default: './refs.terrain.json' });
+export const refsPath = flags.string({ default: './refs.json' });
 
-export const keysPath = flags.string({ default: './keys.terrain.js' });
-
-export const frontendRefsPath = flags.string({
-  default: './frontend/src/',
-});
+export const keysPath = flags.string({ default: './keys.js' });
 
 // These three are commonly used together.
-export const terrainPaths = {
+export const cliPaths = {
   'config-path': configPath,
   'refs-path': refsPath,
   'keys-path': keysPath,

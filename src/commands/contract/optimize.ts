@@ -4,7 +4,7 @@ import { join } from 'path';
 import { optimize } from '../../lib/deployment';
 import { configPath } from '../../lib/flag';
 import { loadGlobalConfig } from '../../config';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 
 export default class Optimize extends Command {
@@ -35,7 +35,7 @@ export default class Optimize extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(join('contracts', args.contract))) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract "${args.contract}" not available in "contracts/" directory.`,
           'Contract Unavailable',
         );

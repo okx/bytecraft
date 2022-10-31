@@ -5,7 +5,7 @@ import { loadConfig, loadConnections, loadGlobalConfig } from '../config';
 import { instantiate, storeCode } from '../lib/deployment';
 import { getSigner } from '../lib/signer';
 import * as flag from '../lib/flag';
-import TerrainCLI from '../TerrainCLI';
+import CLI from '../CLI';
 import runCommand from '../lib/runCommand';
 
 export default class Deploy extends Command {
@@ -16,14 +16,13 @@ export default class Deploy extends Command {
     network: flag.network,
     'no-rebuild': flag.noRebuild,
     'instance-id': flag.instanceId,
-    'frontend-refs-path': flag.frontendRefsPath,
     'admin-address': flags.string({
       description: 'set custom address as contract admin to allow migration.',
     }),
     'no-sync': flags.string({
       description: 'don\'t attempt to sync contract refs to frontend.',
     }),
-    ...flag.terrainPaths,
+    ...flag.cliPaths,
   };
 
   static args = [{ name: 'contract', required: true }];
@@ -32,7 +31,7 @@ export default class Deploy extends Command {
     const { args, flags } = this.parse(Deploy);
 
     // Command execution path.
-    const execPath = 'config.terrain.json';
+    const execPath = 'config.json';
 
     // Command to be performed.
     const command = async () => {
@@ -99,21 +98,12 @@ export default class Deploy extends Command {
         args.contract,
         '--build-schema',
       ]);
-
-      if (!flags['no-sync']) {
-        await this.config.runCommand('sync-refs', [
-          '--refs-path',
-          flags['refs-path'],
-          '--dest',
-          flags['frontend-refs-path'],
-        ]);
-      }
     };
 
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(join('contracts', args.contract))) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract '${args.contract}' not available in 'contracts/' directory.`,
         );
       }

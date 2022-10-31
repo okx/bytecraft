@@ -2,15 +2,12 @@ import { Command } from '@oclif/command';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { start } from 'repl';
-// import * as terrajs from '@terra-money/terra.js';
-import * as cosmwasm from '@cosmjs/cosmwasm-stargate';
-import * as amin from '@cosmjs/amino';
 import { getEnv } from '../lib/env';
-import { signer, network, terrainPaths } from '../lib/flag';
-import TerrainCLI from '../TerrainCLI';
+import { signer, network, cliPaths } from '../lib/flag';
+import CLI from '../CLI';
 import runCommand from '../lib/runCommand';
 
-// Needed for Terrain to be able to require typescript modules.
+// Needed for WasmKnife to be able to require typescript modules.
 require('ts-node').register({
   // Don't actually check types of libs.
   transpileOnly: true,
@@ -24,7 +21,7 @@ export default class Console extends Command {
   static flags = {
     signer,
     network,
-    ...terrainPaths,
+    ...cliPaths,
   };
 
   static args = [];
@@ -68,7 +65,7 @@ export default class Console extends Command {
         config, refs, wallets, client,
       } = env;
 
-      const r = start({ prompt: 'terrain > ', useColors: true });
+      const r = start({ prompt: 'wasmknife > ', useColors: true });
 
       const def = (name: string, value: any) => Object.defineProperty(r.context, name, {
         configurable: false,
@@ -88,7 +85,7 @@ export default class Console extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(execPath)) {
-        TerrainCLI.error(
+        CLI.error(
           `Execution directory '${execPath}' not available.`,
         );
       }

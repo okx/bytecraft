@@ -1,9 +1,9 @@
 {
-  "name": "my-terra-dapp",
+  "name": "my-dapp",
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "@terra-money/terrain": "0.5.8"
+    "@okex/wasmknife": "0.1.0"
   },
   "workspaces": [
     "frontend"

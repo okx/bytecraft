@@ -1,26 +1,18 @@
 /* eslint-disable no-await-in-loop */
-import Os from 'os';
-import { parse } from 'toml';
-import { execSync } from 'child_process';
-import * as fs from 'fs-extra';
-import { cli } from 'cli-ux';
-import * as YAML from 'yaml';
-import dedent from 'dedent';
-import path from 'path';
-import {
-  SigningCosmWasmClient, Secp256k1HdWallet, coin, parseCoins, GasPrice,
-} from 'cosmwasm';
-import { OfflineAminoSigner } from '@cosmjs/amino/build/signer';
-import {
-  ContractConfig,
-  loadRefs,
-  saveRefs,
-  setCodeId,
-  setContractAddress,
-} from '../config';
-import TerrainCLI from '../TerrainCLI';
-import useARM64 from './useARM64';
-import { DefaulrGasPrice } from './key';
+import Os from "os";
+import { parse } from "toml";
+import { execSync } from "child_process";
+import * as fs from "fs-extra";
+import { cli } from "cli-ux";
+import * as YAML from "yaml";
+import dedent from "dedent";
+import path from "path";
+import { Secp256k1HdWallet, SigningCosmWasmClient } from "cosmwasm";
+import { OfflineAminoSigner } from "@cosmjs/amino/build/signer";
+import { ContractConfig, loadRefs, saveRefs, setCodeId, setContractAddress } from "../config";
+import CLI from "../CLI";
+import useARM64 from "./useARM64";
+import { DefaulrGasPrice } from "./key";
 
 type BuildParams = {
   contract: string;
@@ -158,7 +150,7 @@ export const storeCode = async ({
   // Check if user is attempting to store ARM64 wasm binary on mainnet.
   // If so, reoptimize to default wasm binary to store on mainnet.
   if (storingARM64Mainnet) {
-    TerrainCLI.error(dedent`
+    CLI.error(dedent`
 ARM64 wasm files should not be stored on mainnet. Rebuilding contract to deploy default wasm binary.
     `, 'ARM64 Wasm Detected');
 
@@ -229,10 +221,10 @@ export const instantiate = async ({
 }: InstantiateParams) => {
   const { instantiation } = conf;
 
-  // Ensure contract refs are available in refs.terrain.json.
+  // Ensure contract refs are available in refs.json.
   const refs = loadRefs(refsPath);
   if (!(network in refs) || !(contract in refs[network])) {
-    TerrainCLI.error(
+    CLI.error(
       `Contract "${contract}" has not been deployed on the "${network}" network.`,
       'Contract Not Deployed',
     );

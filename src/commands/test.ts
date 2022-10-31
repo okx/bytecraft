@@ -3,13 +3,13 @@ import { execSync } from 'child_process';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import runCommand from '../lib/runCommand';
-import TerrainCLI from '../TerrainCLI';
+import CLI from '../CLI';
 
 /**
  * Runs unit tests for a contract directory.
  * Examples:
- * $ terrain test counter
- * $ terrain test counter --no-fail-fast
+ * $ wasmknife test counter
+ * $ wasmknife test counter --no-fail-fast
  */
 export default class Test extends Command {
   // Specify description to be displayed upon help command execution.
@@ -17,8 +17,8 @@ export default class Test extends Command {
 
   // Specify examples included upon help test command execution.
   static examples = [
-    '$ terrain test counter',
-    '$ terrain test counter --no-fail-fast',
+    '$ wasmknife test counter',
+    '$ wasmknife test counter --no-fail-fast',
   ];
 
   // Initialize args to be given after test command.
@@ -48,7 +48,7 @@ export default class Test extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(execPath)) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract "${args['contract-name']}" not available in "contracts/" directory.`,
           'Contract Unavailable',
         );

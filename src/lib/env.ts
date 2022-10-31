@@ -12,7 +12,7 @@ import {
   loadGlobalConfig,
   loadConnections,
   loadKeys,
-  loadRefs
+  loadRefs,
 } from "../config";
 import {
   storeCode,
@@ -22,7 +22,7 @@ import {
 } from "./deployment";
 import { ExchainClientExtra } from "./ExchainClientExtra";
 import { DefaulrGasPrice, Key } from "./key";
-import { stringToPath } from "@cosmjs/crypto";
+
 
 export type DeployHelpers = {
   build: (contract: string) => Promise<void>;
@@ -59,38 +59,6 @@ export type Env = {
   address: string,
 };
 
-// export const GenerateWalletFromMnemonic = (mnemonic: string): OfflineAminoSigner => {
-//   const path = stringToPath("m/44'/118'/0'/0/0");
-//
-//   // @ts-ignore
-//   var wallet: Secp256k1HdWallet = null;
-//   // @ts-ignore
-//
-//   Secp256k1HdWallet.fromMnemonic(mnemonic, {
-//     // @ts-ignore
-//     hdPaths: [path],
-//     prefix: "ex"
-//   })
-//     .then((value) => {
-//       console.log(value);
-//
-//     })
-//     .catch()
-//     .finally();
-//   // return wallet;
-// };
-//
-// export const GenerateWalletFromPrivateKey = (privateKey: string): OfflineAminoSigner => {
-//   let wallet: OfflineAminoSigner | undefined;
-//   Secp256k1Wallet.fromKey(Buffer.from(privateKey, "hex"), "ex")
-//     .then((value: OfflineAminoSigner) => {
-//       wallet = value;
-//     })
-//     .catch()
-//     .finally();
-//
-//   return <OfflineAminoSigner>wallet;
-// };
 
 export const getEnv = async (
   configPath: string,
@@ -111,39 +79,26 @@ export const getEnv = async (
 
   for (let k in keys) {
     let wallet: OfflineAminoSigner;
-    if (keys[k].privateKey === "") {
+    if (keys[k].privateKey === '') {
       // const path = stringToPath("m/44'/118'/0'/0/0");
       // eslint-disable-next-line no-await-in-loop
       wallet = await Secp256k1HdWallet.fromMnemonic(keys[k].mnemonic, {
         // hdPaths: [path],
-        prefix: "ex"
+        prefix: 'ex',
       });
     } else {
+      // eslint-disable-next-line no-await-in-loop
       wallet = await Secp256k1Wallet.fromKey(Buffer.from(keys[k].privateKey, 'hex'), 'ex');
     }
 
     userDefinedWallets[k] = wallet;
   }
-
-  // const userDefinedWallets = R.map<{ [k: string]: Key },
-  //   { [k: string]: OfflineAminoSigner }>((k) => {
-  //     console.log(k);
-  //     if (k.privateKey === "") {
-  //
-  //       return GenerateWalletFromMnemonic(k.mnemonic);
-  //     }
-  //     return GenerateWalletFromPrivateKey(k.privateKey);
-  //
-  //   },
-  //   keys
-  // );
   const wallets: { [k: string]: OfflineAminoSigner } = {
-    // ...new LocalTerra().wallets,
     ...userDefinedWallets,
   };
 
   if (!(defaultWallet in wallets)) {
-    throw new Error("default wallet not found");
+    throw new Error('default wallet not found');
   }
 
   const accounts = await wallets[defaultWallet].getAccounts();

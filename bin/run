@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const oclif = require('@oclif/core');
-const TerrainCLI = require('../lib/TerrainCLI').default;
+const CLI = require('../lib/CLI').default;
 
-TerrainCLI.nodeVersionCheck();
+CLI.nodeVersionCheck();
 
 oclif.run()
   .then(require('@oclif/core/flush'))

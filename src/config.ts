@@ -61,7 +61,7 @@ export const connection = (
     || cli.error(`network '${network}' not found in config`);
 
 export const loadConnections = (
-  path = `${__dirname}/template/config.terrain.json`,
+  path = `${__dirname}/template/config.json`,
 ) => connection(fs.readJSONSync(path));
 
 export const config = (
@@ -104,16 +104,16 @@ export const saveConfig = (
 };
 
 export const loadConfig = (
-  path = `${__dirname}/template/config.terrain.json`,
+  path = `${__dirname}/template/config.json`,
 ) => config(fs.readJSONSync(path));
 
 export const loadGlobalConfig = (
-  path = `${__dirname}/template/config.terrain.json`,
+  path = `${__dirname}/template/config.json`,
   // Extract useCargoWorkspace from global config.
 ) => (({ _global: { useCargoWorkspace } }) => ({ useCargoWorkspace }))(fs.readJSONSync(path));
 
 export const loadKeys = (
-  path = `${__dirname}/template/keys.terrain.js`,
+  path = `${__dirname}/template/keys.js`,
 ): { [keyName: string]: Key } => {
   // eslint-disable-next-line import/no-dynamic-require, global-require
   const keys = require(path);
@@ -148,7 +148,7 @@ export const setContractAddress = (
 );
 
 export const loadRefs = (
-  path = `${__dirname}/template/refs.terrain.json`,
+  path = `${__dirname}/template/refs.json`,
 ): Refs => fs.readJSONSync(path);
 
 export const saveRefs = (refs: Refs, path: string) => {

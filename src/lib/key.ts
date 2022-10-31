@@ -1,7 +1,7 @@
-import { GasPrice } from "cosmwasm";
-import { OfflineAminoSigner } from "@cosmjs/amino/build/signer";
+import { GasPrice } from 'cosmwasm';
+import { OfflineAminoSigner } from '@cosmjs/amino/build/signer';
 
-export const DefaulrGasPrice = GasPrice.fromString("200000000wei");
+export const DefaulrGasPrice = GasPrice.fromString('200000000wei');
 
 export class Key {
   /**

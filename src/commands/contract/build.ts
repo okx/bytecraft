@@ -3,7 +3,7 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 import { build } from '../../lib/deployment';
 import * as flag from '../../lib/flag';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 
 export default class Build extends Command {
@@ -31,7 +31,7 @@ export default class Build extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(execPath)) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract "${args.contract}" not available in "contracts/" directory.`,
           'Contract Unavailable',
         );

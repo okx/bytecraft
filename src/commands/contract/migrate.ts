@@ -5,7 +5,7 @@ import { loadConfig, loadConnections } from '../../config';
 import { migrate, storeCode } from '../../lib/deployment';
 import { getSigner } from '../../lib/signer';
 import * as flag from '../../lib/flag';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 
 export default class ContractMigrate extends Command {
@@ -14,15 +14,11 @@ export default class ContractMigrate extends Command {
   static flags = {
     signer: flag.signer,
     'no-rebuild': flag.noRebuild,
-    network: flags.string({ default: 'localexchain' }),
-    'config-path': flags.string({ default: 'config.terrain.json' }),
-    'refs-path': flags.string({ default: 'refs.terrain.json' }),
-    'keys-path': flags.string({ default: 'keys.terrain.js' }),
+    network: flags.string({ default: 'localnet' }),
+    'config-path': flags.string({ default: 'config.json' }),
+    'refs-path': flags.string({ default: 'refs.json' }),
+    'keys-path': flags.string({ default: 'keys.js' }),
     'instance-id': flags.string({ default: 'default' }),
-    // 'code-id': flags.integer({
-    //   description:
-    //     'target code id for migration',
-    // }),
   };
 
   static args = [{ name: 'contract', required: true }];
@@ -71,7 +67,7 @@ export default class ContractMigrate extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(join('contracts', args.contract))) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract '${args.contract}' not available in 'contracts/' directory.`,
         );
       }

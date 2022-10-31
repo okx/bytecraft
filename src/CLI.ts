@@ -4,8 +4,8 @@ import boxen from 'boxen';
 import semver from 'semver';
 import dedent from 'dedent';
 
-/** TerrainCLI offers default log styling for terrain commands. */
-class TerrainCLI {
+/** CLI offers default log styling for wasmknife commands. */
+class CLI {
   prefix: string;
 
   anykeyStyle: Chalk;
@@ -68,34 +68,34 @@ class TerrainCLI {
     ));
   }
 
-  // await TerrainCLI.anykey(anykeyMsg) styling.
+  // await CLI.anykey(anykeyMsg) styling.
   async anykey(anykeyMsg = '') {
     await cli.anykey(`\n${this.prefix} ${this.anykeyStyle(`${anykeyMsg}`)}`);
   }
 
-  // TerrainCLI.success(successMsg) styling.
+  // CLI.success(successMsg) styling.
   success(successMsg = '', title = '', emoji = '✅') {
     cli.log(this.messageBox(successMsg, this.successStyle, title, emoji));
   }
 
-  // TerrainCLI.error(errorMsg) styling.
+  // CLI.error(errorMsg) styling.
   error(errorMsg = '', title = '', emoji = '🚨') {
     cli.log(this.messageBox(errorMsg, this.errorStyle, title, emoji, 46, chalk.green));
     process.exit();
   }
 
-  // TerrainCLI.alert(alertMsg, title, maxWidth) styling
+  // CLI.alert(alertMsg, title, maxWidth) styling
   alert(alertMsg = '', title = '', emoji = '👋') {
     cli.log(this.messageBox(alertMsg, this.alertStyle, title, emoji));
   }
 
-  // TerrainCLI.nodeVersionCheck() styling.
+  // CLI.nodeVersionCheck() styling.
   nodeVersionCheck() {
     if (!semver.satisfies(process.version, '^16')) {
       this.error(
         dedent`
-          Terrain requires "Node version 16"!\n
-          Please switch your version of Node before running Terrain commands.\n
+          WasmKnife requires "Node version 16"!\n
+          Please switch your version of Node before running WasmKnife commands.\n
           If you are utilizing nvm, simply utilize the following command:\n
           "nvm use 16"
         `,
@@ -107,7 +107,7 @@ class TerrainCLI {
   }
 }
 
-export default new TerrainCLI(
+export default new CLI(
   '👉',
   chalk.cyan,
   chalk.green,

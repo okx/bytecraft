@@ -1,10 +1,10 @@
 import { existsSync } from 'fs';
 import * as path from 'path';
-import TerrainCLI from '../TerrainCLI';
+import CLI from '../CLI';
 
 async function runCommand(execPath: string, command: () => void, errorCheck: () => void) {
-  // Initialize terrainAppRootPath directory to current working directory.
-  let terrainAppRootPath = process.cwd();
+  // Initialize appRootPath directory to current working directory.
+  let appRootPath = process.cwd();
 
   // Backtrack, up to 4 times, through file tree to find execPath.
   for (let stepBack = 0; stepBack < 5; stepBack += 1) {
@@ -18,14 +18,14 @@ async function runCommand(execPath: string, command: () => void, errorCheck: () 
     }
 
     // If execPath does not exist in current directory, step back one directory.
-    terrainAppRootPath = path.join(terrainAppRootPath, '..');
-    process.chdir(terrainAppRootPath);
+    appRootPath = path.join(appRootPath, '..');
+    process.chdir(appRootPath);
   }
 
-  // If terrainAppRootPath not found after stepping back 4 directories,
-  // tell user to run command in a terrain project directory.
-  return TerrainCLI.error(
-    `Command execution path "${execPath}" not found. Please ensure that you are in a terrain project directory.`,
+  // If appRootPath not found after stepping back 4 directories,
+  // tell user to run command in a wasmknife project directory.
+  return CLI.error(
+    `Command execution path "${execPath}" not found. Please ensure that you are in a wasmknife project directory.`,
     'Execution Path Not Found',
   );
 }

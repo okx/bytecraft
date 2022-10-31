@@ -500,7 +500,6 @@ npm unlink terrain
 * [`terrain deploy CONTRACT`](#terrain-deploy-contract)
 * [`terrain help [COMMAND]`](#terrain-help-command)
 * [`terrain new NAME`](#terrain-new-name)
-* [`terrain sync-refs`](#terrain-sync-refs)
 * [`terrain task:new [TASK]`](#terrain-tasknew-task)
 * [`terrain task:run [TASK]`](#terrain-taskrun-task)
 * [`terrain test CONTRACT-NAME`](#terrain-test-contract-name)
@@ -517,11 +516,11 @@ USAGE
     [--keys-path <value>]
 
 FLAGS
-  --config-path=<value>  [default: ./config.terrain.json]
-  --keys-path=<value>    [default: ./keys.terrain.js]
-  --network=<value>      [default: localexchain] network to deploy to from config.terrain.json
-  --refs-path=<value>    [default: ./refs.terrain.json]
-  --signer=<value>       [default: test1]
+  --config-path=<value>  [default: ./config.json]
+  --keys-path=<value>    [default: ./keys.js]
+  --network=<value>      [default: localnet] network to deploy to from config.json
+  --refs-path=<value>    [default: ./refs.json]
+  --signer=<value>       [default: test]
 
 DESCRIPTION
   Start a repl console that provides context and convenient utilities to interact with the blockchain and your
@@ -539,7 +538,7 @@ USAGE
   $ terrain contract:build [CONTRACT] [--config-path <value>]
 
 FLAGS
-  --config-path=<value>  [default: ./config.terrain.json]
+  --config-path=<value>  [default: ./config.json]
 
 DESCRIPTION
   Build wasm bytecode.
@@ -549,7 +548,7 @@ _See code: [src/commands/contract/build.ts](https://github.com/terra-money/terra
 
 ## `terrain contract:generateClient CONTRACT`
 
-Generate a Wallet Provider or Terra.js compatible TypeScript client.
+Generate a Chain TypeScript client.
 
 ```
 USAGE
@@ -561,7 +560,7 @@ FLAGS
   --lib-path=<value>  [default: lib] location to place the generated client
 
 DESCRIPTION
-  Generate a Wallet Provider or Terra.js compatible TypeScript client.
+  Generate a Chain TypeScript client.
 ```
 
 _See code: [src/commands/contract/generateClient.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/generateClient.ts)_
@@ -577,12 +576,12 @@ USAGE
 
 FLAGS
   --code-id=<value>      specific codeId to instantiate
-  --config-path=<value>  [default: ./config.terrain.json]
+  --config-path=<value>  [default: ./config.json]
   --instance-id=<value>  [default: default]
-  --keys-path=<value>    [default: ./keys.terrain.js]
-  --network=<value>      [default: localexchain] network to deploy to from config.terrain.json
-  --refs-path=<value>    [default: ./refs.terrain.json]
-  --signer=<value>       [default: test1]
+  --keys-path=<value>    [default: ./keys.js]
+  --network=<value>      [default: localnet] network to deploy to from config.json
+  --refs-path=<value>    [default: ./refs.json]
+  --signer=<value>       [default: test]
 
 DESCRIPTION
   Instantiate the contract.
@@ -600,13 +599,13 @@ USAGE
     [--refs-path <value>] [--keys-path <value>] [--instance-id <value>]
 
 FLAGS
-  --config-path=<value>  [default: config.terrain.json]
+  --config-path=<value>  [default: config.json]
   --instance-id=<value>  [default: default]
-  --keys-path=<value>    [default: keys.terrain.js]
-  --network=<value>      [default: localexchain]
+  --keys-path=<value>    [default: keys.js]
+  --network=<value>      [default: localnet]
   --no-rebuild           deploy the wasm bytecode as is.
-  --refs-path=<value>    [default: refs.terrain.json]
-  --signer=<value>       [default: test1]
+  --refs-path=<value>    [default: refs.json]
+  --signer=<value>       [default: test]
 
 DESCRIPTION
   Migrate the contract.
@@ -631,11 +630,11 @@ DESCRIPTION
   Generate new contract.
 
 EXAMPLES
-  $ terrain code:new awesome_contract
+  $ wasmknife code:new awesome_contract
 
-  $ terrain code:new awesome_contract --path path/to/dapp
+  $ wasmknife code:new awesome_contract --path path/to/dapp
 
-  $ terrain code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
+  $ wasmknife code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
 _See code: [src/commands/contract/new.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/new.ts)_
@@ -649,7 +648,7 @@ USAGE
   $ terrain contract:optimize [CONTRACT] [--config-path <value>]
 
 FLAGS
-  --config-path=<value>  [default: ./config.terrain.json]
+  --config-path=<value>  [default: ./config.json]
 
 DESCRIPTION
   Optimize wasm bytecode.
@@ -668,12 +667,12 @@ USAGE
 
 FLAGS
   --code-id=<value>
-  --config-path=<value>  [default: ./config.terrain.json]
-  --keys-path=<value>    [default: ./keys.terrain.js]
-  --network=<value>      [default: localexchain] network to deploy to from config.terrain.json
+  --config-path=<value>  [default: ./config.json]
+  --keys-path=<value>    [default: ./keys.js]
+  --network=<value>      [default: localnet] network to deploy to from config.json
   --no-rebuild           deploy the wasm bytecode as is.
-  --refs-path=<value>    [default: ./refs.terrain.json]
-  --signer=<value>       [default: test1]
+  --refs-path=<value>    [default: ./refs.json]
+  --signer=<value>       [default: test]
 
 DESCRIPTION
   Store code on chain.
@@ -691,12 +690,12 @@ USAGE
     [--refs-path <value>] [--keys-path <value>] [--instance-id <value>]
 
 FLAGS
-  --config-path=<value>  [default: config.terrain.json]
+  --config-path=<value>  [default: config.json]
   --instance-id=<value>  [default: default]
-  --keys-path=<value>    [default: keys.terrain.js]
-  --network=<value>      [default: localexchain] network to deploy to from config.terrain.json
-  --refs-path=<value>    [default: refs.terrain.json]
-  --signer=<value>       [default: test1]
+  --keys-path=<value>    [default: keys.js]
+  --network=<value>      [default: localnet] network to deploy to from config.json
+  --refs-path=<value>    [default: refs.json]
+  --signer=<value>       [default: test]
 
 DESCRIPTION
   Update the admin of a contract.
@@ -711,20 +710,18 @@ Build wasm bytecode, store code on chain and instantiate.
 ```
 USAGE
   $ terrain deploy [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--instance-id <value>]
-    [--frontend-refs-path <value>] [--admin-address <value>] [--no-sync <value>] [--config-path <value>] [--refs-path
-    <value>] [--keys-path <value>]
+    [--admin-address <value>] [--no-sync <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
-  --admin-address=<value>       set custom address as contract admin to allow migration.
-  --config-path=<value>         [default: ./config.terrain.json]
-  --frontend-refs-path=<value>  [default: ./frontend/src/]
-  --instance-id=<value>         [default: default] enable management of multiple instances of the same contract
-  --keys-path=<value>           [default: ./keys.terrain.js]
-  --network=<value>             [default: localexchain] network to deploy to from config.terrain.json
-  --no-rebuild                  deploy the wasm bytecode as is.
-  --no-sync=<value>             don't attempt to sync contract refs to frontend.
-  --refs-path=<value>           [default: ./refs.terrain.json]
-  --signer=<value>              [default: test1]
+  --admin-address=<value>  set custom address as contract admin to allow migration.
+  --config-path=<value>    [default: ./config.json]
+  --instance-id=<value>    [default: default] enable management of multiple instances of the same contract
+  --keys-path=<value>      [default: ./keys.js]
+  --network=<value>        [default: localnet] network to deploy to from config.json
+  --no-rebuild             deploy the wasm bytecode as is.
+  --no-sync=<value>        don't attempt to sync contract refs to frontend.
+  --refs-path=<value>      [default: ./refs.json]
+  --signer=<value>         [default: test]
 
 DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
@@ -758,49 +755,27 @@ Create new dapp from template.
 
 ```
 USAGE
-  $ terrain new [NAME] [--path <value>] [--framework react|vue|svelte|next|vite|lit] [--version <value>]
-    [--authors <value>]
+  $ terrain new [NAME] [--path <value>] [--version <value>] [--authors <value>]
 
 FLAGS
-  --authors=<value>     [default: Terra Money <core@terra.money>]
-  --framework=<option>  [default: react] Choose the frontend framework you want to use. Non-react framework options have
-                        better wallet-provider support but less streamlined contract integration.
-                        <options: react|vue|svelte|next|vite|lit>
-  --path=<value>        [default: .] Path to create the workspace
-  --version=<value>     [default: 1.0]
+  --authors=<value>  [default: OKC <okc@okg.com>]
+  --path=<value>     [default: .] Path to create the workspace
+  --version=<value>  [default: 1.0]
 
 DESCRIPTION
   Create new dapp from template.
 
 EXAMPLES
-  $ terrain new awesome-dapp
+  $ wasmknife new awesome-dapp
 
-  $ terrain new awesome-dapp --path path/to/dapp
+  $ wasmknife new awesome-dapp --path path/to/dapp
 
-  $ terrain new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
+  $ wasmknife new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 
-  $ terrain new awesome-dapp --path path/to/dapp --framework vue --authors "ExampleAuthor<example@email.domain>"
+  $ wasmknife new awesome-dapp --path path/to/dapp --framework vue --authors "ExampleAuthor<example@email.domain>"
 ```
 
 _See code: [src/commands/new.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/new.ts)_
-
-## `terrain sync-refs`
-
-Sync configuration with frontend app.
-
-```
-USAGE
-  $ terrain sync-refs [--refs-path <value>] [--dest <value>]
-
-FLAGS
-  --dest=<value>       [default: ./frontend/src/]
-  --refs-path=<value>  [default: ./refs.terrain.json]
-
-DESCRIPTION
-  Sync configuration with frontend app.
-```
-
-_See code: [src/commands/sync-refs.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/sync-refs.ts)_
 
 ## `terrain task:new [TASK]`
 
@@ -826,11 +801,11 @@ USAGE
     <value>] [--keys-path <value>]
 
 FLAGS
-  --config-path=<value>  [default: config.terrain.json]
-  --keys-path=<value>    [default: keys.terrain.js]
+  --config-path=<value>  [default: config.json]
+  --keys-path=<value>    [default: keys.js]
   --network=<value>      [default: localexchain]
-  --refs-path=<value>    [default: refs.terrain.json]
-  --signer=<value>       [default: test1]
+  --refs-path=<value>    [default: refs.json]
+  --signer=<value>       [default: test]
 
 DESCRIPTION
   run predefined task
@@ -853,9 +828,9 @@ DESCRIPTION
   Runs unit tests for a contract directory.
 
 EXAMPLES
-  $ terrain test counter
+  $ wasmknife test counter
 
-  $ terrain test counter --no-fail-fast
+  $ wasmknife test counter --no-fail-fast
 ```
 
 _See code: [src/commands/test.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/test.ts)_
@@ -872,9 +847,9 @@ DESCRIPTION
   Runs unit tests for a contract directory.
 
 EXAMPLES
-  $ terrain test:coverage
+  $ wasmknife test:coverage
 
-  $ terrain test:coverage counter
+  $ wasmknife test:coverage counter
 ```
 
 _See code: [src/commands/test/coverage.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/test/coverage.ts)_

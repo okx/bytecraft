@@ -5,7 +5,7 @@ import { loadConfig, loadConnections } from '../../config';
 import { instantiate } from '../../lib/deployment';
 import { getSigner } from '../../lib/signer';
 import * as flag from '../../lib/flag';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 
 export default class ContractInstantiate extends Command {
@@ -19,7 +19,7 @@ export default class ContractInstantiate extends Command {
       description:
         'specific codeId to instantiate',
     }),
-    ...flag.terrainPaths,
+    ...flag.cliPaths,
   };
 
   static args = [{ name: 'contract', required: true }];
@@ -62,7 +62,7 @@ export default class ContractInstantiate extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(join('contracts', args.contract))) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract "${args.contract}" not available in "contracts/" directory.`,
           'Contract Unavailable',
         );

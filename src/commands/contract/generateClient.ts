@@ -4,12 +4,12 @@ import { join } from 'path';
 import { execSync } from 'child_process';
 import { pathExistsSync, existsSync, copySync } from 'fs-extra';
 import { pascal } from 'case';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 import generateClient from '../../lib/generateClient';
 
 export default class GenerateClient extends Command {
-  static description = 'Generate a Wallet Provider or Terra.js compatible TypeScript client.';
+  static description = 'Generate a Chain TypeScript client.';
 
   static flags = {
     'lib-path': flags.string({ default: 'lib', description: 'location to place the generated client' }),
@@ -51,25 +51,25 @@ export default class GenerateClient extends Command {
 
       cli.action.stop();
 
-      cli.action.start(
-        'Syncing clients to frontend',
-      );
+      // cli.action.start(
+      //   'Syncing clients to frontend',
+      // );
 
-      if (!pathExistsSync('frontend')) {
-        TerrainCLI.error('The "frontend/" directory was not found.', 'Failed to Sync Refs');
-        cli.action.stop();
-        return;
-      }
+      // if (!pathExistsSync('frontend')) {
+      //   CLI.error('The "frontend/" directory was not found.', 'Failed to Sync Refs');
+      //   cli.action.stop();
+      //   return;
+      // }
+      //
+      // copySync(flags['lib-path'], flags.dest);
 
-      copySync(flags['lib-path'], flags.dest);
-
-      cli.action.stop();
+      // cli.action.stop();
     };
 
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(execPath)) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract '${args.contract}' not available in 'contracts/' directory.`,
         );
       }

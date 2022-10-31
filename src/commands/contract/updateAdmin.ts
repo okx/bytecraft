@@ -6,7 +6,7 @@ import { SigningCosmWasmClient } from 'cosmwasm';
 import { loadConnections, loadRefs } from '../../config';
 import { getSigner } from '../../lib/signer';
 import * as flag from '../../lib/flag';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
 import { DefaulrGasPrice } from '../../lib/key';
 
@@ -16,9 +16,9 @@ export default class ContractUpdateAdmin extends Command {
   static flags = {
     signer: flag.signer,
     network: flag.network,
-    'config-path': flags.string({ default: 'config.terrain.json' }),
-    'refs-path': flags.string({ default: 'refs.terrain.json' }),
-    'keys-path': flags.string({ default: 'keys.terrain.js' }),
+    'config-path': flags.string({ default: 'config.json' }),
+    'refs-path': flags.string({ default: 'refs.json' }),
+    'keys-path': flags.string({ default: 'keys.js' }),
     'instance-id': flags.string({ default: 'default' }),
   };
 
@@ -50,19 +50,6 @@ export default class ContractUpdateAdmin extends Command {
       cli.action.start(
         `Updating contract admin to: ${args.admin}`,
       );
-
-      // const updateAdminTx = await signer.createAndSignTx({
-      //   msgs: [
-      //     new MsgUpdateContractAdmin(
-      //       signer.key.accAddress,
-      //       args.admin,
-      //       contractAddress,
-      //     ),
-      //   ],
-      // });
-
-      // const res = await lcd.tx.broadcast(updateAdminTx);
-
       const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(httpEndpoint.URL, signer, { gasPrice: DefaulrGasPrice});
       const account = await signer.getAccounts();
       const res = await cosmwasmClient.updateAdmin(account[0].address, contractAddress, args.admin, 'auto', 'update admin');
@@ -79,7 +66,7 @@ export default class ContractUpdateAdmin extends Command {
     // Error check to be performed upon each backtrack iteration.
     const errorCheck = () => {
       if (existsSync('contracts') && !existsSync(execPath)) {
-        TerrainCLI.error(
+        CLI.error(
           `Contract '${args.contract}' not available in 'contracts/' directory.`,
         );
       }

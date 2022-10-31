@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command';
 import * as fs from 'fs';
 import { Secp256k1HdWallet } from 'cosmwasm';
-import TerrainCLI from '../../TerrainCLI';
+import CLI from '../../CLI';
 
 export default class WalletNew extends Command {
   static description = 'Generate a new wallet to use for signing contracts';
@@ -18,7 +18,7 @@ export default class WalletNew extends Command {
 
   async run() {
     const { flags } = this.parse(WalletNew);
-    this.log('Generating new terra-wallet');
+    this.log('Generating new wallet');
 
     const wallet = await Secp256k1HdWallet.generate(12, { prefix: 'ex' });
     // const mk = new MnemonicKey({
@@ -41,7 +41,7 @@ export default class WalletNew extends Command {
     this.log('mnemonic key:');
     this.log(wallet.mnemonic);
 
-    TerrainCLI.error(
+    CLI.error(
       'Anyone who gains access to your seed phrase can access the contents of the corresponding wallet. Be cognizant of the fact that there is no recourse for theft of a seed phrase.',
       'Private Key Warning',
     );
