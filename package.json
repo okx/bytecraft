@@ -1,0 +1,104 @@
+{
+  "name": "@okx/wasmknife",
+  "description": "wasm development environment",
+  "version": "0.0.1",
+  "__comment": "^ update template package.json to the same version when publish",
+  "author": "Supanat Potiwarakorn @iboss-ptk",
+  "bugs": "https://github.com/terra-money/terrain/issues",
+  "homepage": "https://github.com/terra-money/terrain",
+  "repository": "https://github.com/terra-money/terrain",
+  "bin": {
+    "terrain": "./bin/run"
+  },
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "oclif": {
+    "commands": "./lib/commands",
+    "helpClass": "./lib/lib/help",
+    "bin": "terrain",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found"
+    ]
+  },
+  "scripts": {
+    "use": "node ./bin/run my-terra-dapp --signer account --network localexchain",
+    "watch": "tsc-watch --onSuccess \"npm run build:oclif\"",
+    "prepack:use": "npm run prepack && npm run use",
+    "build:oclif": "oclif-dev manifest && oclif-dev readme",
+    "prepack": "rm -rf lib && tsc -b && npm run build:oclif",
+    "postpack": "rm -f oclif.manifest.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint . --ext .ts --config .eslintrc.js",
+    "fixlint": "eslint . --ext .ts --config .eslintrc.js --fix",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.29.1",
+    "@cosmjs/crypto": "^0.29.1",
+    "@cosmwasm/ts-codegen": "^0.17.0",
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "@oclif/core": "^1.0.11",
+    "@oclif/plugin-help": "^5.1.12",
+    "@oclif/plugin-not-found": "^2.3.1",
+    "@octalmage/terra-cosmwasm-typescript-gen": "^0.2.0",
+    "@terra-money/template-scaffolding": "1.0.1",
+    "@terra-money/terra.js": "^3.1.5",
+    "adm-zip": "^0.5.9",
+    "boxen": "^5.1.2",
+    "case": "^1.6.3",
+    "chalk": "^4.0.0",
+    "cli-ux": "^5.6.3",
+    "cosmwasm": "^1.1.1",
+    "cosmwasm-typescript-gen": "^0.3.9",
+    "dedent": "^0.7.0",
+    "fs-extra": "^8.1.0",
+    "ramda": "^0.26.1",
+    "semver": "^7.3.7",
+    "superagent": "^6.1.0",
+    "toml": "^3.0.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^1.14.1",
+    "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@oclif/dev-cli": "^1.26.10",
+    "@types/adm-zip": "^0.4.34",
+    "@types/dedent": "^0.7.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^10.17.60",
+    "@types/ramda": "^0.26.0",
+    "@types/semver": "^7.3.12",
+    "@types/superagent": "^4.1.13",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "babel-jest": "^27.3.1",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.6.0",
+    "jest": "^27.3.1",
+    "prettier": "2.4.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^3.9.10"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ]
+}
