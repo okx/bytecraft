@@ -1,5 +1,5 @@
 {
-  "name": "@okex/wasmknife",
+  "name": "@okexchain/wasmknife",
   "description": "wasm development environment",
   "version": "0.0.1",
   "__comment": "^ update template package.json to the same version when publish",
