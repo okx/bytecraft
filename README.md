@@ -1,4 +1,4 @@
-# Terrain
+# WasmKnife
 
 <a href="https://www.npmjs.com/package/@terra-money/terrain">
   <img src="img/terrain-banner.png" alt="Terrain banner" />
@@ -7,7 +7,7 @@
 ---
 
 <p align="center">
-  <b>Terrain</b> - A Terra development environment for seamless smart contract development.
+  <b>WasmKnife</b> - A Wasm development environment for seamless smart contract development.
 </p>
 
 <div align="center">
@@ -18,7 +18,7 @@
 
 ---
 
-Terrain allows you to:
+WasmKnife allows you to:
 
 - Scaffold a template smart contract and frontend for app development.
 - Dramatically simplify the development and deployment process.
@@ -488,31 +488,31 @@ npm unlink terrain
 # Terrain Commands
 
 <!-- commands -->
-* [`terrain console`](#terrain-console)
-* [`terrain contract:build CONTRACT`](#terrain-contractbuild-contract)
-* [`terrain contract:generateClient CONTRACT`](#terrain-contractgenerateclient-contract)
-* [`terrain contract:instantiate CONTRACT`](#terrain-contractinstantiate-contract)
-* [`terrain contract:migrate CONTRACT`](#terrain-contractmigrate-contract)
-* [`terrain contract:new NAME`](#terrain-contractnew-name)
-* [`terrain contract:optimize CONTRACT`](#terrain-contractoptimize-contract)
-* [`terrain contract:store CONTRACT`](#terrain-contractstore-contract)
-* [`terrain contract:updateAdmin CONTRACT ADMIN`](#terrain-contractupdateadmin-contract-admin)
-* [`terrain deploy CONTRACT`](#terrain-deploy-contract)
-* [`terrain help [COMMAND]`](#terrain-help-command)
-* [`terrain new NAME`](#terrain-new-name)
-* [`terrain task:new [TASK]`](#terrain-tasknew-task)
-* [`terrain task:run [TASK]`](#terrain-taskrun-task)
-* [`terrain test CONTRACT-NAME`](#terrain-test-contract-name)
-* [`terrain test:coverage [CONTRACT-NAME]`](#terrain-testcoverage-contract-name)
-* [`terrain wallet:new`](#terrain-walletnew)
+* [`wasmknife console`](#wasmknife-console)
+* [`wasmknife contract:build CONTRACT`](#wasmknife-contractbuild-contract)
+* [`wasmknife contract:generateClient CONTRACT`](#wasmknife-contractgenerateclient-contract)
+* [`wasmknife contract:instantiate CONTRACT`](#wasmknife-contractinstantiate-contract)
+* [`wasmknife contract:migrate CONTRACT`](#wasmknife-contractmigrate-contract)
+* [`wasmknife contract:new NAME`](#wasmknife-contractnew-name)
+* [`wasmknife contract:optimize CONTRACT`](#wasmknife-contractoptimize-contract)
+* [`wasmknife contract:store CONTRACT`](#wasmknife-contractstore-contract)
+* [`wasmknife contract:updateAdmin CONTRACT ADMIN`](#wasmknife-contractupdateadmin-contract-admin)
+* [`wasmknife deploy CONTRACT`](#wasmknife-deploy-contract)
+* [`wasmknife help [COMMAND]`](#wasmknife-help-command)
+* [`wasmknife new NAME`](#wasmknife-new-name)
+* [`wasmknife task:new [TASK]`](#wasmknife-tasknew-task)
+* [`wasmknife task:run [TASK]`](#wasmknife-taskrun-task)
+* [`wasmknife test CONTRACT-NAME`](#wasmknife-test-contract-name)
+* [`wasmknife test:coverage [CONTRACT-NAME]`](#wasmknife-testcoverage-contract-name)
+* [`wasmknife wallet:new`](#wasmknife-walletnew)
 
-## `terrain console`
+## `wasmknife console`
 
 Start a repl console that provides context and convenient utilities to interact with the blockchain and your contracts.
 
 ```
 USAGE
-  $ terrain console [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path <value>]
+  $ wasmknife console [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path <value>]
     [--keys-path <value>]
 
 FLAGS
@@ -527,15 +527,15 @@ DESCRIPTION
   contracts.
 ```
 
-_See code: [src/commands/console.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/console.ts)_
+_See code: [src/commands/console.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/console.ts)_
 
-## `terrain contract:build CONTRACT`
+## `wasmknife contract:build CONTRACT`
 
 Build wasm bytecode.
 
 ```
 USAGE
-  $ terrain contract:build [CONTRACT] [--config-path <value>]
+  $ wasmknife contract:build [CONTRACT] [--config-path <value>]
 
 FLAGS
   --config-path=<value>  [default: ./config.json]
@@ -544,15 +544,15 @@ DESCRIPTION
   Build wasm bytecode.
 ```
 
-_See code: [src/commands/contract/build.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/build.ts)_
+_See code: [src/commands/contract/build.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/build.ts)_
 
-## `terrain contract:generateClient CONTRACT`
+## `wasmknife contract:generateClient CONTRACT`
 
 Generate a Chain TypeScript client.
 
 ```
 USAGE
-  $ terrain contract:generateClient [CONTRACT] [--lib-path <value>] [--dest <value>] [--build-schema]
+  $ wasmknife contract:generateClient [CONTRACT] [--lib-path <value>] [--dest <value>] [--build-schema]
 
 FLAGS
   --build-schema
@@ -563,15 +563,15 @@ DESCRIPTION
   Generate a Chain TypeScript client.
 ```
 
-_See code: [src/commands/contract/generateClient.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/generateClient.ts)_
+_See code: [src/commands/contract/generateClient.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/generateClient.ts)_
 
-## `terrain contract:instantiate CONTRACT`
+## `wasmknife contract:instantiate CONTRACT`
 
 Instantiate the contract.
 
 ```
 USAGE
-  $ terrain contract:instantiate [CONTRACT] [--signer <value>] [--network <value>] [--instance-id <value>] [--code-id
+  $ wasmknife contract:instantiate [CONTRACT] [--signer <value>] [--network <value>] [--instance-id <value>] [--code-id
     <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
@@ -587,16 +587,16 @@ DESCRIPTION
   Instantiate the contract.
 ```
 
-_See code: [src/commands/contract/instantiate.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/instantiate.ts)_
+_See code: [src/commands/contract/instantiate.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/instantiate.ts)_
 
-## `terrain contract:migrate CONTRACT`
+## `wasmknife contract:migrate CONTRACT`
 
 Migrate the contract.
 
 ```
 USAGE
-  $ terrain contract:migrate [CONTRACT] [--signer <value>] [--no-rebuild] [--network <value>] [--config-path <value>]
-    [--refs-path <value>] [--keys-path <value>] [--instance-id <value>]
+  $ wasmknife contract:migrate [CONTRACT] [--signer <value>] [--no-rebuild] [--network <value>] [--config-path
+    <value>] [--refs-path <value>] [--keys-path <value>] [--instance-id <value>]
 
 FLAGS
   --config-path=<value>  [default: config.json]
@@ -611,15 +611,15 @@ DESCRIPTION
   Migrate the contract.
 ```
 
-_See code: [src/commands/contract/migrate.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/migrate.ts)_
+_See code: [src/commands/contract/migrate.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/migrate.ts)_
 
-## `terrain contract:new NAME`
+## `wasmknife contract:new NAME`
 
 Generate new contract.
 
 ```
 USAGE
-  $ terrain contract:new [NAME] [--path <value>] [--version <value>] [--authors <value>]
+  $ wasmknife contract:new [NAME] [--path <value>] [--version <value>] [--authors <value>]
 
 FLAGS
   --authors=<value>  [default: Terra Money <core@terra.money>]
@@ -637,15 +637,15 @@ EXAMPLES
   $ wasmknife code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/contract/new.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/new.ts)_
+_See code: [src/commands/contract/new.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/new.ts)_
 
-## `terrain contract:optimize CONTRACT`
+## `wasmknife contract:optimize CONTRACT`
 
 Optimize wasm bytecode.
 
 ```
 USAGE
-  $ terrain contract:optimize [CONTRACT] [--config-path <value>]
+  $ wasmknife contract:optimize [CONTRACT] [--config-path <value>]
 
 FLAGS
   --config-path=<value>  [default: ./config.json]
@@ -654,15 +654,15 @@ DESCRIPTION
   Optimize wasm bytecode.
 ```
 
-_See code: [src/commands/contract/optimize.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/optimize.ts)_
+_See code: [src/commands/contract/optimize.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/optimize.ts)_
 
-## `terrain contract:store CONTRACT`
+## `wasmknife contract:store CONTRACT`
 
 Store code on chain.
 
 ```
 USAGE
-  $ terrain contract:store [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--code-id <value>]
+  $ wasmknife contract:store [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--code-id <value>]
     [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
@@ -678,15 +678,15 @@ DESCRIPTION
   Store code on chain.
 ```
 
-_See code: [src/commands/contract/store.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/store.ts)_
+_See code: [src/commands/contract/store.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/store.ts)_
 
-## `terrain contract:updateAdmin CONTRACT ADMIN`
+## `wasmknife contract:updateAdmin CONTRACT ADMIN`
 
 Update the admin of a contract.
 
 ```
 USAGE
-  $ terrain contract:updateAdmin [CONTRACT] [ADMIN] [--signer <value>] [--network <value>] [--config-path <value>]
+  $ wasmknife contract:updateAdmin [CONTRACT] [ADMIN] [--signer <value>] [--network <value>] [--config-path <value>]
     [--refs-path <value>] [--keys-path <value>] [--instance-id <value>]
 
 FLAGS
@@ -701,16 +701,17 @@ DESCRIPTION
   Update the admin of a contract.
 ```
 
-_See code: [src/commands/contract/updateAdmin.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/contract/updateAdmin.ts)_
+_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/contract/updateAdmin.ts)_
 
-## `terrain deploy CONTRACT`
+## `wasmknife deploy CONTRACT`
 
 Build wasm bytecode, store code on chain and instantiate.
 
 ```
 USAGE
-  $ terrain deploy [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--instance-id <value>]
-    [--admin-address <value>] [--no-sync <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
+  $ wasmknife deploy [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--instance-id
+    <value>] [--admin-address <value>] [--no-sync <value>] [--config-path <value>] [--refs-path <value>] [--keys-path
+    <value>]
 
 FLAGS
   --admin-address=<value>  set custom address as contract admin to allow migration.
@@ -727,15 +728,15 @@ DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/deploy.ts)_
 
-## `terrain help [COMMAND]`
+## `wasmknife help [COMMAND]`
 
-display help for terrain
+display help for wasmknife
 
 ```
 USAGE
-  $ terrain help [COMMAND] [--all]
+  $ wasmknife help [COMMAND] [--all]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -744,18 +745,18 @@ FLAGS
   --all  see all commands in CLI
 
 DESCRIPTION
-  display help for terrain
+  display help for wasmknife
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.18/src/commands/help.ts)_
 
-## `terrain new NAME`
+## `wasmknife new NAME`
 
 Create new dapp from template.
 
 ```
 USAGE
-  $ terrain new [NAME] [--path <value>] [--version <value>] [--authors <value>]
+  $ wasmknife new [NAME] [--path <value>] [--version <value>] [--authors <value>]
 
 FLAGS
   --authors=<value>  [default: OKC <okc@okg.com>]
@@ -775,29 +776,29 @@ EXAMPLES
   $ wasmknife new awesome-dapp --path path/to/dapp --framework vue --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/new.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/new.ts)_
 
-## `terrain task:new [TASK]`
+## `wasmknife task:new [TASK]`
 
 create new task
 
 ```
 USAGE
-  $ terrain task:new [TASK]
+  $ wasmknife task:new [TASK]
 
 DESCRIPTION
   create new task
 ```
 
-_See code: [src/commands/task/new.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/task/new.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/task/new.ts)_
 
-## `terrain task:run [TASK]`
+## `wasmknife task:run [TASK]`
 
 run predefined task
 
 ```
 USAGE
-  $ terrain task:run [TASK] [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path
+  $ wasmknife task:run [TASK] [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path
     <value>] [--keys-path <value>]
 
 FLAGS
@@ -811,15 +812,15 @@ DESCRIPTION
   run predefined task
 ```
 
-_See code: [src/commands/task/run.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/task/run.ts)_
+_See code: [src/commands/task/run.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/task/run.ts)_
 
-## `terrain test CONTRACT-NAME`
+## `wasmknife test CONTRACT-NAME`
 
 Runs unit tests for a contract directory.
 
 ```
 USAGE
-  $ terrain test [CONTRACT-NAME] [--no-fail-fast]
+  $ wasmknife test [CONTRACT-NAME] [--no-fail-fast]
 
 FLAGS
   --no-fail-fast  Run all tests regardless of failure.
@@ -833,15 +834,15 @@ EXAMPLES
   $ wasmknife test counter --no-fail-fast
 ```
 
-_See code: [src/commands/test.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/test.ts)_
 
-## `terrain test:coverage [CONTRACT-NAME]`
+## `wasmknife test:coverage [CONTRACT-NAME]`
 
 Runs unit tests for a contract directory.
 
 ```
 USAGE
-  $ terrain test:coverage [CONTRACT-NAME]
+  $ wasmknife test:coverage [CONTRACT-NAME]
 
 DESCRIPTION
   Runs unit tests for a contract directory.
@@ -852,15 +853,15 @@ EXAMPLES
   $ wasmknife test:coverage counter
 ```
 
-_See code: [src/commands/test/coverage.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/test/coverage.ts)_
+_See code: [src/commands/test/coverage.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/test/coverage.ts)_
 
-## `terrain wallet:new`
+## `wasmknife wallet:new`
 
 Generate a new wallet to use for signing contracts
 
 ```
 USAGE
-  $ terrain wallet:new [--outfile <value>]
+  $ wasmknife wallet:new [--outfile <value>]
 
 FLAGS
   --outfile=<value>  absolute path to store the mnemonic key to. If omitted, output to stdout
@@ -869,5 +870,5 @@ DESCRIPTION
   Generate a new wallet to use for signing contracts
 ```
 
-_See code: [src/commands/wallet/new.ts](https://github.com/terra-money/terrain/blob/v0.0.1/src/commands/wallet/new.ts)_
+_See code: [src/commands/wallet/new.ts](https://github.com/okex/wasmknife/blob/v0.0.1/src/commands/wallet/new.ts)_
 <!-- commandsstop -->

@@ -43,6 +43,7 @@ export default class New extends Command {
 
     const templateEntries = {
       'project-name': args.name,
+      'contract-name': `${pascal(args.name)}Contract`,
       'client-name': `${pascal(args.name)}Client`,
       // Crates cannot have dashes, and Rust will map underscores to dashes for us.
       crate_name: args.name.replaceAll('-', '_'),

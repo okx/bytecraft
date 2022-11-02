@@ -40,7 +40,7 @@ export default class GenerateClient extends Command {
       }
 
       cli.action.start(
-        `Generating ${pascal(args.contract)}Client.ts`,
+        `Generating ${pascal(args.contract)}Contract.ts`,
       );
 
       await generateClient(
