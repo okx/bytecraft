@@ -33,7 +33,7 @@ Terrain is **not**:
 # Table of contents
 
 <!-- toc -->
-* [Terrain](#terrain)
+* [WasmKnife](#wasmknife)
 * [Table of contents](#table-of-contents)
 * [Setup](#setup)
 * [Getting Started](#getting-started)
@@ -624,7 +624,7 @@ USAGE
 FLAGS
   --authors=<value>  [default: Terra Money <core@terra.money>]
   --path=<value>     [default: contracts] path to keep the contracts
-  --version=<value>  [default: 1.0-beta6]
+  --version=<value>  [default: 1.0]
 
 DESCRIPTION
   Generate new contract.
@@ -804,7 +804,7 @@ USAGE
 FLAGS
   --config-path=<value>  [default: config.json]
   --keys-path=<value>    [default: keys.js]
-  --network=<value>      [default: localexchain]
+  --network=<value>      [default: localnet]
   --refs-path=<value>    [default: refs.json]
   --signer=<value>       [default: test]
 

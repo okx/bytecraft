@@ -21,7 +21,7 @@ export default class CodeNew extends Command {
       default: 'contracts',
     }),
     version: flags.string({
-      default: '1.0-beta6',
+      default: '1.0',
     }),
     authors: flags.string({
       default: 'Terra Money <core@terra.money>',
@@ -42,7 +42,7 @@ export default class CodeNew extends Command {
       cli.action.start('- contract');
 
       await TemplateScaffolding.from({
-        remoteUrl: `https://codeload.github.com/InterWasm/cw-template/zip/refs/tags/${flags.version}`,
+        remoteUrl: `https://codeload.github.com/InterWasm/cw-template/zip/refs/heads/${flags.version}`,
         subFolder: `cw-template-${flags.version}`,
         localOptions: {
           folderUrl: join(process.cwd(), flags.path, args.name),

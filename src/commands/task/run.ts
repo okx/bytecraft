@@ -36,7 +36,7 @@ export default class Run extends Command {
 
   static flags = {
     signer: flag.signer,
-    network: flags.string({ default: 'localexchain' }),
+    network: flags.string({ default: 'localnet' }),
     'config-path': flags.string({ default: 'config.json' }),
     'refs-path': flags.string({ default: 'refs.json' }),
     'keys-path': flags.string({ default: 'keys.js' }),
