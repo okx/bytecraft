@@ -6,6 +6,7 @@ import { getEnv } from '../lib/env';
 import { signer, network, cliPaths } from '../lib/flag';
 import CLI from '../CLI';
 import runCommand from '../lib/runCommand';
+import * as cosmwasm from 'cosmwasm';
 
 // Needed for WasmKnife to be able to require typescript modules.
 require('ts-node').register({
@@ -51,8 +52,6 @@ export default class Console extends Command {
         Lib = Lib.default;
       }
 
-      // console.log(JSON.stringify(env));
-
       // Need the new keyword if Lib is a class.
       if (typeof Lib === 'function' && Lib.prototype?.constructor) {
         libInstance = new Lib(env);
@@ -77,8 +76,7 @@ export default class Console extends Command {
       def('refs', refs);
       def('wallets', wallets);
       def('client', client);
-      // def('')
-      // def('terrajs', terrajs);
+      def('cosmwasm', cosmwasm);
       def('lib', libInstance);
     };
 

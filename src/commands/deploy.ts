@@ -19,9 +19,6 @@ export default class Deploy extends Command {
     'admin-address': flags.string({
       description: 'set custom address as contract admin to allow migration.',
     }),
-    'no-sync': flags.string({
-      description: 'don\'t attempt to sync contract refs to frontend.',
-    }),
     ...flag.cliPaths,
   };
 

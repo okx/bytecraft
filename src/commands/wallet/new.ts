@@ -10,10 +10,6 @@ export default class WalletNew extends Command {
     outfile: flags.string({
       description: 'absolute path to store the mnemonic key to. If omitted, output to stdout',
     }),
-    // index: flags.integer({
-    //   description: 'key index to use, default value is 0',
-    //   default: 0,
-    // }),
   };
 
   async run() {
@@ -21,9 +17,6 @@ export default class WalletNew extends Command {
     this.log('Generating new wallet');
 
     const wallet = await Secp256k1HdWallet.generate(12, { prefix: 'ex' });
-    // const mk = new MnemonicKey({
-    //   index: flags.index,
-    // });
     if (flags.outfile) {
       if (fs.existsSync(flags.outfile)) {
         this.error(`outfile: '${flags.outfile}' already exists, abort`);

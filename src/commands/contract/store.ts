@@ -1,4 +1,4 @@
-import { Command, flags } from '@oclif/command';
+import { Command } from '@oclif/command';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { loadConfig, loadConnections } from '../../config';
@@ -15,7 +15,6 @@ export default class CodeStore extends Command {
     signer: flag.signer,
     network: flag.network,
     'no-rebuild': flag.noRebuild,
-    'code-id': flags.integer({}),
     ...flag.cliPaths,
   };
 
@@ -54,7 +53,6 @@ export default class CodeStore extends Command {
         network: flags.network,
         refsPath: flags['refs-path'],
         httpEndpoint: httpEndpoint.URL,
-        codeId: flags['code-id'],
       });
     };
 

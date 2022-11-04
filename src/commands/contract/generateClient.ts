@@ -13,7 +13,6 @@ export default class GenerateClient extends Command {
 
   static flags = {
     'lib-path': flags.string({ default: 'lib', description: 'location to place the generated client' }),
-    dest: flags.string({ default: join('frontend', 'src', 'contract') }),
     'build-schema': flags.boolean({ default: false }),
   };
 
@@ -50,20 +49,6 @@ export default class GenerateClient extends Command {
       );
 
       cli.action.stop();
-
-      // cli.action.start(
-      //   'Syncing clients to frontend',
-      // );
-
-      // if (!pathExistsSync('frontend')) {
-      //   CLI.error('The "frontend/" directory was not found.', 'Failed to Sync Refs');
-      //   cli.action.stop();
-      //   return;
-      // }
-      //
-      // copySync(flags['lib-path'], flags.dest);
-
-      // cli.action.stop();
     };
 
     // Error check to be performed upon each backtrack iteration.

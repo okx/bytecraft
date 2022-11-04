@@ -552,11 +552,10 @@ Generate a Chain TypeScript client.
 
 ```
 USAGE
-  $ wasmknife contract:generateClient [CONTRACT] [--lib-path <value>] [--dest <value>] [--build-schema]
+  $ wasmknife contract:generateClient [CONTRACT] [--lib-path <value>] [--build-schema]
 
 FLAGS
   --build-schema
-  --dest=<value>      [default: frontend/src/contract]
   --lib-path=<value>  [default: lib] location to place the generated client
 
 DESCRIPTION
@@ -662,11 +661,10 @@ Store code on chain.
 
 ```
 USAGE
-  $ wasmknife contract:store [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--code-id <value>]
-    [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
+  $ wasmknife contract:store [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--config-path
+    <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
-  --code-id=<value>
   --config-path=<value>  [default: ./config.json]
   --keys-path=<value>    [default: ./keys.js]
   --network=<value>      [default: localnet] network to deploy to from config.json
@@ -710,8 +708,7 @@ Build wasm bytecode, store code on chain and instantiate.
 ```
 USAGE
   $ wasmknife deploy [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--instance-id
-    <value>] [--admin-address <value>] [--no-sync <value>] [--config-path <value>] [--refs-path <value>] [--keys-path
-    <value>]
+    <value>] [--admin-address <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
   --admin-address=<value>  set custom address as contract admin to allow migration.
@@ -720,7 +717,6 @@ FLAGS
   --keys-path=<value>      [default: ./keys.js]
   --network=<value>        [default: localnet] network to deploy to from config.json
   --no-rebuild             deploy the wasm bytecode as is.
-  --no-sync=<value>        don't attempt to sync contract refs to frontend.
   --refs-path=<value>      [default: ./refs.json]
   --signer=<value>         [default: test]
 

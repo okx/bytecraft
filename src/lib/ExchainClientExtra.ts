@@ -15,12 +15,10 @@ export class ExchainClientExtra {
     this.httpEndpoint = httpEndpoint;
   }
 
-  // query(contract: string, msg: Object, instanceId = 'default') {
-  //   return this.wasm.contractQuery(
-  //     this.refs[contract].contractAddresses[instanceId],
-  //     msg,
-  //   );
-  // }
+  async query(contract: string, msg: Record<string, unknown>, instanceId = 'default') {
+    const cosmwasmClient = await SigningCosmWasmClient.connect(this.httpEndpoint);
+    return cosmwasmClient.queryContractSmart(this.refs[contract].contractAddresses[instanceId], msg);
+  }
 
   async execute(
     contract: string,
