@@ -1,5 +1,3 @@
-import { LCDClient, LocalTerra, Wallet } from '@terra-money/terra.js';
-import { cli } from 'cli-ux';
 import * as path from 'path';
 import { Secp256k1HdWallet } from 'cosmwasm';
 import { stringToPath } from '@cosmjs/crypto';

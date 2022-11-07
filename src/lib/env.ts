@@ -1,4 +1,3 @@
-
 import { Secp256k1HdWallet, Secp256k1Wallet, SigningCosmWasmClient } from "cosmwasm";
 
 
@@ -72,7 +71,6 @@ export const getEnv = async (
   const globalConfig = loadGlobalConfig(configPath);
   const keys = loadKeys(keysPath);
   const refs = loadRefs(refsPath)[network];
-
   const lcd = new ExchainClientExtra(connections(network).URL, refs);
 
   let userDefinedWallets: { [k: string]: OfflineAminoSigner } = {};
@@ -118,11 +116,11 @@ export const getEnv = async (
     // Enable tasks to deploy code.
     deploy: {
       build: (contract: string) => build({
-        contract
+        contract,
       }),
       optimize: (contract: string) => optimize({
         contract,
-        useCargoWorkspace: globalConfig.useCargoWorkspace
+        useCargoWorkspace: globalConfig.useCargoWorkspace,
       }),
       storeCode: (contract: string, signer: OfflineAminoSigner, options) => storeCode({
         contract,
@@ -132,7 +130,7 @@ export const getEnv = async (
         httpEndpoint: lcd.httpEndpoint,
         conf: config(network, contract),
         noRebuild: typeof options?.noRebuild === "undefined" ? false : options.noRebuild,
-        useCargoWorkspace: globalConfig.useCargoWorkspace
+        useCargoWorkspace: globalConfig.useCargoWorkspace,
       }),
       instantiate: (
         contract: string,

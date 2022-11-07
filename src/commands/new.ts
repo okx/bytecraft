@@ -13,7 +13,6 @@ export default class New extends Command {
     '$ wasmknife new awesome-dapp',
     '$ wasmknife new awesome-dapp --path path/to/dapp',
     '$ wasmknife new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"',
-    '$ wasmknife new awesome-dapp --path path/to/dapp --framework vue --authors "ExampleAuthor<example@email.domain>"',
   ];
 
   static flags = {

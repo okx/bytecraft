@@ -24,7 +24,7 @@ export default class CodeNew extends Command {
       default: '1.0',
     }),
     authors: flags.string({
-      default: 'Terra Money <core@terra.money>',
+      default: 'OKX okc <core@okg.com>',
     }),
   };
 
