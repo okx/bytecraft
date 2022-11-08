@@ -462,7 +462,7 @@ DESCRIPTION
   contracts.
 ```
 
-_See code: [src/commands/console.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/console.ts)_
+_See code: [src/commands/console.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/console.ts)_
 
 ## `wasmknife contract:build CONTRACT`
 
@@ -479,7 +479,7 @@ DESCRIPTION
   Build wasm bytecode.
 ```
 
-_See code: [src/commands/contract/build.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/build.ts)_
+_See code: [src/commands/contract/build.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/build.ts)_
 
 ## `wasmknife contract:generateClient CONTRACT`
 
@@ -497,7 +497,7 @@ DESCRIPTION
   Generate a Chain TypeScript client.
 ```
 
-_See code: [src/commands/contract/generateClient.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/generateClient.ts)_
+_See code: [src/commands/contract/generateClient.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/generateClient.ts)_
 
 ## `wasmknife contract:instantiate CONTRACT`
 
@@ -521,7 +521,7 @@ DESCRIPTION
   Instantiate the contract.
 ```
 
-_See code: [src/commands/contract/instantiate.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/instantiate.ts)_
+_See code: [src/commands/contract/instantiate.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/instantiate.ts)_
 
 ## `wasmknife contract:migrate CONTRACT`
 
@@ -545,7 +545,7 @@ DESCRIPTION
   Migrate the contract.
 ```
 
-_See code: [src/commands/contract/migrate.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/migrate.ts)_
+_See code: [src/commands/contract/migrate.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/migrate.ts)_
 
 ## `wasmknife contract:new NAME`
 
@@ -571,7 +571,7 @@ EXAMPLES
   $ wasmknife code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/contract/new.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/new.ts)_
+_See code: [src/commands/contract/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/new.ts)_
 
 ## `wasmknife contract:optimize CONTRACT`
 
@@ -588,7 +588,7 @@ DESCRIPTION
   Optimize wasm bytecode.
 ```
 
-_See code: [src/commands/contract/optimize.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/optimize.ts)_
+_See code: [src/commands/contract/optimize.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/optimize.ts)_
 
 ## `wasmknife contract:store CONTRACT`
 
@@ -611,7 +611,7 @@ DESCRIPTION
   Store code on chain.
 ```
 
-_See code: [src/commands/contract/store.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/store.ts)_
+_See code: [src/commands/contract/store.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/store.ts)_
 
 ## `wasmknife contract:updateAdmin CONTRACT ADMIN`
 
@@ -634,7 +634,7 @@ DESCRIPTION
   Update the admin of a contract.
 ```
 
-_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/contract/updateAdmin.ts)_
+_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/updateAdmin.ts)_
 
 ## `wasmknife deploy CONTRACT`
 
@@ -659,7 +659,7 @@ DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/deploy.ts)_
 
 ## `wasmknife help [COMMAND]`
 
@@ -705,7 +705,7 @@ EXAMPLES
   $ wasmknife new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/new.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/new.ts)_
 
 ## `wasmknife task:new [TASK]`
 
@@ -719,7 +719,7 @@ DESCRIPTION
   create new task
 ```
 
-_See code: [src/commands/task/new.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/task/new.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/task/new.ts)_
 
 ## `wasmknife task:run [TASK]`
 
@@ -741,7 +741,7 @@ DESCRIPTION
   run predefined task
 ```
 
-_See code: [src/commands/task/run.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/task/run.ts)_
+_See code: [src/commands/task/run.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/task/run.ts)_
 
 ## `wasmknife test CONTRACT-NAME`
 
@@ -763,7 +763,7 @@ EXAMPLES
   $ wasmknife test counter --no-fail-fast
 ```
 
-_See code: [src/commands/test.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/test.ts)_
 
 ## `wasmknife test:coverage [CONTRACT-NAME]`
 
@@ -782,7 +782,7 @@ EXAMPLES
   $ wasmknife test:coverage counter
 ```
 
-_See code: [src/commands/test/coverage.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/test/coverage.ts)_
+_See code: [src/commands/test/coverage.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/test/coverage.ts)_
 
 ## `wasmknife wallet:new`
 
@@ -799,5 +799,5 @@ DESCRIPTION
   Generate a new wallet to use for signing contracts
 ```
 
-_See code: [src/commands/wallet/new.ts](https://github.com/okex/wasmknife/blob/v0.1.0/src/commands/wallet/new.ts)_
+_See code: [src/commands/wallet/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/wallet/new.ts)_
 <!-- commandsstop -->
