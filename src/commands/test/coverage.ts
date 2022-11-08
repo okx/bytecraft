@@ -28,6 +28,6 @@ export default class Test extends Command {
       throw Error(`Folder '${process.cwd()}' does not contain a smart contract.\nTip: Use another path or contract name`);
     }
 
-    execSync(`docker run --security-opt seccomp=unconfined -v "${process.cwd()}:/volume" xd009642/tarpaulin`, { stdio: 'inherit' });
+    execSync(`docker run -e CARGO_HTTP_MULTIPLEXING=false --security-opt seccomp=unconfined -v "${process.cwd()}:/volume" xd009642/tarpaulin`, { stdio: 'inherit' });
   }
 }
