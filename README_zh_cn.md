@@ -38,7 +38,7 @@
 1. 获取exchain 源码.
 
 ```
-git clone https://github.com/okx/exchain.git
+git clone https://github.com/okex/exchain.git
 ```
 
 2. 进入cd 目录.
@@ -382,7 +382,7 @@ wasmknife deploy counter --signer test --admin-address <insert-admin-wallet-addr
 1. 获取wasmknife 源码.
 
 ```
-git clone --branch main --depth 1 https://github.com/okx/wasmknife
+git clone --branch main --depth 1 https://github.com/okex/wasmknife
 ```
 
 2. 进入wasmknife目录.

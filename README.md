@@ -37,7 +37,7 @@ To run local exchain, do the following:
 1. Clone the exchain repo.
 
 ```
-git clone https://github.com/okx/exchain.git
+git clone https://github.com/okex/exchain.git
 ```
 
 2. Navigate to the dev directory.
