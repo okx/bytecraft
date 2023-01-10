@@ -2,140 +2,139 @@
 ---
 
 <p align="center">
-  <b>WasmKnife</b> - A Wasm development environment for seamless smart contract development.
+  <b>WasmKnife</b> - wasm 智能合约无缝开发平台.
 </p>
 
----
-
-WasmKnife allows you to:
-
-- Scaffold a template smart contract app development.
-- Dramatically simplify the development and deployment process.
 
 ---
 
-# Table of contents
+使用wasmknife可以做什么:
+
+- 快速创建wasm合约开发模板.
+- 加速合约开发和部署.
+
+---
+
+# 目录
 
 <!-- toc -->
 * [WasmKnife](#wasmknife)
-* [Table of contents](#table-of-contents)
-* [Setup](#setup)
-* [Getting Started](#getting-started)
-* [Migrating CosmWasm Contracts](#migrating-cosmwasm-contracts)
-* [Use WasmKnife Main Branch Locally](#use-wasmknife-main-branch-locally)
-* [WasmKnife Commands](#wasmknife-commands)
+* [目录](#目录)
+* [安装](#安装)
+* [快速入门](#快速入门)
+* [升级合约](#升级合约)
+* [本地使用 WasmKnife Main 分支](#本地使用 WasmKnife Main 分支)
+* [WasmKnife 命令](#WasmKnife 命令)
 <!-- tocstop -->
 
-# Setup
+# 安装
 
-## Download exchain
+## 下载 exchain
 
-For testing purposes, we recommend to install and run exchain on your personal computer. 
+为了方便测试, 建议在本地运行exchain.
 
-To run local exchain, do the following:
+启动exchain进程, 按照以下步骤:
 
-1. Clone the exchain repo.
+1. 获取exchain 源码.
 
 ```
 git clone https://github.com/okx/exchain.git
 ```
 
-2. Navigate to the dev directory.
+2. 进入cd 目录.
 
 ```
 cd dev
 ```
 
-3. Spin up an exchain instance with start.sh script.
+3. 使用start.sh 启动exchain进程.
 
 ```
 ./start.sh
 ```
 
-## Setup Rust
+## 安装 Rust
 
-While WASM smart contracts can be written in any programming language, **it is strongly recommended that you utilize Rust**, as it is the only language for which mature libraries and tooling exist for CosmWasm. To complete this tutorial, install the latest version of Rust by following the instructions <a href="https://www.rust-lang.org/tools/install" target="_blank">here</a>. Once Rust is installed on your computer, do the following:
+虽然wasm可以用任何语言编写, **但强烈建议你使用Rust语言**, 因为只有rust 语言有针对CosmWasm的成熟库和工具. 为了完成本次的教程,按照 <a href="https://www.rust-lang.org/tools/install" target="_blank"> 链接 </a> 的指示安装最新版本的rust即可 . rust安装完成后,做以下事情:
 
-1. Set the default release channel used to update Rust to stable.
+1. 设置默认的正式版渠道用于更新rust至最新稳定版本.
 
 ```sh
 rustup default stable
 ```
 
-2. Add wasm as the compilation target.
+2. 增加对wasm编译的支持.
 
 ```sh
 rustup target add wasm32-unknown-unknown
 ```
 
-3. Install the necessary dependencies for generating contracts.
+3. 安装必要的依赖库用于生成合约.
 
 ```sh
 cargo install cargo-run-script
 ```
 
-## Install Node JS and NPM
+## 安装 Node JS 和 NPM
 
-To run WasmKnife, you will need to install version 16 of Node.js and download Node Package Manager (npm). It is recommend that you install [Node.js v16 (LTS)](https://nodejs.org/en/download/). If you download the LTS version of Node.js v16, npm will be automatically installed along with your download.
+确保wasmknife可以正常运行, 需要安装node 16 和 Node Package Manager (npm). 建议安装 [Node.js v16 (LTS)](https://nodejs.org/en/download/).如果你安装了LTS Node.js v16, npm也会随着nodejs 一起安装.
 
-# Getting Started
+# 开始入门
 
-Now that you have completed the initial setup, generate your first smart contract using the procedure described below.
+现在你已经完成了必要的环境配置, 按照以下步骤生成你的第一个wasm智能合约
 
-1. Install the wasmknife package globally.
+1. 安装wasmknife工具.
 
 ```sh
 npm install -g @okexchain/wasmknife
 ```
 
-2. Generate your smart contract templates.
+2. 生成智能合约工程
 
 ```sh
 wasmknife new my-wasm-dapp
 ```
 
-3. After the project is generated and all necessary Node dependencies are installed, navigate to the new `my-wasm-dapp` directory to interact with your app.
+3. 在工程创建完和安装node 必要依赖后, 进入 `my-wasm-dapp` 目录.
 
 ```sh
 cd my-wasm-dapp
 ```
 
-## Project Structure
+## 工程结构
 
-The `wasmknife new` command generates a project that contains a template smart contract, which is named after the specified app name, `my-wasm-dapp`. Other supporting files are generated to provide further functionality. You may view the project structure below.
+`wasmknife new` 命令会生成一个包含智能合约模板的工程,工程名字由你指定,例如: `my-wasm-dapp`. 其他生成的文件用于支持wasmknife 更高级的功能. 下面你可以看看工程的具体结构.
 
 ```
 .
-├── contracts              # the smart contract directory
-│   ├── my-wasm-dapp      # template smart contract
+├── contracts              # 智能合约目录
+│   ├── my-wasm-dapp      #  智能合约模板
 │   └── ...
-├── lib                    # predefined task and console functions
-├── tasks                  # predefined tasks
-├── keys.js        				# keys for signing transactions
-├── config.json    				# config for connections and contract deployments
-└── refs.json      				# deployed code and contract references
+├── lib                    # 预定义的task 和 console 相关功能
+├── tasks                  # 预定义的task
+├── keys.js        				# 私钥 保存文件
+├── config.json    				# 配置网络连接和合约部署相关
+└── refs.json      				# 部署的智能及其相关的引用
 ```
 
-## Deployment
+## 部署
 
-The `wasmknife deploy` command does the following:
+ `wasmknife deploy` 命令会做以下事情:
 
-- Builds, optimizes, and stores the wasm code on the blockchain.
-- Instantiates the contract.
+- 构建, 优化, 和 上传 wasm 合约code 到区块链上.
+- 初始化合约.
 
-To deploy your new my-wasm-dapp smart contract, run the following command in the terminal.
+部署你新建 my-wasm-dapp 智能合约, 在终端里运行以下命令.
 
 ```sh
  wasmknife deploy my-wasm-dapp --signer test
 ```
 
-In this case, `test`, as our signer. The signer account will be responsible for paying the gas fee associated with deploying the contract to the exchain blockchain and will be assigned as the owner of the project.
+在这个例子中, `test`是作为签名者的. 这个签名帐户支付部署合约到链上的相关费用并且会成为这个合约的所有者.当然你可以通过`--network` 参数指定想要部署的区块链网络. 如果没有指定网络, 部署合约时默认使用  `localnet` . 在部署合约的过程中,如果命令有报错, 你要确保 localnet在正常运行并且在使用WasmKnife命令时正确拼写了合约名. 你可以部署合约到 `mainnet`, 还有一个和主网相似的但是用于测试的 `testnet`.
 
-You can also specify the network on which you would like to deploy your contract by adding the `--network` flag. If the network is not specified, as is the case in our above example, your contract will be deployed to `localnet` by default. If your deployment command in the prior step resulted in an error, you will need to ensure that localnet is up and running in the background and that you have properly spelled out your contract name and are utilizing the appropriate WasmKnife command. You may also deploy to `mainnet`, the live exchain blockchain, as well as `testnet`, a network similar to mainnet used for testing.
+### 分步部署
 
-### Step-by-step Deployment
-
-You can also execute the build, optimize, store, and instantiate processes separately by executing the following commands in sequential order.
+你可以按以下顺序执行 build、optimze、store、instantiate 命令完成合约的部署.
 1. [`wasmknife contract:build CONTRACT`](#wasmknife-contractbuild-contract)
 2. [`wasmknife contract:optimize CONTRACT`](#wasmknife-contractoptimize-contract)
 3. [`wasmknife contract:store CONTRACT`](#wasmknife-contractstore-contract)
@@ -143,11 +142,11 @@ You can also execute the build, optimize, store, and instantiate processes separ
 
 <br/>
 
-### Deploying on Testnet or Mainnet
+### 在 Testnet 或者 Mainnet 部署
 
-You should  add a personal account to the `keys.js` file by adding the account name as well as its corresponding private key. You can then use that account as the signer specifying the account name after the `--signer` flag in the `wasmknife deploy` command.
+你需要增加一个私人帐户到`keys.js` 文件通过添加账户名及其对应的私钥或助记词. 后面在使用 `wasmknife deploy` 命令时可以通过增加 --signer 参数指定签名账户
 
-<sub>**Warning:** _Utilizing a personal account for deployment requires the use of a private key or mnemonic. These are private keys that are generated upon the creation of your personal wallet. Saving or utilizing these keys on your personal computer may expose them to malicious actors who could gain access to your personal wallet if they are able to obtain them. You can create a wallet solely for testing purposes to eliminate risk. Alternatively, you can store your private keys as secret environment variables which you can then reference utilizing `process.env.SECRET_VAR` in `keys.json`. Use your private key or mnemonic at your own discretion._</sub>
+<sub>**警告:** _在开发中使用个人账户需要私钥或者助记词. 这些是在创建个人钱包时生成的私钥. 在自己的计算机上保存或使用这些密钥可能会使其暴露给恶意行为者，如果他们能够获取这些密钥，他们可能会访问你的个人钱包. 你可以创建一个仅用于测试的钱包来消除风险. 或者,你可以将私钥存储为秘密环境变量,然后可以使用`keys.json`中的`process.env.SECRET_VAR`  来引用这些变量. 请自行决定使用私钥或助记词._</sub>
 
 ```js
 // can use `process.env.SECRET_MNEMONIC` or `process.env.SECRET_PRIV_KEY`
@@ -164,9 +163,7 @@ module.exports = {
 };
 ```
 
-Prior to deploying your contract, ensure that your signer wallet contains the funds needed to pay for associated transaction fees.
-
-You can retrieve the wallet address associated with the `alice` account by executing the `wasmknife console` command in your terminal while in your project directory.
+在部署合约之前, 确保你的账户里有足够的钱用于支付交易相关手续费.你可以在终端通过执行`wasmknife console` 命令 查询指定账户的地址.
 
 ```sh
 wasmknife console
@@ -175,13 +172,13 @@ wasmknife > wallets.alice.accAddress
 'ex1g0xzwvmm7mwxck5fw9y8pygq98gep9lx6m2l6e'
 ```
 
-Then, exit the wasmknife console and deploy the `my-wasm-dapp` smart contract to testnet with the `test` account as the signer.
+然后, 退出wasmknife console, 使用 test 账户将 `my-wasm-dapp` 合约部署到testnet上.
 
 ```sh
 wasmknife deploy my-wasm-dapp --signer test --network testnet
 ```
 
-After deployment, the `refs.json` file will be updated in the project directory. These files contain references to all contracts inside of your project which have been stored on any exchain network. This information is utilized by wasmknife's utility functions. An example of `refs.json` can be found below:
+完成部署后, 会更新`refs.json` 文件.这个文件包含所有对已部署合约的引用, 这些合约可以部署在任何exchain上,wasmknife 工具会用到这些信息. 下面是具体 refs.json 文件示例:
 
 ```json
 {
@@ -206,11 +203,11 @@ After deployment, the `refs.json` file will be updated in the project directory.
 
 
 
-## Run Contract Functions with WasmKnife
+## 使用WasmKnife 与合约交互
 
-Once you have successfully deployed your project, you can interact with the deployed contract and the underlying blockchain by utilizing functions defined in the `lib/index.js` file. You may also create your own abstractions in this file for querying or executing transactions. 
+一旦你部署完你的合约, 你可以用`lib/index.js` 中定义的一些方法来跟合约进行交互 . 你也可以在这文件中编写自定的方法用于查询或调用合约. 
 
-You can call the functions defined in `lib/index.js` inside of the `wasmknife console`. An example using the template counter smart contract is shown below.
+你可以在 `wasmknife console` 里调用 `lib/index.js` 中的方法. 下面展示如何与 counter 合约交互.
 
 ```sh
 wasmknife console
@@ -221,15 +218,15 @@ wasmknife > await lib.getCount()
 { count: 1 }
 ```
 
-You may also specify which network you would like to interact with by utilizing the `--network` flag with the `wasmknife console` command.
+在执行`wasmknife console` 时可以通过 `--network` 参数指定网络.
 
 ```
 wasmknife console --network NETWORK
 ```
 
-## Creating Tasks
+## 创建 Tasks
 
-You can utilize the functions available inside of the `lib/index.js` file to create tasks. Tasks are utilized in order to automate the execution of sequential functions or commands. An example task is provided for you in the `tasks/example-with-lib.js` file in your project directory.
+你可以使用 `lib/index.js` 文件中的方法来创建 tasks. Tasks 是用来自动化顺序执行一些方法或命令的.下面的例子你可以在工程的`tasks/example-with-lib.js` 文件中找到.
 
 ```js
 // tasks/example-with-lib.js
@@ -247,21 +244,21 @@ task(async (env: Env) => {
 
 ```
 
-To run the example task shown above, which is located in the `tasks/example-with-lib.js` file, run the following command in the terminal.
+运行上述的task, 在终端中执行下面命令.
 
 ```sh
 wasmknife task:run example-with-lib
 ```
 
-In order to create a new task, run the following command replacing `<task-name>` with the desired name for your new task.
+创建新的task, 可以执行下面命令, 输入真实的task名.
 
 ```sh
 wasmknife task:new <task-name>
 ```
 
-## Scripting deployments
+## 自定义脚本化部署
 
-It is possible to deploy and instantiate contracts from tasks. This can be useful for multi-contract, or multi-stage deployments. 
+可以使用task完成合约的部署和初始化. 在多个合约或者多阶段部署时, 这是非常好用的,例如创建一个deploy_counter task: 
 
 ```js
 const { task } = require("@okexchain/wasmknife");
@@ -312,7 +309,7 @@ task(async ({ defaultWallet, client, deploy }) => {
 });
 ```
 
-It is possible to tell WasmKnife to use a custom deploy task instead of the default deploy process. To do this, add the following to the `_global` section in `config.json`:
+让WasmKnife执行自定义的部署task而不是默认的部署流程. 可以在`config.json`的`_global` 下增加以下内容:
 
 ```json
 "contracts": {
@@ -322,30 +319,30 @@ It is possible to tell WasmKnife to use a custom deploy task instead of the defa
 }
 ```
 
-Now instead of running `wasmknife task:run deploy_counter` you can run `wasmknife deploy counter`.
+然后你就可以直接执行 `wasmknife deploy counter` 命令而不是 执行 `wasmknife task:run deploy_counter` 命令.
 
-# Migrating CosmWasm Contracts
+# 升级 CosmWasm 合约
 
-On Exchain, it is possible to initialize a contract as migratable. This functionality allows the administrator to upload a new version of the contract and then send a migrate message to move to the new code. Contracts that have been deployed before implementing the following changes will not be able to be migrated and implemented changes will only be realized when redeploying the contract.
+在 Exchain中,是可以升级合约的. 这允许合约管理员上传新版本的合约,然后发送一个升级message来初始化新版本的合约.新的合约需要包含以下修改才能实现合约升级,否则其他修改就只能通过重新部署的合约的方式生效了.
 
-## Adding MigrateMsg to the Contract
+## 给合约增加 MigrateMsg
 
-In order for a contract to be migratable, it must be able to handle a `MigrateMsg` transaction.
+为了能升级合约, 合约必须能处理 `MigrateMsg` 交易.
 
-To implement support for `MigrateMsg`, add the message to the `msg.rs` file. To do so, navigate to `msg.rs` and place the following code just above the `InstantiateMsg` struct.
+要实现支持 `MigrateMsg`, 把message 添加到 `msg.rs` file. 可以这样做, 打开 `msg.rs` 文件,把下面内容添加到 `InstantiateMsg` 结构上面.
 
 ```rust
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct MigrateMsg {}
 ```
 
-With `MigrateMsg` defined, update the `contract.rs` file. First, update the import from `crate::msg` to include `MigrateMsg`.
+这里定义了 `MigrateMsg` 结构, 更新 `contract.rs` 文件. 首先, 导入 `MigrateMsg`.
 
 ```rust
 use crate::msg::{CountResponse, ExecuteMsg, InstantiateMsg, QueryMsg, MigrateMsg};
 ```
 
-Next, add the following method above `instantiate`.
+在 `instantiate` 方法上面增加migrate 方法,如下:
 
 ```rust
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -354,65 +351,65 @@ pub fn migrate(_deps: DepsMut, _env: Env, _msg: MigrateMsg) -> StdResult<Respons
 }
 ```
 
-## Migrating the Contract
+## 升级合约
 
-Adding the MigrateMsg to the smart contract allows the contract's administrator to migrate the contract in the future.  When we deploy our contract, the wallet address of the signer will be automatically designated as the contract administrator.  In the following command, the contract is deployed with the preconfigured Localnet `test1` wallet as the signer and administrator of our counter contract. 
+合约增加 MigrateMsg后,合约管理员就可以升级合约了.  在部署完合约后,钱包中负责签名的账户就是这个合约的管理员账户.下面的操作中, 使用test账户签名,将counter合约部署到 localnet , test账户就是counter合约的管理员.
 
 ```sh
 wasmknife deploy counter --signer test
 ```
 
-If you decide to make changes to the deployed contract, you can migrate to the updated code by executing the following command.
+如果你已经更新了合约, 你可以执行下面命令来升级合约.
 
 ```sh
 wasmknife contract:migrate counter --signer test
 ```
 
-If you would like to specify the address of the desired administrator for your smart contract, you may utilize the `--admin-address` flag in the deploy command followed by the wallet address of the desired administrator.
+部署的时候如果想指定管理员账户, 可以添加 `--admin-address` 参数,如下面的所示.
 
 ```sh
 wasmknife deploy counter --signer test --admin-address <insert-admin-wallet-address>
 ```
 
-# Use WasmKnife Main Branch Locally
+# 本地使用 WasmKnife Main 分支
 
-In some cases, the latest features or bug fixes may be integrated into the main branch of the <a href="https://github.com/okex/wasmknife" target="_blank">WasmKnife Github repo</a>, but not yet released to the corresponding <a href="https://www.npmjs.com/package/@okexchain/wasmknife" target="_blank">npm package</a>. Subsequently, you may want to use the latest version of  WasmKnife available on Github before it has been released to npm. The below described method may also be utilized if you are interested in developing on and contributing to WasmKnife.
+某些情况下,最新的特性和bug修复都在<a href="https://github.com/okex/wasmknife" target="_blank">WasmKnife Github repo</a>的main分支,还没来得及发布到<a href="https://www.npmjs.com/package/@okexchain/wasmknife" target="_blank">npm package</a>.随后,你可能希望在发布到npm之前使用Github上提供的最新版本的WasmKnife.下面将会教你如何使用到最新版本的wasmkinfe, 如果你对WasmKnife的开发和贡献感兴趣,也可以使用以下方法.
 
-<sub>**Warning:** _Features and bug fixes that are implemented on the latest version of WasmKnife may still be subject to testing. As such, you should only use the main branch of the Wasmknife github repo in exceptional circumstances. In all other cases, use the npm package._</sub>
+<sub>**警告:** _最新的版本wamsknife的新功能和bug修复还有待进一步测试. 因此,你只能在特殊情况下使用Wasmknife main分支,在所有其他情况下,使用npm包._</sub>
 
-To use the main branch of the WasmKnife repo on your local machine, follow the procedure below.
+在本地使用wasmknife main分支,按照以下步骤来.
 
-1. Clone the repo.
+1. 获取wasmknife 源码.
 
 ```
-git clone --branch main --depth 1 https://github.com/okex/wasmknife
+git clone --branch main --depth 1 https://github.com/okx/wasmknife
 ```
 
-2. Navigate to the project folder.
+2. 进入wasmknife目录.
 
 ```
 cd wasmknife
 ```
 
-3. Inside the project folder, install all necessary node dependencies.
+3. 在wasmknife工程里执行npm install 安装必须依赖.
 
 ```
 npm install
 ```
 
-4.  Run the `npm link` command to set up the local repository as your global wasmknife instance.
+4.  执行 `npm link`引用本地包,在全局执行wasmknife 命令时就会用到这个包了.
 
 ```
 npm link
 ```
 
-If you would like to witness your changes immediately upon saving them, you may execute the following command while in your local WasmKnife directory and allow it to run in a tab in your terminal.
+如果你想更改某些代码并立马生效,可以在本地WasmKnife目录中执行以下命令.
 
 ```
 npm run watch
 ```
 
-To unlink the wasmknife command from the cloned repository and revert back to the default functionality, you can execute the below command.
+解除对本地报的引用.
 
 ```
 npm unlink wasmknife
@@ -420,7 +417,7 @@ npm unlink wasmknife
 
 ---
 
-# WasmKnife Commands
+# WasmKnife 命令
 
 <!-- commands -->
 * [`wasmknife console`](#wasmknife-console)
@@ -443,7 +440,7 @@ npm unlink wasmknife
 
 ## `wasmknife console`
 
-Start a repl console that provides context and convenient utilities to interact with the blockchain and your contracts.
+启动一个repl控制台,该控制台提供上下文和方便的api去跟链和合约交互.
 
 ```
 USAGE
@@ -466,7 +463,7 @@ _See code: [src/commands/console.ts](https://github.com/okex/wasmknife/blob/v0.1
 
 ## `wasmknife contract:build CONTRACT`
 
-Build wasm bytecode.
+编译wasm字节码.
 
 ```
 USAGE
@@ -483,7 +480,7 @@ _See code: [src/commands/contract/build.ts](https://github.com/okex/wasmknife/bl
 
 ## `wasmknife contract:generateClient CONTRACT`
 
-Generate a Chain TypeScript client.
+生成一个链的 TypeScript 客户端.
 
 ```
 USAGE
@@ -501,7 +498,7 @@ _See code: [src/commands/contract/generateClient.ts](https://github.com/okex/was
 
 ## `wasmknife contract:instantiate CONTRACT`
 
-Instantiate the contract.
+初始化合约.
 
 ```
 USAGE
@@ -525,7 +522,7 @@ _See code: [src/commands/contract/instantiate.ts](https://github.com/okex/wasmkn
 
 ## `wasmknife contract:migrate CONTRACT`
 
-Migrate the contract.
+升级合约.
 
 ```
 USAGE
@@ -549,7 +546,7 @@ _See code: [src/commands/contract/migrate.ts](https://github.com/okex/wasmknife/
 
 ## `wasmknife contract:new NAME`
 
-Generate new contract.
+创建新合约.
 
 ```
 USAGE
@@ -575,7 +572,7 @@ _See code: [src/commands/contract/new.ts](https://github.com/okex/wasmknife/blob
 
 ## `wasmknife contract:optimize CONTRACT`
 
-Optimize wasm bytecode.
+优化wasm字节码.
 
 ```
 USAGE
@@ -592,7 +589,7 @@ _See code: [src/commands/contract/optimize.ts](https://github.com/okex/wasmknife
 
 ## `wasmknife contract:store CONTRACT`
 
-Store code on chain.
+部署合约code.
 
 ```
 USAGE
@@ -615,7 +612,7 @@ _See code: [src/commands/contract/store.ts](https://github.com/okex/wasmknife/bl
 
 ## `wasmknife contract:updateAdmin CONTRACT ADMIN`
 
-Update the admin of a contract.
+更新合约管理员
 
 ```
 USAGE
@@ -638,7 +635,7 @@ _See code: [src/commands/contract/updateAdmin.ts](https://github.com/okex/wasmkn
 
 ## `wasmknife deploy CONTRACT`
 
-Build wasm bytecode, store code on chain and instantiate.
+部署合约:构建合约字节码、优化字节码、并部署code到链上、完成合约的初始化操作.
 
 ```
 USAGE
@@ -663,7 +660,7 @@ _See code: [src/commands/deploy.ts](https://github.com/okex/wasmknife/blob/v0.1.
 
 ## `wasmknife help [COMMAND]`
 
-display help for wasmknife
+展示帮助信息
 
 ```
 USAGE
@@ -683,7 +680,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1
 
 ## `wasmknife new NAME`
 
-Create new dapp from template.
+创建一个新的工程.
 
 ```
 USAGE
@@ -709,7 +706,7 @@ _See code: [src/commands/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/s
 
 ## `wasmknife task:new [TASK]`
 
-create new task
+创建task
 
 ```
 USAGE
@@ -745,7 +742,7 @@ _See code: [src/commands/task/run.ts](https://github.com/okex/wasmknife/blob/v0.
 
 ## `wasmknife test CONTRACT-NAME`
 
-Runs unit tests for a contract directory.
+执行合约单元测试.
 
 ```
 USAGE
@@ -767,7 +764,7 @@ _See code: [src/commands/test.ts](https://github.com/okex/wasmknife/blob/v0.1.1/
 
 ## `wasmknife test:coverage [CONTRACT-NAME]`
 
-Runs unit tests for a contract directory.
+收集单元测试覆盖率.
 
 ```
 USAGE
@@ -786,7 +783,7 @@ _See code: [src/commands/test/coverage.ts](https://github.com/okex/wasmknife/blo
 
 ## `wasmknife wallet:new`
 
-Generate a new wallet to use for signing contracts
+创建一个新钱包
 
 ```
 USAGE
