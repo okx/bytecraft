@@ -23,7 +23,7 @@
 * [安装](#安装)
 * [快速入门](#快速入门)
 * [升级合约](#升级合约)
-* [本地使用 WasmKnife Main 分支](#本地使用 WasmKnife Main 分支)
+* [本地使用 WasmKnife Main分支](#本地使用WasmKnife Main分支)
 * [WasmKnife 命令](#WasmKnife 命令)
 <!-- tocstop -->
 
@@ -371,7 +371,7 @@ wasmknife contract:migrate counter --signer test
 wasmknife deploy counter --signer test --admin-address <insert-admin-wallet-address>
 ```
 
-# 本地使用 WasmKnife Main 分支
+# 本地使用WasmKnife Main分支
 
 某些情况下,最新的特性和bug修复都在<a href="https://github.com/okex/wasmknife" target="_blank">WasmKnife Github repo</a>的main分支,还没来得及发布到<a href="https://www.npmjs.com/package/@okexchain/wasmknife" target="_blank">npm package</a>.随后,你可能希望在发布到npm之前使用Github上提供的最新版本的WasmKnife.下面将会教你如何使用到最新版本的wasmkinfe, 如果你对WasmKnife的开发和贡献感兴趣,也可以使用以下方法.
 
