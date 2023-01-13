@@ -2,6 +2,8 @@ import { Command, flags } from '@oclif/command';
 import * as fs from 'fs';
 import { Secp256k1HdWallet } from 'cosmwasm';
 import CLI from '../../CLI';
+// @ts-ignore
+import { crypto, OKCSecp256k1Wallet } from '@okexchain/javascript-sdk';
 
 export default class WalletNew extends Command {
   static description = 'Generate a new wallet to use for signing contracts';
@@ -16,7 +18,9 @@ export default class WalletNew extends Command {
     const { flags } = this.parse(WalletNew);
     this.log('Generating new wallet');
 
-    const wallet = await Secp256k1HdWallet.generate(12, { prefix: 'ex' });
+    const mnemonic = await Secp256k1HdWallet.generate(12, { prefix: 'ex' });
+    const privateKey = crypto.getPrivateKeyFromMnemonic(mnemonic.mnemonic);
+    const wallet = await OKCSecp256k1Wallet.fromKey(Buffer.from(privateKey,'hex'), 'ex');
     if (flags.outfile) {
       if (fs.existsSync(flags.outfile)) {
         this.error(`outfile: '${flags.outfile}' already exists, abort`);
@@ -24,7 +28,7 @@ export default class WalletNew extends Command {
       }
 
       this.log(`saving mnemonic to '${flags.outfile}'`);
-      fs.writeFileSync(flags.outfile, wallet.mnemonic);
+      fs.writeFileSync(flags.outfile, mnemonic.mnemonic);
       this.exit(0);
     }
 
@@ -32,7 +36,7 @@ export default class WalletNew extends Command {
     const accounts = await wallet.getAccounts();
     this.log(accounts[0].address);
     this.log('mnemonic key:');
-    this.log(wallet.mnemonic);
+    this.log(mnemonic.mnemonic);
 
     CLI.error(
       'Anyone who gains access to your seed phrase can access the contents of the corresponding wallet. Be cognizant of the fact that there is no recourse for theft of a seed phrase.',

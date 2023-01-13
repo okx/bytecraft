@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "@okex/wasmknife": "0.1.0"
+    "@okex/wasmknife": "0.1.2"
   },
   "workspaces": [
-    "frontend"
+
   ],
   "author": "",
   "license": "ISC"

@@ -1,8 +1,9 @@
 import * as path from 'path';
-import { Secp256k1HdWallet } from 'cosmwasm';
 import { stringToPath } from '@cosmjs/crypto';
 import { loadKeys } from '../config';
 import CLI from '../CLI';
+// @ts-ignore
+import { crypto, OKCSecp256k1Wallet } from '@okexchain/javascript-sdk';
 
 export const getSigner = async ({
   network,
@@ -12,7 +13,7 @@ export const getSigner = async ({
   network: string;
   signerId: string;
   keysPath: string;
-}): Promise<Secp256k1HdWallet> => {
+}): Promise<OKCSecp256k1Wallet> => {
   const keys = loadKeys(path.join(process.cwd(), keysPath));
 
   if (!keys[signerId]) {
@@ -24,5 +25,8 @@ export const getSigner = async ({
   const hdPath = [stringToPath("m/44'/118'/0'/0/0")];
 
   // @ts-ignore
-  return Secp256k1HdWallet.fromMnemonic(keys[signerId].mnemonic, { hdPaths: hdPath, prefix: 'ex' });
+  const privateKey = crypto.getPrivateKeyFromMnemonic(keys[signerId].mnemonic);
+  const signer = OKCSecp256k1Wallet.fromKey(Buffer.from(privateKey,'hex'), 'ex');
+  return signer;
+  // return Secp256k1HdWallet.fromMnemonic(keys[signerId].mnemonic, { hdPaths: hdPath, prefix: 'ex' });
 };

@@ -1,6 +1,7 @@
 import {
-  Coin, ExecuteResult, Secp256k1HdWallet, SigningCosmWasmClient,
+  Coin, ExecuteResult, SigningCosmWasmClient,
 } from 'cosmwasm';
+import { OfflineAminoSigner } from '@cosmjs/amino/build/signer';
 import { ContractRef } from '../config';
 
 export type ContractRefs = { [contractName: string]: ContractRef };
@@ -22,7 +23,7 @@ export class ExchainClientExtra {
 
   async execute(
     contract: string,
-    wallet: Secp256k1HdWallet,
+    wallet: OfflineAminoSigner,
     msg: Record<string, any>,
     funds?: Coin[],
     instanceId = 'default',

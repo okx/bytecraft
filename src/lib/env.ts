@@ -1,5 +1,6 @@
-import { Secp256k1HdWallet, Secp256k1Wallet, SigningCosmWasmClient } from "cosmwasm";
-
+import {SigningCosmWasmClient } from "cosmwasm";
+// @ts-ignore
+import { crypto, OKCSecp256k1Wallet } from '@okexchain/javascript-sdk';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { OfflineAminoSigner } from '@cosmjs/amino/build/signer';
@@ -80,13 +81,15 @@ export const getEnv = async (
     if (keys[k].privateKey === '') {
       // const path = stringToPath("m/44'/118'/0'/0/0");
       // eslint-disable-next-line no-await-in-loop
-      wallet = await Secp256k1HdWallet.fromMnemonic(keys[k].mnemonic, {
-        // hdPaths: [path],
-        prefix: 'ex',
-      });
+      // wallet = await Secp256k1HdWallet.fromMnemonic(keys[k].mnemonic, {
+      //   // hdPaths: [path],
+      //   prefix: 'ex',
+      // });
+      const privateKey = crypto.getPrivateKeyFromMnemonic(keys[k].mnemonic);
+      wallet = await OKCSecp256k1Wallet.fromKey(Buffer.from(privateKey,'hex'), 'ex');
     } else {
       // eslint-disable-next-line no-await-in-loop
-      wallet = await Secp256k1Wallet.fromKey(Buffer.from(keys[k].privateKey, 'hex'), 'ex');
+      wallet = await OKCSecp256k1Wallet.fromKey(Buffer.from(keys[k].privateKey, 'hex'), 'ex');
     }
 
     userDefinedWallets[k] = wallet;
@@ -99,9 +102,10 @@ export const getEnv = async (
     throw new Error('default wallet not found');
   }
 
-  const accounts = await wallets[defaultWallet].getAccounts();
+  const defaultw = wallets[defaultWallet];
+  const accounts = await defaultw.getAccounts();
   const sender = accounts[0].address;
-  const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(lcd.httpEndpoint, wallets[defaultWallet], {gasPrice: DefaulrGasPrice});
+  const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(lcd.httpEndpoint, defaultw, {gasPrice: DefaulrGasPrice});
 
   // @ts-ignore
   // @ts-ignore
@@ -111,7 +115,7 @@ export const getEnv = async (
     config: (contract) => config(network, contract),
     refs,
     wallets,
-    defaultWallet: wallets[defaultWallet],
+    defaultWallet: defaultw,
     client: lcd,
     // Enable tasks to deploy code.
     deploy: {
