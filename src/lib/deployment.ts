@@ -167,7 +167,6 @@ ARM64 wasm files should not be stored on mainnet. Rebuilding contract to deploy 
   const wasmByteCode = fs.readFileSync(artifactFileName);
   cli.action.start('storing wasm bytecode on chain');
   const account = await signer.getAccounts();
-  console.log(account);
   const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(httpEndpoint, signer, { gasPrice: DefaulrGasPrice });
   const res = await cosmwasmClient.upload(account[0].address, wasmByteCode, 'auto', 'storecode');
 
