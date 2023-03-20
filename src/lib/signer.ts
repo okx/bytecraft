@@ -22,11 +22,13 @@ export const getSigner = async ({
       'Signer Not Found',
     );
   }
-  const hdPath = [stringToPath("m/44'/118'/0'/0/0")];
-
-  // @ts-ignore
-  const privateKey = crypto.getPrivateKeyFromMnemonic(keys[signerId].mnemonic);
-  const signer = OKCSecp256k1Wallet.fromKey(Buffer.from(privateKey,'hex'), 'ex');
+  let privateKey = '';
+  if (!keys[signerId].mnemonic) {
+    privateKey = keys[signerId].privateKey;
+  } else {
+    // @ts-ignore
+    privateKey = crypto.getPrivateKeyFromMnemonic(keys[signerId].mnemonic);
+  }
+  const signer = OKCSecp256k1Wallet.fromKey(Buffer.from(privateKey, 'hex'), 'ex');
   return signer;
-  // return Secp256k1HdWallet.fromMnemonic(keys[signerId].mnemonic, { hdPaths: hdPath, prefix: 'ex' });
 };
