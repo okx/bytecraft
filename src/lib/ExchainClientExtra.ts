@@ -3,6 +3,7 @@ import {
 } from 'cosmwasm';
 import { OfflineAminoSigner } from '@cosmjs/amino/build/signer';
 import { ContractRef } from '../config';
+import { DefaulrGasPrice } from './key';
 
 export type ContractRefs = { [contractName: string]: ContractRef };
 
@@ -18,7 +19,8 @@ export class ExchainClientExtra {
 
   async query(contract: string, msg: Record<string, unknown>, instanceId = 'default') {
     const cosmwasmClient = await SigningCosmWasmClient.connect(this.httpEndpoint);
-    return cosmwasmClient.queryContractSmart(this.refs[contract].contractAddresses[instanceId], msg);
+    const contractAddress = contract.startsWith('ex') ? contract : this.refs[contract].contractAddresses[instanceId];
+    return cosmwasmClient.queryContractSmart(contractAddress, msg);
   }
 
   async execute(
@@ -28,7 +30,7 @@ export class ExchainClientExtra {
     funds?: Coin[],
     instanceId = 'default',
   ): Promise<ExecuteResult> {
-    const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(this.httpEndpoint, wallet);
+    const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(this.httpEndpoint, wallet,{gasPrice: DefaulrGasPrice, });
     const account = await wallet.getAccounts();
     const contractAddress = contract.startsWith('ex') ? contract : this.refs[contract].contractAddresses[instanceId];
     const res = await cosmwasmClient.execute(account[0].address, contractAddress, msg, 'auto', 'execute', funds);

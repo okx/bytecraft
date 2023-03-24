@@ -10,13 +10,13 @@
   },
   "mainnet": {
     "_connection": {
-      "chainID": "enchain-66",
+      "chainID": "exchain-66",
       "URL": "https://exchaintmrpc.okex.org"
     }
   },
   "testnet": {
     "_connection": {
-      "chainID": "enchain-65",
+      "chainID": "exchain-65",
       "URL": "https://exchaintesttmrpc.okex.org"
     }
   },
