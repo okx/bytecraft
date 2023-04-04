@@ -8,7 +8,7 @@
 
 ---
 
-WasmKnife allows you to:
+Bytecraft allows you to:
 
 - Scaffold a template smart contract app development.
 - Dramatically simplify the development and deployment process.
@@ -18,7 +18,7 @@ WasmKnife allows you to:
 # Table of contents
 
 <!-- toc -->
-* [WasmKnife](#wasmknife)
+* [Bytecraft](#bytecraft)
 * [Table of contents](#table-of-contents)
 * [Setup](#setup)
 * [Getting Started](#getting-started)
