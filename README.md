@@ -1,4 +1,4 @@
-# WasmKnife
+# Bytecraft
 [简体中文](./README_zh_cn.md)
 ---
 
