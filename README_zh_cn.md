@@ -375,7 +375,7 @@ bytecraft deploy counter --signer test --admin-address <insert-admin-wallet-addr
 
 某些情况下,最新的特性和bug修复都在<a href="https://github.com/okx/bytecraft" target="_blank">ByteCraft Github repo</a>的main分支,还没来得及发布到<a href="https://www.npmjs.com/package/@okexchain/bytecraft" target="_blank">npm package</a>.随后,你可能希望在发布到npm之前使用Github上提供的最新版本的ByteCraft.下面将会教你如何使用到最新版本的wasmkinfe, 如果你对ByteCraft的开发和贡献感兴趣,也可以使用以下方法.
 
-<sub>**警告:** _最新的版本wamsknife的新功能和bug修复还有待进一步测试. 因此,你只能在特殊情况下使用Wasmknife main分支,在所有其他情况下,使用npm包._</sub>
+<sub>**警告:** _最新的版本wamsknife的新功能和bug修复还有待进一步测试. 因此,你只能在特殊情况下使用ByteCraft main分支,在所有其他情况下,使用npm包._</sub>
 
 在本地使用bytecraft main分支,按照以下步骤来.
 

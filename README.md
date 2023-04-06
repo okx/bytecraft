@@ -379,7 +379,7 @@ bytecraft deploy counter --signer test --admin-address <insert-admin-wallet-addr
 
 In some cases, the latest features or bug fixes may be integrated into the main branch of the <a href="https://github.com/okx/bytecraft" target="_blank">ByteCraft Github repo</a>, but not yet released to the corresponding <a href="https://www.npmjs.com/package/@okexchain/bytecraft" target="_blank">npm package</a>. Subsequently, you may want to use the latest version of  ByteCraft available on Github before it has been released to npm. The below described method may also be utilized if you are interested in developing on and contributing to ByteCraft.
 
-<sub>**Warning:** _Features and bug fixes that are implemented on the latest version of ByteCraft may still be subject to testing. As such, you should only use the main branch of the Wasmknife github repo in exceptional circumstances. In all other cases, use the npm package._</sub>
+<sub>**Warning:** _Features and bug fixes that are implemented on the latest version of ByteCraft may still be subject to testing. As such, you should only use the main branch of the ByteCraft github repo in exceptional circumstances. In all other cases, use the npm package._</sub>
 
 To use the main branch of the ByteCraft repo on your local machine, follow the procedure below.
 
