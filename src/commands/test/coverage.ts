@@ -7,8 +7,8 @@ export default class Test extends Command {
   static description = 'Runs unit tests for a contract directory.';
 
   static examples = [
-    '$ wasmknife test:coverage',
-    '$ wasmknife test:coverage counter',
+    '$ bytecraft test:coverage',
+    '$ bytecraft test:coverage counter',
   ];
 
   static flags = { };

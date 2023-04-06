@@ -4,7 +4,7 @@ import boxen from 'boxen';
 import semver from 'semver';
 import dedent from 'dedent';
 
-/** CLI offers default log styling for wasmknife commands. */
+/** CLI offers default log styling for bytecraft commands. */
 class CLI {
   prefix: string;
 
@@ -94,8 +94,8 @@ class CLI {
     if (!semver.satisfies(process.version, '^16')) {
       this.error(
         dedent`
-          WasmKnife requires "Node version 16"!\n
-          Please switch your version of Node before running WasmKnife commands.\n
+          ByteCraft requires "Node version 16"!\n
+          Please switch your version of Node before running ByteCraft commands.\n
           If you are utilizing nvm, simply utilize the following command:\n
           "nvm use 16"
         `,

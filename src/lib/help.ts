@@ -12,6 +12,6 @@ export default class CustomHelp extends Help {
   async showRootHelp() {
     await super.showRootHelp();
     console.log(bold('REPOSITORY'));
-    console.log(indent('https://github.com/okex/wasmknife'));
+    console.log(indent('ByteCraft/bytecraft'));
   }
 }

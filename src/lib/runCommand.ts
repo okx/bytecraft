@@ -23,9 +23,9 @@ async function runCommand(execPath: string, command: () => void, errorCheck: () 
   }
 
   // If appRootPath not found after stepping back 4 directories,
-  // tell user to run command in a wasmknife project directory.
+  // tell user to run command in a bytecraft project directory.
   return CLI.error(
-    `Command execution path "${execPath}" not found. Please ensure that you are in a wasmknife project directory.`,
+    `Command execution path "${execPath}" not found. Please ensure that you are in a bytecraft project directory.`,
     'Execution Path Not Found',
   );
 }

@@ -1,14 +1,14 @@
-# WasmKnife
+# ByteCraft
 ---
 
 <p align="center">
-  <b>WasmKnife</b> - wasm 智能合约无缝开发平台.
+  <b>ByteCraft</b> - wasm 智能合约无缝开发平台.
 </p>
 
 
 ---
 
-使用wasmknife可以做什么:
+使用bytecraft可以做什么:
 
 - 快速创建wasm合约开发模板.
 - 加速合约开发和部署.
@@ -18,13 +18,13 @@
 # 目录
 
 <!-- toc -->
-* [WasmKnife](#wasmknife)
+* [ByteCraft](#bytecraft)
 * [目录](#目录)
 * [安装](#安装)
 * [快速入门](#快速入门)
 * [升级合约](#升级合约)
-* [本地使用 WasmKnife Main分支](#本地使用WasmKnife Main分支)
-* [WasmKnife 命令](#WasmKnife 命令)
+* [本地使用 ByteCraft Main分支](#本地使用ByteCraft Main分支)
+* [ByteCraft 命令](#ByteCraft 命令)
 <!-- tocstop -->
 
 # 安装
@@ -38,7 +38,7 @@
 1. 获取exchain 源码.
 
 ```
-git clone https://github.com/okex/exchain.git
+git clone https://github.com/okx/exchain.git
 ```
 
 2. 进入cd 目录.
@@ -77,22 +77,22 @@ cargo install cargo-run-script
 
 ## 安装 Node JS 和 NPM
 
-确保wasmknife可以正常运行, 需要安装node 16 和 Node Package Manager (npm). 建议安装 [Node.js v16 (LTS)](https://nodejs.org/en/download/).如果你安装了LTS Node.js v16, npm也会随着nodejs 一起安装.
+确保bytecraft可以正常运行, 需要安装node 16 和 Node Package Manager (npm). 建议安装 [Node.js v16 (LTS)](https://nodejs.org/en/download/).如果你安装了LTS Node.js v16, npm也会随着nodejs 一起安装.
 
 # 开始入门
 
 现在你已经完成了必要的环境配置, 按照以下步骤生成你的第一个wasm智能合约
 
-1. 安装wasmknife工具.
+1. 安装bytecraft工具.
 
 ```sh
-npm install -g @okexchain/wasmknife
+npm install -g @okexchain/bytecraft
 ```
 
 2. 生成智能合约工程
 
 ```sh
-wasmknife new my-wasm-dapp
+bytecraft new my-wasm-dapp
 ```
 
 3. 在工程创建完和安装node 必要依赖后, 进入 `my-wasm-dapp` 目录.
@@ -103,7 +103,7 @@ cd my-wasm-dapp
 
 ## 工程结构
 
-`wasmknife new` 命令会生成一个包含智能合约模板的工程,工程名字由你指定,例如: `my-wasm-dapp`. 其他生成的文件用于支持wasmknife 更高级的功能. 下面你可以看看工程的具体结构.
+`bytecraft new` 命令会生成一个包含智能合约模板的工程,工程名字由你指定,例如: `my-wasm-dapp`. 其他生成的文件用于支持bytecraft 更高级的功能. 下面你可以看看工程的具体结构.
 
 ```
 .
@@ -119,7 +119,7 @@ cd my-wasm-dapp
 
 ## 部署
 
- `wasmknife deploy` 命令会做以下事情:
+ `bytecraft deploy` 命令会做以下事情:
 
 - 构建, 优化, 和 上传 wasm 合约code 到区块链上.
 - 初始化合约.
@@ -127,24 +127,24 @@ cd my-wasm-dapp
 部署你新建 my-wasm-dapp 智能合约, 在终端里运行以下命令.
 
 ```sh
- wasmknife deploy my-wasm-dapp --signer test
+ bytecraft deploy my-wasm-dapp --signer test
 ```
 
-在这个例子中, `test`是作为签名者的. 这个签名帐户支付部署合约到链上的相关费用并且会成为这个合约的所有者.当然你可以通过`--network` 参数指定想要部署的区块链网络. 如果没有指定网络, 部署合约时默认使用  `localnet` . 在部署合约的过程中,如果命令有报错, 你要确保 localnet在正常运行并且在使用WasmKnife命令时正确拼写了合约名. 你可以部署合约到 `mainnet`, 还有一个和主网相似的但是用于测试的 `testnet`.
+在这个例子中, `test`是作为签名者的. 这个签名帐户支付部署合约到链上的相关费用并且会成为这个合约的所有者.当然你可以通过`--network` 参数指定想要部署的区块链网络. 如果没有指定网络, 部署合约时默认使用  `localnet` . 在部署合约的过程中,如果命令有报错, 你要确保 localnet在正常运行并且在使用ByteCraft命令时正确拼写了合约名. 你可以部署合约到 `mainnet`, 还有一个和主网相似的但是用于测试的 `testnet`.
 
 ### 分步部署
 
 你可以按以下顺序执行 build、optimze、store、instantiate 命令完成合约的部署.
-1. [`wasmknife contract:build CONTRACT`](#wasmknife-contractbuild-contract)
-2. [`wasmknife contract:optimize CONTRACT`](#wasmknife-contractoptimize-contract)
-3. [`wasmknife contract:store CONTRACT`](#wasmknife-contractstore-contract)
-4. [`wasmknife contract:instantiate CONTRACT`](#wasmknife-contractinstantiate-contract)
+1. [`bytecraft contract:build CONTRACT`](#bytecraft-contractbuild-contract)
+2. [`bytecraft contract:optimize CONTRACT`](#bytecraft-contractoptimize-contract)
+3. [`bytecraft contract:store CONTRACT`](#bytecraft-contractstore-contract)
+4. [`bytecraft contract:instantiate CONTRACT`](#bytecraft-contractinstantiate-contract)
 
 <br/>
 
 ### 在 Testnet 或者 Mainnet 部署
 
-你需要增加一个私人帐户到`keys.js` 文件通过添加账户名及其对应的私钥或助记词. 后面在使用 `wasmknife deploy` 命令时可以通过增加 --signer 参数指定签名账户
+你需要增加一个私人帐户到`keys.js` 文件通过添加账户名及其对应的私钥或助记词. 后面在使用 `bytecraft deploy` 命令时可以通过增加 --signer 参数指定签名账户
 
 <sub>**警告:** _在开发中使用个人账户需要私钥或者助记词. 这些是在创建个人钱包时生成的私钥. 在自己的计算机上保存或使用这些密钥可能会使其暴露给恶意行为者，如果他们能够获取这些密钥，他们可能会访问你的个人钱包. 你可以创建一个仅用于测试的钱包来消除风险. 或者,你可以将私钥存储为秘密环境变量,然后可以使用`keys.json`中的`process.env.SECRET_VAR`  来引用这些变量. 请自行决定使用私钥或助记词._</sub>
 
@@ -163,22 +163,22 @@ module.exports = {
 };
 ```
 
-在部署合约之前, 确保你的账户里有足够的钱用于支付交易相关手续费.你可以在终端通过执行`wasmknife console` 命令 查询指定账户的地址.
+在部署合约之前, 确保你的账户里有足够的钱用于支付交易相关手续费.你可以在终端通过执行`bytecraft console` 命令 查询指定账户的地址.
 
 ```sh
-wasmknife console
+bytecraft console
 
-wasmknife > wallets.alice.accAddress
+bytecraft > wallets.alice.accAddress
 'ex1g0xzwvmm7mwxck5fw9y8pygq98gep9lx6m2l6e'
 ```
 
-然后, 退出wasmknife console, 使用 test 账户将 `my-wasm-dapp` 合约部署到testnet上.
+然后, 退出bytecraft console, 使用 test 账户将 `my-wasm-dapp` 合约部署到testnet上.
 
 ```sh
-wasmknife deploy my-wasm-dapp --signer test --network testnet
+bytecraft deploy my-wasm-dapp --signer test --network testnet
 ```
 
-完成部署后, 会更新`refs.json` 文件.这个文件包含所有对已部署合约的引用, 这些合约可以部署在任何exchain上,wasmknife 工具会用到这些信息. 下面是具体 refs.json 文件示例:
+完成部署后, 会更新`refs.json` 文件.这个文件包含所有对已部署合约的引用, 这些合约可以部署在任何exchain上,bytecraft 工具会用到这些信息. 下面是具体 refs.json 文件示例:
 
 ```json
 {
@@ -203,25 +203,25 @@ wasmknife deploy my-wasm-dapp --signer test --network testnet
 
 
 
-## 使用WasmKnife 与合约交互
+## 使用ByteCraft 与合约交互
 
 一旦你部署完你的合约, 你可以用`lib/index.js` 中定义的一些方法来跟合约进行交互 . 你也可以在这文件中编写自定的方法用于查询或调用合约. 
 
-你可以在 `wasmknife console` 里调用 `lib/index.js` 中的方法. 下面展示如何与 counter 合约交互.
+你可以在 `bytecraft console` 里调用 `lib/index.js` 中的方法. 下面展示如何与 counter 合约交互.
 
 ```sh
-wasmknife console
-wasmknife > await lib.getCount()
+bytecraft console
+bytecraft > await lib.getCount()
 { count: 0 }
-wasmknife > await lib.increment()
-wasmknife > await lib.getCount()
+bytecraft > await lib.increment()
+bytecraft > await lib.getCount()
 { count: 1 }
 ```
 
-在执行`wasmknife console` 时可以通过 `--network` 参数指定网络.
+在执行`bytecraft console` 时可以通过 `--network` 参数指定网络.
 
 ```
-wasmknife console --network NETWORK
+bytecraft console --network NETWORK
 ```
 
 ## 创建 Tasks
@@ -231,7 +231,7 @@ wasmknife console --network NETWORK
 ```js
 // tasks/example-with-lib.js
 
-import { Env, task } from "@okexchain/wasmknife";
+import { Env, task } from "@okexchain/bytecraft";
 import Lib from '../lib';
 
 task(async (env: Env) => {
@@ -247,13 +247,13 @@ task(async (env: Env) => {
 运行上述的task, 在终端中执行下面命令.
 
 ```sh
-wasmknife task:run example-with-lib
+bytecraft task:run example-with-lib
 ```
 
 创建新的task, 可以执行下面命令, 输入真实的task名.
 
 ```sh
-wasmknife task:new <task-name>
+bytecraft task:new <task-name>
 ```
 
 ## 自定义脚本化部署
@@ -261,7 +261,7 @@ wasmknife task:new <task-name>
 可以使用task完成合约的部署和初始化. 在多个合约或者多阶段部署时, 这是非常好用的,例如创建一个deploy_counter task: 
 
 ```js
-const { task } = require("@okexchain/wasmknife");
+const { task } = require("@okexchain/bytecraft");
 
 task(async ({ defaultWallet, client, deploy }) => {
     // First deploy the counter smart contract.
@@ -309,7 +309,7 @@ task(async ({ defaultWallet, client, deploy }) => {
 });
 ```
 
-让WasmKnife执行自定义的部署task而不是默认的部署流程. 可以在`config.json`的`_global` 下增加以下内容:
+让ByteCraft执行自定义的部署task而不是默认的部署流程. 可以在`config.json`的`_global` 下增加以下内容:
 
 ```json
 "contracts": {
@@ -319,7 +319,7 @@ task(async ({ defaultWallet, client, deploy }) => {
 }
 ```
 
-然后你就可以直接执行 `wasmknife deploy counter` 命令而不是 执行 `wasmknife task:run deploy_counter` 命令.
+然后你就可以直接执行 `bytecraft deploy counter` 命令而不是 执行 `bytecraft task:run deploy_counter` 命令.
 
 # 升级 CosmWasm 合约
 
@@ -356,54 +356,54 @@ pub fn migrate(_deps: DepsMut, _env: Env, _msg: MigrateMsg) -> StdResult<Respons
 合约增加 MigrateMsg后,合约管理员就可以升级合约了.  在部署完合约后,钱包中负责签名的账户就是这个合约的管理员账户.下面的操作中, 使用test账户签名,将counter合约部署到 localnet , test账户就是counter合约的管理员.
 
 ```sh
-wasmknife deploy counter --signer test
+bytecraft deploy counter --signer test
 ```
 
 如果你已经更新了合约, 你可以执行下面命令来升级合约.
 
 ```sh
-wasmknife contract:migrate counter --signer test
+bytecraft contract:migrate counter --signer test
 ```
 
 部署的时候如果想指定管理员账户, 可以添加 `--admin-address` 参数,如下面的所示.
 
 ```sh
-wasmknife deploy counter --signer test --admin-address <insert-admin-wallet-address>
+bytecraft deploy counter --signer test --admin-address <insert-admin-wallet-address>
 ```
 
-# 本地使用WasmKnife Main分支
+# 本地使用ByteCraft Main分支
 
-某些情况下,最新的特性和bug修复都在<a href="https://github.com/okex/wasmknife" target="_blank">WasmKnife Github repo</a>的main分支,还没来得及发布到<a href="https://www.npmjs.com/package/@okexchain/wasmknife" target="_blank">npm package</a>.随后,你可能希望在发布到npm之前使用Github上提供的最新版本的WasmKnife.下面将会教你如何使用到最新版本的wasmkinfe, 如果你对WasmKnife的开发和贡献感兴趣,也可以使用以下方法.
+某些情况下,最新的特性和bug修复都在<a href="https://github.com/okx/bytecraft" target="_blank">ByteCraft Github repo</a>的main分支,还没来得及发布到<a href="https://www.npmjs.com/package/@okexchain/bytecraft" target="_blank">npm package</a>.随后,你可能希望在发布到npm之前使用Github上提供的最新版本的ByteCraft.下面将会教你如何使用到最新版本的wasmkinfe, 如果你对ByteCraft的开发和贡献感兴趣,也可以使用以下方法.
 
 <sub>**警告:** _最新的版本wamsknife的新功能和bug修复还有待进一步测试. 因此,你只能在特殊情况下使用Wasmknife main分支,在所有其他情况下,使用npm包._</sub>
 
-在本地使用wasmknife main分支,按照以下步骤来.
+在本地使用bytecraft main分支,按照以下步骤来.
 
-1. 获取wasmknife 源码.
-
-```
-git clone --branch main --depth 1 https://github.com/okex/wasmknife
-```
-
-2. 进入wasmknife目录.
+1. 获取bytecraft 源码.
 
 ```
-cd wasmknife
+git clone --branch main --depth 1 https://github.com/okx/bytecraft
 ```
 
-3. 在wasmknife工程里执行npm install 安装必须依赖.
+2. 进入bytecraft目录.
+
+```
+cd bytecraft
+```
+
+3. 在bytecraft工程里执行npm install 安装必须依赖.
 
 ```
 npm install
 ```
 
-4.  执行 `npm link`引用本地包,在全局执行wasmknife 命令时就会用到这个包了.
+4.  执行 `npm link`引用本地包,在全局执行bytecraft 命令时就会用到这个包了.
 
 ```
 npm link
 ```
 
-如果你想更改某些代码并立马生效,可以在本地WasmKnife目录中执行以下命令.
+如果你想更改某些代码并立马生效,可以在本地ByteCraft目录中执行以下命令.
 
 ```
 npm run watch
@@ -412,23 +412,23 @@ npm run watch
 解除对本地报的引用.
 
 ```
-npm unlink wasmknife
+npm unlink bytecraft
 ```
 
 ---
 
-# WasmKnife 命令
+# ByteCraft 命令
 
 <!-- commands -->
-* [`wasmknife console`](#wasmknife-console)
-* [`wasmknife contract:build CONTRACT`](#wasmknife-contractbuild-contract)
-* [`wasmknife contract:generateClient CONTRACT`](#wasmknife-contractgenerateclient-contract)
-* [`wasmknife contract:instantiate CONTRACT`](#wasmknife-contractinstantiate-contract)
-* [`wasmknife contract:migrate CONTRACT`](#wasmknife-contractmigrate-contract)
-* [`wasmknife contract:new NAME`](#wasmknife-contractnew-name)
-* [`wasmknife contract:optimize CONTRACT`](#wasmknife-contractoptimize-contract)
-* [`wasmknife contract:store CONTRACT`](#wasmknife-contractstore-contract)
-* [`wasmknife contract:updateAdmin CONTRACT ADMIN`](#wasmknife-contractupdateadmin-contract-admin)
+* [`bytecraft console`](#bytecraft-console)
+* [`bytecraft contract:build CONTRACT`](#bytecraft-contractbuild-contract)
+* [`bytecraft contract:generateClient CONTRACT`](#bytecraft-contractgenerateclient-contract)
+* [`bytecraft contract:instantiate CONTRACT`](#bytecraft-contractinstantiate-contract)
+* [`bytecraft contract:migrate CONTRACT`](#bytecraft-contractmigrate-contract)
+* [`bytecraft contract:new NAME`](#bytecraft-contractnew-name)
+* [`bytecraft contract:optimize CONTRACT`](#bytecraft-contractoptimize-contract)
+* [`bytecraft contract:store CONTRACT`](#bytecraft-contractstore-contract)
+* [`bytecraft contract:updateAdmin CONTRACT ADMIN`](#wasmknife-contractupdateadmin-contract-admin)
 * [`wasmknife deploy CONTRACT`](#wasmknife-deploy-contract)
 * [`wasmknife help [COMMAND]`](#wasmknife-help-command)
 * [`wasmknife new NAME`](#wasmknife-new-name)
@@ -459,7 +459,7 @@ DESCRIPTION
   contracts.
 ```
 
-_See code: [src/commands/console.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/console.ts)_
+_See code: [src/commands/console.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/console.ts)_
 
 ## `wasmknife contract:build CONTRACT`
 
@@ -476,7 +476,7 @@ DESCRIPTION
   Build wasm bytecode.
 ```
 
-_See code: [src/commands/contract/build.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/build.ts)_
+_See code: [src/commands/contract/build.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/build.ts)_
 
 ## `wasmknife contract:generateClient CONTRACT`
 
@@ -494,7 +494,7 @@ DESCRIPTION
   Generate a Chain TypeScript client.
 ```
 
-_See code: [src/commands/contract/generateClient.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/generateClient.ts)_
+_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/generateClient.ts)_
 
 ## `wasmknife contract:instantiate CONTRACT`
 
@@ -518,7 +518,7 @@ DESCRIPTION
   Instantiate the contract.
 ```
 
-_See code: [src/commands/contract/instantiate.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/instantiate.ts)_
+_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/instantiate.ts)_
 
 ## `wasmknife contract:migrate CONTRACT`
 
@@ -542,7 +542,7 @@ DESCRIPTION
   Migrate the contract.
 ```
 
-_See code: [src/commands/contract/migrate.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/migrate.ts)_
+_See code: [src/commands/contract/migrate.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/migrate.ts)_
 
 ## `wasmknife contract:new NAME`
 
@@ -568,7 +568,7 @@ EXAMPLES
   $ wasmknife code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/contract/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/new.ts)_
+_See code: [src/commands/contract/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/new.ts)_
 
 ## `wasmknife contract:optimize CONTRACT`
 
@@ -585,7 +585,7 @@ DESCRIPTION
   Optimize wasm bytecode.
 ```
 
-_See code: [src/commands/contract/optimize.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/optimize.ts)_
+_See code: [src/commands/contract/optimize.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/optimize.ts)_
 
 ## `wasmknife contract:store CONTRACT`
 
@@ -608,7 +608,7 @@ DESCRIPTION
   Store code on chain.
 ```
 
-_See code: [src/commands/contract/store.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/store.ts)_
+_See code: [src/commands/contract/store.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/store.ts)_
 
 ## `wasmknife contract:updateAdmin CONTRACT ADMIN`
 
@@ -631,7 +631,7 @@ DESCRIPTION
   Update the admin of a contract.
 ```
 
-_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/contract/updateAdmin.ts)_
+_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/updateAdmin.ts)_
 
 ## `wasmknife deploy CONTRACT`
 
@@ -656,7 +656,7 @@ DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/deploy.ts)_
 
 ## `wasmknife help [COMMAND]`
 
@@ -702,7 +702,7 @@ EXAMPLES
   $ wasmknife new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/new.ts)_
 
 ## `wasmknife task:new [TASK]`
 
@@ -716,7 +716,7 @@ DESCRIPTION
   create new task
 ```
 
-_See code: [src/commands/task/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/task/new.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/task/new.ts)_
 
 ## `wasmknife task:run [TASK]`
 
@@ -738,7 +738,7 @@ DESCRIPTION
   run predefined task
 ```
 
-_See code: [src/commands/task/run.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/task/run.ts)_
+_See code: [src/commands/task/run.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/task/run.ts)_
 
 ## `wasmknife test CONTRACT-NAME`
 
@@ -760,7 +760,7 @@ EXAMPLES
   $ wasmknife test counter --no-fail-fast
 ```
 
-_See code: [src/commands/test.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/test.ts)_
 
 ## `wasmknife test:coverage [CONTRACT-NAME]`
 
@@ -779,7 +779,7 @@ EXAMPLES
   $ wasmknife test:coverage counter
 ```
 
-_See code: [src/commands/test/coverage.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/test/coverage.ts)_
+_See code: [src/commands/test/coverage.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/test/coverage.ts)_
 
 ## `wasmknife wallet:new`
 
@@ -796,5 +796,5 @@ DESCRIPTION
   Generate a new wallet to use for signing contracts
 ```
 
-_See code: [src/commands/wallet/new.ts](https://github.com/okex/wasmknife/blob/v0.1.1/src/commands/wallet/new.ts)_
+_See code: [src/commands/wallet/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/wallet/new.ts)_
 <!-- commandsstop -->

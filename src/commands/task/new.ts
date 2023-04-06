@@ -26,7 +26,7 @@ export default class TaskNew extends Command {
       await writeFile(
         newTaskPath,
         dedent`
-          import { Env, task } from "@okexchain/wasmknife";
+          import { Env, task } from "@okexchain/bytecraft";
 
           task(async (env:Env) => {
             console.log(env);

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "@okexchain/wasmknife": "0.1.6"
+    "@okexchain/bytecraft": "0.1.7"
   },
   "workspaces": [
 

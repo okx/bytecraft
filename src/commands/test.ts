@@ -8,8 +8,8 @@ import CLI from '../CLI';
 /**
  * Runs unit tests for a contract directory.
  * Examples:
- * $ wasmknife test counter
- * $ wasmknife test counter --no-fail-fast
+ * $ bytecraft test counter
+ * $ bytecraft test counter --no-fail-fast
  */
 export default class Test extends Command {
   // Specify description to be displayed upon help command execution.
@@ -17,8 +17,8 @@ export default class Test extends Command {
 
   // Specify examples included upon help test command execution.
   static examples = [
-    '$ wasmknife test counter',
-    '$ wasmknife test counter --no-fail-fast',
+    '$ bytecraft test counter',
+    '$ bytecraft test counter --no-fail-fast',
   ];
 
   // Initialize args to be given after test command.

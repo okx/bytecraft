@@ -8,7 +8,7 @@ import CLI from '../CLI';
 import runCommand from '../lib/runCommand';
 import * as cosmwasm from 'cosmwasm';
 
-// Needed for WasmKnife to be able to require typescript modules.
+// Needed for ByteCraft to be able to require typescript modules.
 require('ts-node').register({
   // Don't actually check types of libs.
   transpileOnly: true,
@@ -64,7 +64,7 @@ export default class Console extends Command {
         config, refs, wallets, client,
       } = env;
 
-      const r = start({ prompt: 'wasmknife > ', useColors: true });
+      const r = start({ prompt: 'bytecraft > ', useColors: true });
 
       const def = (name: string, value: any) => Object.defineProperty(r.context, name, {
         configurable: false,

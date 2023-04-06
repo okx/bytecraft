@@ -10,9 +10,9 @@ export default class CodeNew extends Command {
   static description = 'Generate new contract.';
 
   static examples = [
-    '$ wasmknife code:new awesome_contract',
-    '$ wasmknife code:new awesome_contract --path path/to/dapp',
-    '$ wasmknife code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"',
+    '$ bytecraft code:new awesome_contract',
+    '$ bytecraft code:new awesome_contract --path path/to/dapp',
+    '$ bytecraft code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"',
   ];
 
   static flags = {

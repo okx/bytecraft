@@ -10,9 +10,9 @@ export default class New extends Command {
   static description = 'Create new dapp from template.';
 
   static examples = [
-    '$ wasmknife new awesome-dapp',
-    '$ wasmknife new awesome-dapp --path path/to/dapp',
-    '$ wasmknife new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"',
+    '$ bytecraft new awesome-dapp',
+    '$ bytecraft new awesome-dapp --path path/to/dapp',
+    '$ bytecraft new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"',
   ];
 
   static flags = {
@@ -53,8 +53,8 @@ export default class New extends Command {
     cli.log(`generating app ${args.name}:`);
     cli.action.start('- workspace');
     await TemplateScaffolding.from({
-      remoteUrl: 'https://codeload.github.com/okex/wasmknife-core-template/zip/refs/heads/main',
-      subFolder: 'wasmknife-core-template-main',
+      remoteUrl: 'https://codeload.github.com/okx/bytecraft-core-template/zip/refs/heads/main',
+      subFolder: 'bytecraft-core-template-main',
       localOptions: {
         folderUrl: appDir,
       },
