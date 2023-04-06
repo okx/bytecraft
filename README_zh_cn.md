@@ -2,9 +2,8 @@
 ---
 
 <p align="center">
-  <b>ByteCraft</b> - wasm 智能合约无缝开发平台.
+  <b>ByteCraft</b> - 一个 wasm 智能合约无缝开发平台.
 </p>
-
 
 ---
 
@@ -12,20 +11,6 @@
 
 - 快速创建wasm合约开发模板.
 - 加速合约开发和部署.
-
----
-
-# 目录
-
-<!-- toc -->
-* [ByteCraft](#bytecraft)
-* [目录](#目录)
-* [安装](#安装)
-* [快速入门](#快速入门)
-* [升级合约](#升级合约)
-* [本地使用 ByteCraft Main分支](#本地使用ByteCraft Main分支)
-* [ByteCraft 命令](#ByteCraft 命令)
-<!-- tocstop -->
 
 # 安装
 
@@ -79,7 +64,9 @@ cargo install cargo-run-script
 
 确保bytecraft可以正常运行, 需要安装node 16 和 Node Package Manager (npm). 建议安装 [Node.js v16 (LTS)](https://nodejs.org/en/download/).如果你安装了LTS Node.js v16, npm也会随着nodejs 一起安装.
 
-# 开始入门
+# 在OKTC测试网上使用Bytecraft
+
+## 快速开始
 
 现在你已经完成了必要的环境配置, 按照以下步骤生成你的第一个wasm智能合约
 
@@ -124,25 +111,50 @@ cd my-wasm-dapp
 - 构建, 优化, 和 上传 wasm 合约code 到区块链上.
 - 初始化合约.
 
+在工程的`config.json` 文件中, 已经预先定义好了3个网络:
+
+```json
+{
+  "_global": {
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "mainnet": {
+    "_connection": {
+      "chainID": "exchain-66",
+      "URL": "https://exchaintmrpc.okex.org"
+    }
+  },
+  "testnet": {
+    "_connection": {
+      "chainID": "exchain-65",
+      "URL": "https://exchaintesttmrpc.okex.org"
+    }
+  },
+  "localnet": {
+    "_connection": {
+      "chainID": "exchain-67",
+      "URL": "http://localhost:26657"
+    }
+  }
+}
+
+```
+
 部署你新建 my-wasm-dapp 智能合约, 在终端里运行以下命令.
 
 ```sh
- bytecraft deploy my-wasm-dapp --signer test
+ bytecraft deploy my-wasm-dapp --signer test --network testnet
 ```
 
 在这个例子中, `test`是作为签名者的. 这个签名帐户支付部署合约到链上的相关费用并且会成为这个合约的所有者.当然你可以通过`--network` 参数指定想要部署的区块链网络. 如果没有指定网络, 部署合约时默认使用  `localnet` . 在部署合约的过程中,如果命令有报错, 你要确保 localnet在正常运行并且在使用ByteCraft命令时正确拼写了合约名. 你可以部署合约到 `mainnet`, 还有一个和主网相似的但是用于测试的 `testnet`.
 
-### 分步部署
-
-你可以按以下顺序执行 build、optimze、store、instantiate 命令完成合约的部署.
-1. [`bytecraft contract:build CONTRACT`](#bytecraft-contractbuild-contract)
-2. [`bytecraft contract:optimize CONTRACT`](#bytecraft-contractoptimize-contract)
-3. [`bytecraft contract:store CONTRACT`](#bytecraft-contractstore-contract)
-4. [`bytecraft contract:instantiate CONTRACT`](#bytecraft-contractinstantiate-contract)
-
-<br/>
-
-### 在 Testnet 或者 Mainnet 部署
+### 在OKTC测试网上部署合约
 
 你需要增加一个私人帐户到`keys.js` 文件通过添加账户名及其对应的私钥或助记词. 后面在使用 `bytecraft deploy` 命令时可以通过增加 --signer 参数指定签名账户
 
@@ -210,7 +222,7 @@ bytecraft deploy my-wasm-dapp --signer test --network testnet
 你可以在 `bytecraft console` 里调用 `lib/index.js` 中的方法. 下面展示如何与 counter 合约交互.
 
 ```sh
-bytecraft console
+bytecraft console --network testnet
 bytecraft > await lib.getCount()
 { count: 0 }
 bytecraft > await lib.increment()
@@ -247,7 +259,7 @@ task(async (env: Env) => {
 运行上述的task, 在终端中执行下面命令.
 
 ```sh
-bytecraft task:run example-with-lib
+bytecraft task:run example-with-lib --network testnet
 ```
 
 创建新的task, 可以执行下面命令, 输入真实的task名.
@@ -319,7 +331,276 @@ task(async ({ defaultWallet, client, deploy }) => {
 }
 ```
 
-然后你就可以直接执行 `bytecraft deploy counter` 命令而不是 执行 `bytecraft task:run deploy_counter` 命令.
+然后你就可以直接执行 `bytecraft deploy counter --network testnet` 命令而不是 执行 `bytecraft task:run deploy_counter --network testnet` 命令.
+
+# 在OKTC主网上使用Bytecraft
+
+## 快速开始
+
+现在你已经完成了必要的环境配置, 按照以下步骤生成你的第一个wasm智能合约
+
+1. 安装bytecraft工具.
+
+```sh
+npm install -g @okexchain/bytecraft
+```
+
+2. 生成智能合约工程
+
+```sh
+bytecraft new my-wasm-dapp
+```
+
+3. 在工程创建完和安装node 必要依赖后, 进入 `my-wasm-dapp` 目录.
+
+```sh
+cd my-wasm-dapp
+```
+
+## 工程结构
+
+`bytecraft new` 命令会生成一个包含智能合约模板的工程,工程名字由你指定,例如: `my-wasm-dapp`. 其他生成的文件用于支持bytecraft 更高级的功能. 下面你可以看看工程的具体结构.
+
+```
+.
+├── contracts              # 智能合约目录
+│   ├── my-wasm-dapp      #  智能合约模板
+│   └── ...
+├── lib                    # 预定义的task 和 console 相关功能
+├── tasks                  # 预定义的task
+├── keys.js        				# 私钥 保存文件
+├── config.json    				# 配置网络连接和合约部署相关
+└── refs.json      				# 部署的智能及其相关的引用
+```
+
+## 部署
+
+ `bytecraft deploy` 命令会做以下事情:
+
+- 构建, 优化, 和 上传 wasm 合约code 到区块链上.
+- 初始化合约.
+
+在工程的`config.json` 文件中, 已经预先定义好了3个网络:
+
+```json
+{
+  "_global": {
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "mainnet": {
+    "_connection": {
+      "chainID": "exchain-66",
+      "URL": "https://exchaintmrpc.okex.org"
+    }
+  },
+  "testnet": {
+    "_connection": {
+      "chainID": "exchain-65",
+      "URL": "https://exchaintesttmrpc.okex.org"
+    }
+  },
+  "localnet": {
+    "_connection": {
+      "chainID": "exchain-67",
+      "URL": "http://localhost:26657"
+    }
+  }
+}
+
+```
+
+部署你新建 my-wasm-dapp 智能合约, 在终端里运行以下命令.
+
+```sh
+ bytecraft deploy my-wasm-dapp --signer test --network mainnet
+```
+
+在这个例子中, `test`是作为签名者的. 这个签名帐户支付部署合约到链上的相关费用并且会成为这个合约的所有者.当然你可以通过`--network` 参数指定想要部署的区块链网络. 如果没有指定网络, 部署合约时默认使用  `localnet` . 在部署合约的过程中,如果命令有报错, 你要确保 localnet在正常运行并且在使用ByteCraft命令时正确拼写了合约名. 你可以部署合约到 `mainnet`, 还有一个和主网相似的但是用于测试的 `testnet`.
+
+### 在OKTC主网上部署合约
+
+你需要增加一个私人帐户到`keys.js` 文件通过添加账户名及其对应的私钥或助记词. 后面在使用 `bytecraft deploy` 命令时可以通过增加 --signer 参数指定签名账户
+
+<sub>**警告:** _在开发中使用个人账户需要私钥或者助记词. 这些是在创建个人钱包时生成的私钥. 在自己的计算机上保存或使用这些密钥可能会使其暴露给恶意行为者，如果他们能够获取这些密钥，他们可能会访问你的个人钱包. 你可以创建一个仅用于测试的钱包来消除风险. 或者,你可以将私钥存储为秘密环境变量,然后可以使用`keys.json`中的`process.env.SECRET_VAR`  来引用这些变量. 请自行决定使用私钥或助记词._</sub>
+
+```js
+// can use `process.env.SECRET_MNEMONIC` or `process.env.SECRET_PRIV_KEY`
+// to populate secret in CI environment instead of hardcoding
+
+module.exports = {
+  test: {
+    mnemonic:
+      "abstract milk alien mosquito consider swarm write outside detail faith peanut feel",
+  },
+  alice: {
+    privateKey: "43792143508f053a8b82dd83e1d56c82dc04cd0fcc86220175ef591911fa65c1",
+  },
+};
+```
+
+在部署合约之前, 确保你的账户里有足够的钱用于支付交易相关手续费.你可以在终端通过执行`bytecraft console` 命令 查询指定账户的地址.
+
+```sh
+bytecraft console
+
+bytecraft > wallets.alice.accAddress
+'ex1g0xzwvmm7mwxck5fw9y8pygq98gep9lx6m2l6e'
+```
+
+然后, 退出bytecraft console, 使用 test 账户将 `my-wasm-dapp` 合约部署到testnet上.
+
+```sh
+bytecraft deploy my-wasm-dapp --signer test --network mainnet
+```
+
+完成部署后, 会更新`refs.json` 文件.这个文件包含所有对已部署合约的引用, 这些合约可以部署在任何exchain上,bytecraft 工具会用到这些信息. 下面是具体 refs.json 文件示例:
+
+```json
+{
+  "localnet": {
+    "counter": {
+      "codeId": "1",
+      "contractAddresses": {
+        "default": "ex10qt8wg0n7z740ssvf3urmvgtjhxpyp74hxqvqt7z226gykuus7equ3f4hk"
+      }
+    }
+  },
+  "testnet": {
+    "my-wasm-dapp": {
+      "codeId": "18160",
+      "contractAddresses": {
+        "default": "ex1wr6vc3g4caz9aclgjacxewr0pjlre9wl2uhq73rp8mawwmqaczsq6p3y6f"
+      }
+    }
+  }
+}
+```
+
+
+
+## 使用ByteCraft 与合约交互
+
+一旦你部署完你的合约, 你可以用`lib/index.js` 中定义的一些方法来跟合约进行交互 . 你也可以在这文件中编写自定的方法用于查询或调用合约. 
+
+你可以在 `bytecraft console` 里调用 `lib/index.js` 中的方法. 下面展示如何与 counter 合约交互.
+
+```sh
+bytecraft console --network mainnet
+bytecraft > await lib.getCount()
+{ count: 0 }
+bytecraft > await lib.increment()
+bytecraft > await lib.getCount()
+{ count: 1 }
+```
+
+在执行`bytecraft console` 时可以通过 `--network` 参数指定网络.
+
+```
+bytecraft console --network NETWORK
+```
+
+## 创建 Tasks
+
+你可以使用 `lib/index.js` 文件中的方法来创建 tasks. Tasks 是用来自动化顺序执行一些方法或命令的.下面的例子你可以在工程的`tasks/example-with-lib.js` 文件中找到.
+
+```js
+// tasks/example-with-lib.js
+
+import { Env, task } from "@okexchain/bytecraft";
+import Lib from '../lib';
+
+task(async (env: Env) => {
+  const lib = new Lib(env);
+  console.log("count 1 = ", await lib.getCount());
+  
+  await lib.increment();
+  console.log("count 2 = ", await lib.getCount());
+});
+
+```
+
+运行上述的task, 在终端中执行下面命令.
+
+```sh
+bytecraft task:run example-with-lib --network mainnet
+```
+
+创建新的task, 可以执行下面命令, 输入真实的task名.
+
+```sh
+bytecraft task:new <task-name>
+```
+
+## 自定义脚本化部署
+
+可以使用task完成合约的部署和初始化. 在多个合约或者多阶段部署时, 这是非常好用的,例如创建一个deploy_counter task: 
+
+```js
+const { task } = require("@okexchain/bytecraft");
+
+task(async ({ defaultWallet, client, deploy }) => {
+    // First deploy the counter smart contract.
+    await deploy.storeCode('mydapp', defaultWallet);
+    const accounts = await defaultWallet.getAccounts()
+    const counterAddress = await deploy.instantiate(
+        // Contract name
+        'mydapp',
+        // Signer
+        defaultWallet,
+        {
+            // Contract admin
+            admin: accounts[0].address,
+            init: {count: 1},
+        },
+    );
+
+    // Now deploy a CW20 with the counter contract set as the minter in instantiation
+    await deploy.storeCode('cw20-base', defaultWallet);
+    const cw20Address = await deploy.instantiate(
+        // Contract name
+        'cw20-base',
+        // Signer
+        defaultWallet,
+        {
+            // Contract admin
+            admin: accounts[0].address,
+            init: {
+                name: "counter",
+                symbol: "CTR",
+                decimals: 6,
+                initial_balances: [],
+                mint: {
+                    minter: counterAddress,
+                },
+            },
+        },
+    );
+
+    await client.execute(counterAddress, defaultWallet, {
+        update_token: { token: cw20Address },
+    });
+
+    console.log(`CW20 Address: ${cw20Address}`);
+});
+```
+
+让ByteCraft执行自定义的部署task而不是默认的部署流程. 可以在`config.json`的`_global` 下增加以下内容:
+
+```json
+"contracts": {
+  "counter": {
+    "deployTask": "deploy_counter"
+  }
+}
+```
+
+然后你就可以直接执行 `bytecraft deploy counter --network mainnet` 命令而不是 执行 `bytecraft task:run deploy_counter --network mainnet` 命令.
 
 # 升级 CosmWasm 合约
 
@@ -371,55 +652,34 @@ bytecraft contract:migrate counter --signer test
 bytecraft deploy counter --signer test --admin-address <insert-admin-wallet-address>
 ```
 
-# 本地使用ByteCraft Main分支
+# ByteCraft 控制台
 
-某些情况下,最新的特性和bug修复都在<a href="https://github.com/okx/bytecraft" target="_blank">ByteCraft Github repo</a>的main分支,还没来得及发布到<a href="https://www.npmjs.com/package/@okexchain/bytecraft" target="_blank">npm package</a>.随后,你可能希望在发布到npm之前使用Github上提供的最新版本的ByteCraft.下面将会教你如何使用到最新版本的bytecraft, 如果你对ByteCraft的开发和贡献感兴趣,也可以使用以下方法.
+Bytecraft console 命令提供了一个交互式的javascript repl环境, 你可以直接和部署的合约进行交互, 还可以使用lib/index.js中方便的工具方法. 你也可以修改lib/index.js 文件来定义自己的方法来查询、发送合约交易等.
 
-<sub>**警告:** _最新的版本bytecraft的新功能和bug修复还有待进一步测试. 因此,你只能在特殊情况下使用ByteCraft main分支,在所有其他情况下,使用npm包._</sub>
+在bytecraft console 中,你可以调用lib/index.js中的方法. 例如,下面是一个在bytecraft console中 与 counter合约的交互过程
 
-在本地使用ByteCraft main分支,按照以下步骤来.
-
-1. 获取bytecraft 源码.
-
-```
-git clone --branch main --depth 1 https://github.com/okx/bytecraft
-```
-
-2. 进入bytecraft目录.
-
-```
-cd bytecraft
+```sh
+bytecraft console --network testnet
+bytecraft > await lib.getCount()
+{ count: 0 }
+bytecraft > await lib.increment()
+bytecraft > await lib.getCount()
+{ count: 1 }
 ```
 
-3. 在bytecraft工程里执行npm install 安装必须依赖.
+`bytecraft console`交互时可以通过 `--network`参数指定网络.
 
 ```
-npm install
+bytecraft console --network NETWORK
 ```
 
-4.  执行 `npm link`引用本地包,在全局执行bytecraft 命令时就会用到这个包了.
-
-```
-npm link
-```
-
-如果你想更改某些代码并立马生效,可以在本地ByteCraft目录中执行以下命令.
-
-```
-npm run watch
-```
-
-解除对本地报的引用.
-
-```
-npm unlink bytecraft
-```
-
----
 
 # ByteCraft 命令
 
+这个是ByteCraft命令详细使用说明,使用bytecraft过程中如果有疑惑可以参考.
+
 <!-- commands -->
+
 * [`bytecraft console`](#bytecraft-console)
 * [`bytecraft contract:build CONTRACT`](#bytecraft-contractbuild-contract)
 * [`bytecraft contract:generateClient CONTRACT`](#bytecraft-contractgenerateclient-contract)
