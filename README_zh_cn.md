@@ -428,23 +428,23 @@ npm unlink bytecraft
 * [`bytecraft contract:new NAME`](#bytecraft-contractnew-name)
 * [`bytecraft contract:optimize CONTRACT`](#bytecraft-contractoptimize-contract)
 * [`bytecraft contract:store CONTRACT`](#bytecraft-contractstore-contract)
-* [`bytecraft contract:updateAdmin CONTRACT ADMIN`](#wasmknife-contractupdateadmin-contract-admin)
-* [`wasmknife deploy CONTRACT`](#wasmknife-deploy-contract)
-* [`wasmknife help [COMMAND]`](#wasmknife-help-command)
-* [`wasmknife new NAME`](#wasmknife-new-name)
-* [`wasmknife task:new [TASK]`](#wasmknife-tasknew-task)
-* [`wasmknife task:run [TASK]`](#wasmknife-taskrun-task)
-* [`wasmknife test CONTRACT-NAME`](#wasmknife-test-contract-name)
-* [`wasmknife test:coverage [CONTRACT-NAME]`](#wasmknife-testcoverage-contract-name)
-* [`wasmknife wallet:new`](#wasmknife-walletnew)
+* [`bytecraft contract:updateAdmin CONTRACT ADMIN`](#bytecraft-contractupdateadmin-contract-admin)
+* [`bytecraft deploy CONTRACT`](#bytecraft-deploy-contract)
+* [`bytecraft help [COMMAND]`](#bytecraft-help-command)
+* [`bytecraft new NAME`](#bytecraft-new-name)
+* [`bytecraft task:new [TASK]`](#bytecraft-tasknew-task)
+* [`bytecraft task:run [TASK]`](#bytecraft-taskrun-task)
+* [`bytecraft test CONTRACT-NAME`](#bytecraft-test-contract-name)
+* [`bytecraft test:coverage [CONTRACT-NAME]`](#bytecraft-testcoverage-contract-name)
+* [`bytecraft wallet:new`](#bytecraft-walletnew)
 
-## `wasmknife console`
+## `bytecraft console`
 
 启动一个repl控制台,该控制台提供上下文和方便的api去跟链和合约交互.
 
 ```
 USAGE
-  $ wasmknife console [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path <value>]
+  $ bytecraft console [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path <value>]
     [--keys-path <value>]
 
 FLAGS
@@ -459,15 +459,15 @@ DESCRIPTION
   contracts.
 ```
 
-_See code: [src/commands/console.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/console.ts)_
+_See code: [src/commands/console.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/console.ts)_
 
-## `wasmknife contract:build CONTRACT`
+## `bytecraft contract:build CONTRACT`
 
 编译wasm字节码.
 
 ```
 USAGE
-  $ wasmknife contract:build [CONTRACT] [--config-path <value>]
+  $ bytecraft contract:build [CONTRACT] [--config-path <value>]
 
 FLAGS
   --config-path=<value>  [default: ./config.json]
@@ -476,15 +476,15 @@ DESCRIPTION
   Build wasm bytecode.
 ```
 
-_See code: [src/commands/contract/build.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/build.ts)_
+_See code: [src/commands/contract/build.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/build.ts)_
 
-## `wasmknife contract:generateClient CONTRACT`
+## `bytecraft contract:generateClient CONTRACT`
 
 生成一个链的 TypeScript 客户端.
 
 ```
 USAGE
-  $ wasmknife contract:generateClient [CONTRACT] [--lib-path <value>] [--build-schema]
+  $ bytecraft contract:generateClient [CONTRACT] [--lib-path <value>] [--build-schema]
 
 FLAGS
   --build-schema
@@ -494,15 +494,15 @@ DESCRIPTION
   Generate a Chain TypeScript client.
 ```
 
-_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/generateClient.ts)_
+_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/generateClient.ts)_
 
-## `wasmknife contract:instantiate CONTRACT`
+## `bytecraft contract:instantiate CONTRACT`
 
 初始化合约.
 
 ```
 USAGE
-  $ wasmknife contract:instantiate [CONTRACT] [--signer <value>] [--network <value>] [--instance-id <value>] [--code-id
+  $ bytecraft contract:instantiate [CONTRACT] [--signer <value>] [--network <value>] [--instance-id <value>] [--code-id
     <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
@@ -518,15 +518,15 @@ DESCRIPTION
   Instantiate the contract.
 ```
 
-_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/instantiate.ts)_
+_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/instantiate.ts)_
 
-## `wasmknife contract:migrate CONTRACT`
+## `bytecraft contract:migrate CONTRACT`
 
 升级合约.
 
 ```
 USAGE
-  $ wasmknife contract:migrate [CONTRACT] [--signer <value>] [--no-rebuild] [--network <value>] [--config-path
+  $ bytecraft contract:migrate [CONTRACT] [--signer <value>] [--no-rebuild] [--network <value>] [--config-path
     <value>] [--refs-path <value>] [--keys-path <value>] [--instance-id <value>]
 
 FLAGS
@@ -542,15 +542,15 @@ DESCRIPTION
   Migrate the contract.
 ```
 
-_See code: [src/commands/contract/migrate.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/migrate.ts)_
+_See code: [src/commands/contract/migrate.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/migrate.ts)_
 
-## `wasmknife contract:new NAME`
+## `bytecraft contract:new NAME`
 
 创建新合约.
 
 ```
 USAGE
-  $ wasmknife contract:new [NAME] [--path <value>] [--version <value>] [--authors <value>]
+  $ bytecraft contract:new [NAME] [--path <value>] [--version <value>] [--authors <value>]
 
 FLAGS
   --authors=<value>  [default: OKX okc <core@okg.com>]
@@ -561,22 +561,22 @@ DESCRIPTION
   Generate new contract.
 
 EXAMPLES
-  $ wasmknife code:new awesome_contract
+  $ bytecraft code:new awesome_contract
 
-  $ wasmknife code:new awesome_contract --path path/to/dapp
+  $ bytecraft code:new awesome_contract --path path/to/dapp
 
-  $ wasmknife code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
+  $ bytecraft code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/contract/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/new.ts)_
+_See code: [src/commands/contract/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/new.ts)_
 
-## `wasmknife contract:optimize CONTRACT`
+## `bytecraft contract:optimize CONTRACT`
 
 优化wasm字节码.
 
 ```
 USAGE
-  $ wasmknife contract:optimize [CONTRACT] [--config-path <value>]
+  $ bytecraft contract:optimize [CONTRACT] [--config-path <value>]
 
 FLAGS
   --config-path=<value>  [default: ./config.json]
@@ -585,15 +585,15 @@ DESCRIPTION
   Optimize wasm bytecode.
 ```
 
-_See code: [src/commands/contract/optimize.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/optimize.ts)_
+_See code: [src/commands/contract/optimize.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/optimize.ts)_
 
-## `wasmknife contract:store CONTRACT`
+## `bytecraft contract:store CONTRACT`
 
 部署合约code.
 
 ```
 USAGE
-  $ wasmknife contract:store [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--config-path
+  $ bytecraft contract:store [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--config-path
     <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
@@ -608,15 +608,15 @@ DESCRIPTION
   Store code on chain.
 ```
 
-_See code: [src/commands/contract/store.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/store.ts)_
+_See code: [src/commands/contract/store.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/store.ts)_
 
-## `wasmknife contract:updateAdmin CONTRACT ADMIN`
+## `bytecraft contract:updateAdmin CONTRACT ADMIN`
 
 更新合约管理员
 
 ```
 USAGE
-  $ wasmknife contract:updateAdmin [CONTRACT] [ADMIN] [--signer <value>] [--network <value>] [--config-path <value>]
+  $ bytecraft contract:updateAdmin [CONTRACT] [ADMIN] [--signer <value>] [--network <value>] [--config-path <value>]
     [--refs-path <value>] [--keys-path <value>] [--instance-id <value>]
 
 FLAGS
@@ -631,15 +631,15 @@ DESCRIPTION
   Update the admin of a contract.
 ```
 
-_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/contract/updateAdmin.ts)_
+_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/updateAdmin.ts)_
 
-## `wasmknife deploy CONTRACT`
+## `bytecraft deploy CONTRACT`
 
 部署合约:构建合约字节码、优化字节码、并部署code到链上、完成合约的初始化操作.
 
 ```
 USAGE
-  $ wasmknife deploy [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--instance-id
+  $ bytecraft deploy [CONTRACT] [--signer <value>] [--network <value>] [--no-rebuild] [--instance-id
     <value>] [--admin-address <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
@@ -656,15 +656,15 @@ DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/deploy.ts)_
 
-## `wasmknife help [COMMAND]`
+## `bytecraft help [COMMAND]`
 
 展示帮助信息
 
 ```
 USAGE
-  $ wasmknife help [COMMAND] [--all]
+  $ bytecraft help [COMMAND] [--all]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -673,18 +673,18 @@ FLAGS
   --all  see all commands in CLI
 
 DESCRIPTION
-  display help for wasmknife
+  display help for bytecraft
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.18/src/commands/help.ts)_
 
-## `wasmknife new NAME`
+## `bytecraft new NAME`
 
 创建一个新的工程.
 
 ```
 USAGE
-  $ wasmknife new [NAME] [--path <value>] [--version <value>] [--authors <value>]
+  $ bytecraft new [NAME] [--path <value>] [--version <value>] [--authors <value>]
 
 FLAGS
   --authors=<value>  [default: OKC <okc@okg.com>]
@@ -695,36 +695,36 @@ DESCRIPTION
   Create new dapp from template.
 
 EXAMPLES
-  $ wasmknife new awesome-dapp
+  $ bytecraft new awesome-dapp
 
-  $ wasmknife new awesome-dapp --path path/to/dapp
+  $ bytecraft new awesome-dapp --path path/to/dapp
 
-  $ wasmknife new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
+  $ bytecraft new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/new.ts)_
 
-## `wasmknife task:new [TASK]`
+## `bytecraft task:new [TASK]`
 
 创建task
 
 ```
 USAGE
-  $ wasmknife task:new [TASK]
+  $ bytecraft task:new [TASK]
 
 DESCRIPTION
   create new task
 ```
 
-_See code: [src/commands/task/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/task/new.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/task/new.ts)_
 
-## `wasmknife task:run [TASK]`
+## `bytecraft task:run [TASK]`
 
 run predefined task
 
 ```
 USAGE
-  $ wasmknife task:run [TASK] [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path
+  $ bytecraft task:run [TASK] [--signer <value>] [--network <value>] [--config-path <value>] [--refs-path
     <value>] [--keys-path <value>]
 
 FLAGS
@@ -738,15 +738,15 @@ DESCRIPTION
   run predefined task
 ```
 
-_See code: [src/commands/task/run.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/task/run.ts)_
+_See code: [src/commands/task/run.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/task/run.ts)_
 
-## `wasmknife test CONTRACT-NAME`
+## `bytecraft test CONTRACT-NAME`
 
 执行合约单元测试.
 
 ```
 USAGE
-  $ wasmknife test [CONTRACT-NAME] [--no-fail-fast]
+  $ bytecraft test [CONTRACT-NAME] [--no-fail-fast]
 
 FLAGS
   --no-fail-fast  Run all tests regardless of failure.
@@ -755,39 +755,39 @@ DESCRIPTION
   Runs unit tests for a contract directory.
 
 EXAMPLES
-  $ wasmknife test counter
+  $ bytecraft test counter
 
-  $ wasmknife test counter --no-fail-fast
+  $ bytecraft test counter --no-fail-fast
 ```
 
-_See code: [src/commands/test.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/test.ts)_
 
-## `wasmknife test:coverage [CONTRACT-NAME]`
+## `bytecraft test:coverage [CONTRACT-NAME]`
 
 收集单元测试覆盖率.
 
 ```
 USAGE
-  $ wasmknife test:coverage [CONTRACT-NAME]
+  $ bytecraft test:coverage [CONTRACT-NAME]
 
 DESCRIPTION
   Runs unit tests for a contract directory.
 
 EXAMPLES
-  $ wasmknife test:coverage
+  $ bytecraft test:coverage
 
-  $ wasmknife test:coverage counter
+  $ bytecraft test:coverage counter
 ```
 
-_See code: [src/commands/test/coverage.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/test/coverage.ts)_
+_See code: [src/commands/test/coverage.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/test/coverage.ts)_
 
-## `wasmknife wallet:new`
+## `bytecraft wallet:new`
 
 创建一个新钱包
 
 ```
 USAGE
-  $ wasmknife wallet:new [--outfile <value>]
+  $ bytecraft wallet:new [--outfile <value>]
 
 FLAGS
   --outfile=<value>  absolute path to store the mnemonic key to. If omitted, output to stdout
@@ -796,5 +796,5 @@ DESCRIPTION
   Generate a new wallet to use for signing contracts
 ```
 
-_See code: [src/commands/wallet/new.ts](https://github.com/okx/wasmknife/blob/v0.1.1/src/commands/wallet/new.ts)_
+_See code: [src/commands/wallet/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/wallet/new.ts)_
 <!-- commandsstop -->
