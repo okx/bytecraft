@@ -19,7 +19,7 @@ export class ExchainClientExtra {
 
   async query(contract: string, msg: Record<string, unknown>, instanceId = 'default') {
     const cosmwasmClient = await SigningCosmWasmClient.connect(this.httpEndpoint);
-    const contractAddress = contract.startsWith('ex') ? contract : this.refs[contract].contractAddresses[instanceId];
+    const contractAddress = contract.startsWith('ex') || contract.startsWith('0x') ? contract : this.refs[contract].contractAddresses[instanceId];
     return cosmwasmClient.queryContractSmart(contractAddress, msg);
   }
 
@@ -30,9 +30,16 @@ export class ExchainClientExtra {
     funds?: Coin[],
     instanceId = 'default',
   ): Promise<ExecuteResult> {
-    const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(this.httpEndpoint, wallet,{gasPrice: DefaulrGasPrice, });
+    const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(
+      this.httpEndpoint,
+      wallet,
+      {
+        gasPrice: DefaulrGasPrice,
+        broadcastTimeoutMs: 600_000,
+      },
+    );
     const account = await wallet.getAccounts();
-    const contractAddress = contract.startsWith('ex') ? contract : this.refs[contract].contractAddresses[instanceId];
+    const contractAddress = contract.startsWith('ex') || contract.startsWith('0x') ? contract : this.refs[contract].contractAddresses[instanceId];
     const res = await cosmwasmClient.execute(account[0].address, contractAddress, msg, 'auto', 'execute', funds);
     return res;
   }

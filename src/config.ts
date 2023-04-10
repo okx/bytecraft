@@ -105,7 +105,10 @@ export const saveConfig = (
 
 export const loadConfig = (
   path = `${__dirname}/template/config.json`,
-) => config(fs.readJSONSync(path));
+) => {
+  const c = config(fs.readJSONSync(path));
+  return c;
+};
 
 export const loadGlobalConfig = (
   path = `${__dirname}/template/config.json`,

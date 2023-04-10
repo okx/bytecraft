@@ -19,6 +19,10 @@ export default class ContractInstantiate extends Command {
       description:
         'specific codeId to instantiate',
     }),
+    'admin-address': flags.string({
+      description: 'set custom address as contract admin to allow migration.',
+      default:'',
+    }),
     ...flag.cliPaths,
   };
 
@@ -35,7 +39,6 @@ export default class ContractInstantiate extends Command {
       const connections = loadConnections(flags['config-path']);
       const config = loadConfig(flags['config-path']);
       const conf = config(flags.network, args.contract);
-
       const httpEndpoint = connections(flags.network);
       const signer = await getSigner({
         network: flags.network,
@@ -44,7 +47,7 @@ export default class ContractInstantiate extends Command {
       });
 
       const accounts = await signer.getAccounts();
-      const admin = accounts[0].address;
+      const admin = flags['admin-address'];
 
       await instantiate({
         conf,
@@ -53,6 +56,7 @@ export default class ContractInstantiate extends Command {
         contract: args.contract,
         codeId: flags['code-id'],
         network: flags.network,
+        label: args.contract,
         instanceId: flags['instance-id'],
         refsPath: flags['refs-path'],
         httpEndpoint: httpEndpoint.URL,

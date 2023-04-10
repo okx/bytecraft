@@ -143,6 +143,7 @@ export const getEnv = async (
       ) => instantiate({
         instanceId: options?.instanceId,
         codeId: options?.codeId,
+        label: contract,
         signer,
         contract,
         network,

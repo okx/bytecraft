@@ -202,6 +202,7 @@ type InstantiateParams = {
   admin?: string;
   contract: string;
   codeId?: number;
+  label: string
   instanceId?: string;
   sequence?: number;
 };
@@ -215,6 +216,7 @@ export const instantiate = async ({
   admin,
   contract,
   codeId,
+  label,
   instanceId,
 }: InstantiateParams) => {
   const { instantiation } = conf;
@@ -237,7 +239,7 @@ export const instantiate = async ({
   );
   const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(httpEndpoint, signer, { gasPrice: DefaulrGasPrice });
   const account = await signer.getAccounts();
-  const res = await cosmwasmClient.instantiate(account[0].address, actualCodeId, instantiation.instantiateMsg, 'Instantiate', 'auto', { admin });
+  const res = await cosmwasmClient.instantiate(account[0].address, actualCodeId, instantiation.instantiateMsg, label, 'auto', { admin });
   cli.action.stop();
   const updatedRefs = setContractAddress(
     network,

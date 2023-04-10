@@ -18,6 +18,7 @@ export default class Deploy extends Command {
     'instance-id': flag.instanceId,
     'admin-address': flags.string({
       description: 'set custom address as contract admin to allow migration.',
+      default:'',
     }),
     ...flag.cliPaths,
   };
@@ -43,7 +44,6 @@ export default class Deploy extends Command {
         signerId: flags.signer,
         keysPath: flags['keys-path'],
       });
-
       if (conf.deployTask) {
         await this.config.runCommand('task:run', [
           conf.deployTask,
@@ -70,14 +70,14 @@ export default class Deploy extends Command {
           useCargoWorkspace: globalConfig.useCargoWorkspace,
         });
 
+
         // pause for account sequence to update.
         // eslint-disable-next-line no-promise-executor-return
         await new Promise((r) => setTimeout(r, 1000));
-        const accounts = await signer.getAccounts();
-        const admin = flags['admin-address']
-          ? flags['admin-address']
-          : accounts[0].address;
-
+        // const accounts = await signer.getAccounts();
+        const admin = flags['admin-address'];
+        // ? flags['admin-address']
+        // : accounts[0].address;
         await instantiate({
           conf,
           signer,
@@ -87,6 +87,7 @@ export default class Deploy extends Command {
           network: flags.network,
           instanceId: flags['instance-id'],
           refsPath: flags['refs-path'],
+          label: args.contract,
           httpEndpoint: httpEndpoint.URL,
         });
       }
