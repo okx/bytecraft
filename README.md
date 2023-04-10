@@ -124,6 +124,72 @@ The `bytecraft deploy` command does the following:
 - Builds, optimizes, and stores the wasm code on the blockchain.
 - Instantiates the contract.
 
+About Instantiating wasm contract, we need provide a instantiate msg, it is defined in the `config.json` file. There is a default msg in `_global._base` section, is for all contracts. If you want to specify instantiate msg for different contrats, you can add the bleow content to `_global` section in the `config.json` file, also add it to the network section in the `config.json` file.
+
+```json
+"contracts": {
+	"mydapp": {
+	"instantiation": {
+        "instantiateMsg": {
+          "count": 1
+        }
+      }	
+	}	
+ }
+```
+
+config.json
+
+```json
+{
+    "_global":{
+        "_base":{
+            "instantiation":{
+                "instantiateMsg":{
+                    "count":0
+                }
+            }
+        },
+        "contracts":{
+            "mydapp":{
+                "instantiation":{
+                    "instantiateMsg":{
+                        "count":1
+                    }
+                }
+            }
+        }
+    },
+    "mainnet":{
+        "_connection":{
+            "chainID":"exchain-66",
+            "URL":"https://exchaintmrpc.okex.org"
+        }
+    },
+    "testnet":{
+        "_connection":{
+            "chainID":"exchain-65",
+            "URL":"https://exchaintesttmrpc.okex.org"
+        }
+    },
+    "localnet":{
+        "_connection":{
+            "chainID":"exchain-67",
+            "URL":"http://localhost:26657"
+        },
+        "contracts":{
+            "mydapp":{
+                "instantiation":{
+                    "instantiateMsg":{
+                        "count":1
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
 To deploy your new my-wasm-dapp smart contract, run the following command in the terminal.
 
 ```sh
@@ -463,7 +529,7 @@ DESCRIPTION
   contracts.
 ```
 
-_See code: [src/commands/console.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/console.ts)_
+_See code: [src/commands/console.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/console.ts)_
 
 ## `bytecraft contract:build CONTRACT`
 
@@ -480,7 +546,7 @@ DESCRIPTION
   Build wasm bytecode.
 ```
 
-_See code: [src/commands/contract/build.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/build.ts)_
+_See code: [src/commands/contract/build.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/build.ts)_
 
 ## `bytecraft contract:generateClient CONTRACT`
 
@@ -498,7 +564,7 @@ DESCRIPTION
   Generate a Chain TypeScript client.
 ```
 
-_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/generateClient.ts)_
+_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/generateClient.ts)_
 
 ## `bytecraft contract:instantiate CONTRACT`
 
@@ -507,22 +573,23 @@ Instantiate the contract.
 ```
 USAGE
   $ bytecraft contract:instantiate [CONTRACT] [--signer <value>] [--network <value>] [--instance-id <value>] [--code-id
-    <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
+    <value>] [--admin-address <value>] [--config-path <value>] [--refs-path <value>] [--keys-path <value>]
 
 FLAGS
-  --code-id=<value>      specific codeId to instantiate
-  --config-path=<value>  [default: ./config.json]
-  --instance-id=<value>  [default: default]
-  --keys-path=<value>    [default: ./keys.js]
-  --network=<value>      [default: localnet] network to deploy to from config.json
-  --refs-path=<value>    [default: ./refs.json]
-  --signer=<value>       [default: test]
+  --admin-address=<value>  set custom address as contract admin to allow migration.
+  --code-id=<value>        specific codeId to instantiate
+  --config-path=<value>    [default: ./config.json]
+  --instance-id=<value>    [default: default]
+  --keys-path=<value>      [default: ./keys.js]
+  --network=<value>        [default: localnet] network to deploy to from config.json
+  --refs-path=<value>      [default: ./refs.json]
+  --signer=<value>         [default: test]
 
 DESCRIPTION
   Instantiate the contract.
 ```
 
-_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/instantiate.ts)_
+_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/instantiate.ts)_
 
 ## `bytecraft contract:migrate CONTRACT`
 
@@ -546,7 +613,7 @@ DESCRIPTION
   Migrate the contract.
 ```
 
-_See code: [src/commands/contract/migrate.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/migrate.ts)_
+_See code: [src/commands/contract/migrate.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/migrate.ts)_
 
 ## `bytecraft contract:new NAME`
 
@@ -572,7 +639,7 @@ EXAMPLES
   $ bytecraft code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/contract/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/new.ts)_
+_See code: [src/commands/contract/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/new.ts)_
 
 ## `bytecraft contract:optimize CONTRACT`
 
@@ -589,7 +656,7 @@ DESCRIPTION
   Optimize wasm bytecode.
 ```
 
-_See code: [src/commands/contract/optimize.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/optimize.ts)_
+_See code: [src/commands/contract/optimize.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/optimize.ts)_
 
 ## `bytecraft contract:store CONTRACT`
 
@@ -612,7 +679,7 @@ DESCRIPTION
   Store code on chain.
 ```
 
-_See code: [src/commands/contract/store.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/store.ts)_
+_See code: [src/commands/contract/store.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/store.ts)_
 
 ## `bytecraft contract:updateAdmin CONTRACT ADMIN`
 
@@ -635,7 +702,7 @@ DESCRIPTION
   Update the admin of a contract.
 ```
 
-_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/contract/updateAdmin.ts)_
+_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/updateAdmin.ts)_
 
 ## `bytecraft deploy CONTRACT`
 
@@ -660,7 +727,7 @@ DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/deploy.ts)_
 
 ## `bytecraft help [COMMAND]`
 
@@ -706,7 +773,7 @@ EXAMPLES
   $ bytecraft new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/new.ts)_
 
 ## `bytecraft task:new [TASK]`
 
@@ -720,7 +787,7 @@ DESCRIPTION
   create new task
 ```
 
-_See code: [src/commands/task/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/task/new.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/task/new.ts)_
 
 ## `bytecraft task:run [TASK]`
 
@@ -742,7 +809,7 @@ DESCRIPTION
   run predefined task
 ```
 
-_See code: [src/commands/task/run.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/task/run.ts)_
+_See code: [src/commands/task/run.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/task/run.ts)_
 
 ## `bytecraft test CONTRACT-NAME`
 
@@ -764,7 +831,7 @@ EXAMPLES
   $ bytecraft test counter --no-fail-fast
 ```
 
-_See code: [src/commands/test.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/test.ts)_
 
 ## `bytecraft test:coverage [CONTRACT-NAME]`
 
@@ -783,7 +850,7 @@ EXAMPLES
   $ bytecraft test:coverage counter
 ```
 
-_See code: [src/commands/test/coverage.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/test/coverage.ts)_
+_See code: [src/commands/test/coverage.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/test/coverage.ts)_
 
 ## `bytecraft wallet:new`
 
@@ -800,5 +867,5 @@ DESCRIPTION
   Generate a new wallet to use for signing contracts
 ```
 
-_See code: [src/commands/wallet/new.ts](https://github.com/okx/bytecraft/blob/v0.1.7/src/commands/wallet/new.ts)_
+_See code: [src/commands/wallet/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/wallet/new.ts)_
 <!-- commandsstop -->

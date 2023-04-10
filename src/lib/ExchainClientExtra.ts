@@ -30,12 +30,14 @@ export class ExchainClientExtra {
     funds?: Coin[],
     instanceId = 'default',
   ): Promise<ExecuteResult> {
+
     const cosmwasmClient = await SigningCosmWasmClient.connectWithSigner(
       this.httpEndpoint,
       wallet,
       {
         gasPrice: DefaulrGasPrice,
-        broadcastTimeoutMs: 600_000,
+        broadcastTimeoutMs: 60_000,
+        broadcastPollIntervalMs: 60_000,
       },
     );
     const account = await wallet.getAccounts();
