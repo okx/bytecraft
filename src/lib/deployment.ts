@@ -57,7 +57,7 @@ const optimizeContract = async ({
   const folder = path.join('contracts', contract);
   process.chdir(folder);
 
-  const image = `cosmwasm/rust-optimizer${arm64 ? '-arm64' : ''}:0.12.6`;
+  const image = `cosmwasm/rust-optimizer${arm64 ? '-arm64' : ''}:0.12.13`;
 
   execDockerOptimization(image, contract);
 
@@ -68,7 +68,7 @@ const optimizeWorkspace = async ({
   contract,
   arm64,
 }: OptimizeContractParams) => {
-  const image = `cosmwasm/workspace-optimizer${arm64 ? '-arm64' : ''}:0.12.6`;
+  const image = `cosmwasm/workspace-optimizer${arm64 ? '-arm64' : ''}:0.12.13`;
   execDockerOptimization(image, contract);
 };
 
