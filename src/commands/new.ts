@@ -21,7 +21,7 @@ export default class New extends Command {
       default: '.',
     }),
     version: flags.string({
-      default: '1.0',
+      default: '0.0.1',
     }),
     authors: flags.string({
       default: 'OKC <okc@okg.com>',
@@ -42,7 +42,7 @@ export default class New extends Command {
 
     const templateEntries = {
       'project-name': args.name,
-      'contract-name': `${pascal(args.name)}Contract`,
+      'contract-name': `${pascal(args.name)}.client`,
       'client-name': `${pascal(args.name)}Client`,
       // Crates cannot have dashes, and Rust will map underscores to dashes for us.
       crate_name: args.name.replaceAll('-', '_'),
@@ -65,9 +65,11 @@ export default class New extends Command {
     cli.action.stop();
 
     cli.action.start('- contract');
+
+    console.log(`https://codeload.github.com/okx/wasm-sylvia-template/zip/refs/tags/v${flags.version}`);
     await TemplateScaffolding.from({
-      remoteUrl: `https://codeload.github.com/InterWasm/cw-template/zip/refs/heads/${flags.version}`,
-      subFolder: `cw-template-${flags.version}`,
+      remoteUrl: `https://codeload.github.com/okx/wasm-sylvia-template/zip/refs/tags/v${flags.version}`,
+      subFolder: `wasm-sylvia-template-${flags.version}`,
       localOptions: {
         folderUrl: contractDir,
       },

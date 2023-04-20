@@ -1,10 +1,5 @@
 # ByteCraft
-[简体中文](./README_zh_cn.md)
----
-
-<p align="center">
-  <b>ByteCraft</b> - A Wasm development environment for seamless smart contract development.
-</p>
+A Wasm development environment for seamless smart contract development.
 
 ---
 
@@ -13,47 +8,15 @@ ByteCraft allows you to:
 - Scaffold a template smart contract app development.
 - Dramatically simplify the development and deployment process.
 
----
+## Bytecraft initial setup
 
-# Table of contents
+### Install docker
 
-<!-- toc -->
-* [ByteCraft](#bytecraft)
-* [Table of contents](#table-of-contents)
-* [Setup](#setup)
-* [Getting Started](#getting-started)
-* [Migrating CosmWasm Contracts](#migrating-cosmwasm-contracts)
-* [Use ByteCraft Main Branch Locally](#use-bytecraft-main-branch-locally)
-* [ByteCraft Commands](#bytecraft-commands)
-<!-- tocstop -->
+For building and optimizing WASM smart contracts, we recommend to install docker on your personal computer. 
 
-# Setup
+we can download docker desktop from [here](https://www.docker.com/), then following official install guideline to install it.
 
-## Download exchain
-
-For testing purposes, we recommend to install and run exchain on your personal computer. 
-
-To run local exchain, do the following:
-
-1. Clone the exchain repo.
-
-```
-git clone https://github.com/okx/exchain.git
-```
-
-2. Navigate to the dev directory.
-
-```
-cd dev
-```
-
-3. Spin up an exchain instance with start.sh script.
-
-```
-./start.sh
-```
-
-## Setup Rust
+### Setup Rust
 
 While WASM smart contracts can be written in any programming language, **it is strongly recommended that you utilize Rust**, as it is the only language for which mature libraries and tooling exist for CosmWasm. To complete this tutorial, install the latest version of Rust by following the instructions <a href="https://www.rust-lang.org/tools/install" target="_blank">here</a>. Once Rust is installed on your computer, do the following:
 
@@ -75,40 +38,55 @@ rustup target add wasm32-unknown-unknown
 cargo install cargo-run-script
 ```
 
-## Install Node JS and NPM
+### Install Node JS and NPM
 
 To run ByteCraft, you will need to install version 16 of Node.js and download Node Package Manager (npm). It is recommend that you install [Node.js v16 (LTS)](https://nodejs.org/en/download/). If you download the LTS version of Node.js v16, npm will be automatically installed along with your download.
 
-# Getting Started
+### Install ts-codegen
 
-Now that you have completed the initial setup, generate your first smart contract using the procedure described below.
+To interactive with contract, we can use `ts-codegen` to generate contract client.
 
-1. Install the bytecraft package globally.
+```shell
+npm install -g @cosmwasm/ts-codegen
+```
+
+### Install Bytecraft
+
+Now that you have completed the initial setup, you can install bytecraft using the procedure described below.
+
+Install the bytecraft package globally.
 
 ```sh
 npm install -g @okexchain/bytecraft
 ```
 
-2. Generate your smart contract templates.
+## Use Bytecraft with OKTC testnet
+
+
+### Getting Started
+
+Now that you have installed bytecraft,  generate your first smart contract using the procedure described below.
+
+1. Generate your smart contract templates with `bytecraft new` command.
 
 ```sh
-bytecraft new my-wasm-dapp
+bytecraft new mydapp
 ```
 
-3. After the project is generated and all necessary Node dependencies are installed, navigate to the new `my-wasm-dapp` directory to interact with your app.
+2. After the project is generated and all necessary Node dependencies are installed, navigate to the new `mydapp` directory to interact with your app.
 
 ```sh
-cd my-wasm-dapp
+cd mydapp
 ```
 
-## Project Structure
+### Project Structure
 
-The `bytecraft new` command generates a project that contains a template smart contract, which is named after the specified app name, `my-wasm-dapp`. Other supporting files are generated to provide further functionality. You may view the project structure below.
+The `bytecraft new` command generates a project that contains a template smart contract, which is named after the specified app name, `mydapp`. Other supporting files are generated to provide further functionality. You may view the project structure below.
 
 ```
 .
 ├── contracts              # the smart contract directory
-│   ├── my-wasm-dapp      # template smart contract
+│   ├── mydapp             # template smart contract
 │   └── ...
 ├── lib                    # predefined task and console functions
 ├── tasks                  # predefined tasks
@@ -117,100 +95,142 @@ The `bytecraft new` command generates a project that contains a template smart c
 └── refs.json      				# deployed code and contract references
 ```
 
-## Deployment
+### Deployment Contract
 
 The `bytecraft deploy` command does the following:
 
 - Builds, optimizes, and stores the wasm code on the blockchain.
 - Instantiates the contract.
 
-About Instantiating wasm contract, we need provide a instantiate msg, it is defined in the `config.json` file. There is a default msg in `_global._base` section, is for all contracts. If you want to specify instantiate msg for different contrats, you can add the bleow content to `_global` section in the `config.json` file, also add it to the network section in the `config.json` file.
-
-```json
-"contracts": {
-	"mydapp": {
-	"instantiation": {
-        "instantiateMsg": {
-          "count": 1
-        }
-      }	
-	}	
- }
-```
-
-config.json
+As you can see the `config.json` file in the project, There predefined three networks for you:
 
 ```json
 {
-    "_global":{
-        "_base":{
-            "instantiation":{
-                "instantiateMsg":{
-                    "count":0
-                }
-            }
-        },
-        "contracts":{
-            "mydapp":{
-                "instantiation":{
-                    "instantiateMsg":{
-                        "count":1
-                    }
-                }
-            }
+  "_global": {
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
         }
+      }
     },
-    "mainnet":{
-        "_connection":{
-            "chainID":"exchain-66",
-            "URL":"https://exchaintmrpc.okex.org"
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
         }
-    },
-    "testnet":{
-        "_connection":{
-            "chainID":"exchain-65",
-            "URL":"https://exchaintesttmrpc.okex.org"
-        }
-    },
-    "localnet":{
-        "_connection":{
-            "chainID":"exchain-67",
-            "URL":"http://localhost:26657"
-        },
-        "contracts":{
-            "mydapp":{
-                "instantiation":{
-                    "instantiateMsg":{
-                        "count":1
-                    }
-                }
-            }
-        }
+      }
     }
+  },
+  "mainnet": {
+    "_connection": {
+      "chainID": "exchain-66",
+      "URL": "https://exchaintmrpc.okex.org"
+    },
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
+        }
+      }
+    },
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
+        }
+      }
+    }
+  },
+  "testnet": {
+    "_connection": {
+      "chainID": "exchain-65",
+      "URL": "https://exchaintesttmrpc.okex.org"
+    },
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
+        }
+      }
+    },
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
+        }
+      }
+    }
+  },
+  "localnet": {
+    "_connection": {
+      "chainID": "exchain-67",
+      "URL": "http://localhost:26657"
+    },
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
+        }
+      }
+    },
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
+        }
+      }
+    }
+  }
 }
+
 ```
 
-To deploy your new my-wasm-dapp smart contract, run the following command in the terminal.
+also  there predefined instantiateMsg for mydapp contract.
+
+To deploy your new mydapp smart contract on OKTC testnet, run the following command in the terminal with extral flag `--network testnet`.
 
 ```sh
- bytecraft deploy my-wasm-dapp --signer test
+ bytecraft deploy mydapp --signer test --network testnet
 ```
 
 In this case, `test`, as our signer. The signer account will be responsible for paying the gas fee associated with deploying the contract to the exchain blockchain and will be assigned as the owner of the project.
 
-You can also specify the network on which you would like to deploy your contract by adding the `--network` flag. If the network is not specified, as is the case in our above example, your contract will be deployed to `localnet` by default. If your deployment command in the prior step resulted in an error, you will need to ensure that localnet is up and running in the background and that you have properly spelled out your contract name and are utilizing the appropriate ByteCraft command. You may also deploy to `mainnet`, the live exchain blockchain, as well as `testnet`, a network similar to mainnet used for testing.
+The network is specified with `testnet`. your  contract will be deployed to OKTC `testnet`
 
-### Step-by-step Deployment
-
-You can also execute the build, optimize, store, and instantiate processes separately by executing the following commands in sequential order.
-1. [`bytecraft contract:build CONTRACT`](#bytecraft-contractbuild-contract)
-2. [`bytecraft contract:optimize CONTRACT`](#bytecraft-contractoptimize-contract)
-3. [`bytecraft contract:store CONTRACT`](#bytecraft-contractstore-contract)
-4. [`bytecraft contract:instantiate CONTRACT`](#bytecraft-contractinstantiate-contract)
-
-<br/>
-
-### Deploying on Testnet or Mainnet
+### Deploying on OKTC Testnet
 
 You should  add a personal account to the `keys.js` file by adding the account name as well as its corresponding private key. You can then use that account as the signer specifying the account name after the `--signer` flag in the `bytecraft deploy` command.
 
@@ -236,16 +256,16 @@ Prior to deploying your contract, ensure that your signer wallet contains the fu
 You can retrieve the wallet address associated with the `alice` account by executing the `bytecraft console` command in your terminal while in your project directory.
 
 ```sh
-bytecraft console
+bytecraft console 
 
-bytecraft > wallets.alice.accAddress
+bytecraft > wallets.alice.address
 'ex1g0xzwvmm7mwxck5fw9y8pygq98gep9lx6m2l6e'
 ```
 
-Then, exit the bytecraft console and deploy the `my-wasm-dapp` smart contract to testnet with the `test` account as the signer.
+Then, exit the bytecraft console and deploy the `mydapp` smart contract to testnet with the `test` account as the signer.
 
 ```sh
-bytecraft deploy my-wasm-dapp --signer test --network testnet
+bytecraft deploy mydapp --signer test --network testnet
 ```
 
 After deployment, the `refs.json` file will be updated in the project directory. These files contain references to all contracts inside of your project which have been stored on any exchain network. This information is utilized by bytecraft's utility functions. An example of `refs.json` can be found below:
@@ -256,68 +276,62 @@ After deployment, the `refs.json` file will be updated in the project directory.
     "counter": {
       "codeId": "1",
       "contractAddresses": {
-        "default": "ex10qt8wg0n7z740ssvf3urmvgtjhxpyp74hxqvqt7z226gykuus7equ3f4hk"
+        "default": "0xC95c37310b4376Bd70158e34004467715af31a29"
       }
     }
   },
   "testnet": {
-    "my-wasm-dapp": {
+    "mydapp": {
       "codeId": "18160",
       "contractAddresses": {
-        "default": "ex1wr6vc3g4caz9aclgjacxewr0pjlre9wl2uhq73rp8mawwmqaczsq6p3y6f"
+        "default": "0x7384cd0a90Ff50368a917779B1824d7738Ad90e5"
       }
     }
   }
 }
 ```
 
-
-
-## Run Contract Functions with ByteCraft
+### Run Contract Functions with Bytecraft
 
 Once you have successfully deployed your project, you can interact with the deployed contract and the underlying blockchain by utilizing functions defined in the `lib/index.js` file. You may also create your own abstractions in this file for querying or executing transactions. 
 
 You can call the functions defined in `lib/index.js` inside of the `bytecraft console`. An example using the template counter smart contract is shown below.
 
 ```sh
-bytecraft console
-bytecraft > await lib.getCount()
-{ count: 0 }
-bytecraft > await lib.increment()
-bytecraft > await lib.getCount()
-{ count: 1 }
+bytecraft console --signer test --network testnet
+bytecraft > lib.freeze()
+{
+  logs: [ { msg_index: 0, log: '', events: [Array] } ],
+  height: 789,
+  transactionHash: '204F26178715664FE3B3E3660961D0A5C3517C4710258005F65D189EE68CE87E',
+  gasWanted: 281616,
+  gasUsed: 152504
+}
 ```
 
-You may also specify which network you would like to interact with by utilizing the `--network` flag with the `bytecraft console` command.
+### Creating Tasks
 
-```
-bytecraft console --network NETWORK
-```
-
-## Creating Tasks
-
-You can utilize the functions available inside of the `lib/index.js` file to create tasks. Tasks are utilized in order to automate the execution of sequential functions or commands. An example task is provided for you in the `tasks/example-with-lib.js` file in your project directory.
+You can utilize the functions available inside of the `lib/index.ts` file to create tasks. Tasks are utilized in order to automate the execution of sequential functions or commands. An example task is provided for you in the `tasks/template.ts` file in your project directory.
 
 ```js
-// tasks/example-with-lib.js
+// tasks/template.ts
 
 import { Env, task } from "@okexchain/bytecraft";
-import Lib from '../lib';
 
-task(async (env: Env) => {
-  const lib = new Lib(env);
-  console.log("count 1 = ", await lib.getCount());
-  
-  await lib.increment();
-  console.log("count 2 = ", await lib.getCount());
+task(async (env:Env) => {
+  await env.client.execute(env.client.refs.mydapp.contractAddresses.default, env.defaultWallet, {
+    freeze: {},
+  });
+  console.log("freeze done!")
 });
+
 
 ```
 
 To run the example task shown above, which is located in the `tasks/example-with-lib.js` file, run the following command in the terminal.
 
 ```sh
-bytecraft task:run example-with-lib
+bytecraft task:run template --signer test --network testnet
 ```
 
 In order to create a new task, run the following command replacing `<task-name>` with the desired name for your new task.
@@ -326,7 +340,7 @@ In order to create a new task, run the following command replacing `<task-name>`
 bytecraft task:new <task-name>
 ```
 
-## Scripting deployments
+### Scripting deployments
 
 It is possible to deploy and instantiate contracts from tasks. This can be useful for multi-contract, or multi-stage deployments. 
 
@@ -337,6 +351,10 @@ task(async ({ defaultWallet, client, deploy }) => {
     // First deploy the counter smart contract.
     await deploy.storeCode('mydapp', defaultWallet);
     const accounts = await defaultWallet.getAccounts()
+    
+  
+    let initMsg = {"admins":[accounts[0].address],"mutable":true}
+    
     const counterAddress = await deploy.instantiate(
         // Contract name
         'mydapp',
@@ -345,7 +363,7 @@ task(async ({ defaultWallet, client, deploy }) => {
         {
             // Contract admin
             admin: accounts[0].address,
-            init: {count: 1},
+            init: initMsg,
         },
     );
 
@@ -379,115 +397,389 @@ task(async ({ defaultWallet, client, deploy }) => {
 });
 ```
 
-It is possible to tell ByteCraft to use a custom deploy task instead of the default deploy process. To do this, add the following to the `_global` section in `config.json`:
+It is possible to tell ByteCraft to use a custom deploy task instead of the default deploy process. To do this, add the following to the section in `config.json`:
 
 ```json
 "contracts": {
-  "counter": {
+  "mydapp": {
     "deployTask": "deploy_counter"
   }
 }
 ```
 
-Now instead of running `bytecraft task:run deploy_counter` you can run `bytecraft deploy counter`.
+Now instead of running `bytecraft task:run deploy_counter --signer test --network testnet` you can run `bytecraft deploy mydapp --signer test --network testnet`.
 
-# Migrating CosmWasm Contracts
+## Use Bytecraft with OKTC mainnet
 
-On Exchain, it is possible to initialize a contract as migratable. This functionality allows the administrator to upload a new version of the contract and then send a migrate message to move to the new code. Contracts that have been deployed before implementing the following changes will not be able to be migrated and implemented changes will only be realized when redeploying the contract.
+### Getting Started
 
-## Adding MigrateMsg to the Contract
+Now that you have installed bytecraft,  generate your first smart contract using the procedure described below.
 
-In order for a contract to be migratable, it must be able to handle a `MigrateMsg` transaction.
+1. Generate your smart contract templates with `bytecraft new` command.
 
-To implement support for `MigrateMsg`, add the message to the `msg.rs` file. To do so, navigate to `msg.rs` and place the following code just above the `InstantiateMsg` struct.
-
-```rust
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct MigrateMsg {}
+```
+bytecraft new mydapp
 ```
 
-With `MigrateMsg` defined, update the `contract.rs` file. First, update the import from `crate::msg` to include `MigrateMsg`.
+1. After the project is generated and all necessary Node dependencies are installed, navigate to the new `mydapp` directory to interact with your app.
 
-```rust
-use crate::msg::{CountResponse, ExecuteMsg, InstantiateMsg, QueryMsg, MigrateMsg};
+```
+cd mydapp
 ```
 
-Next, add the following method above `instantiate`.
+### Project Structure
 
-```rust
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn migrate(_deps: DepsMut, _env: Env, _msg: MigrateMsg) -> StdResult<Response> {
-    Ok(Response::default())
+The `bytecraft new` command generates a project that contains a template smart contract, which is named after the specified app name, `mydapp`. Other supporting files are generated to provide further functionality. You may view the project structure below.
+
+```
+.
+├── contracts              # the smart contract directory
+│   ├── mydapp      # template smart contract
+│   └── ...
+├── lib                    # predefined task and console functions
+├── tasks                  # predefined tasks
+├── keys.js               # keys for signing transactions
+├── config.json           # config for connections and contract deployments
+└── refs.json             # deployed code and contract references
+```
+
+### Deployment Contract
+
+The `bytecraft deploy` command does the following:
+
+- Builds, optimizes, and stores the wasm code on the blockchain.
+- Instantiates the contract.
+
+As you can see the `config.json` file in the project, There predefined three networks for you:
+
+```
+{
+  "_global": {
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
+        }
+      }
+    },
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
+        }
+      }
+    }
+  },
+  "mainnet": {
+    "_connection": {
+      "chainID": "exchain-66",
+      "URL": "https://exchaintmrpc.okex.org"
+    },
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
+        }
+      }
+    },
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
+        }
+      }
+    }
+  },
+  "testnet": {
+    "_connection": {
+      "chainID": "exchain-65",
+      "URL": "https://exchaintesttmrpc.okex.org"
+    },
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
+        }
+      }
+    },
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
+        }
+      }
+    }
+  },
+  "localnet": {
+    "_connection": {
+      "chainID": "exchain-67",
+      "URL": "http://localhost:26657"
+    },
+    "_base": {
+      "instantiation": {
+        "instantiateMsg": {
+          "admins": [
+            "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+          ],
+          "mutable": true
+        }
+      }
+    },
+    "contracts": {
+      "mydapp": {
+        "instantiation": {
+          "instantiateMsg": {
+            "admins": [
+              "0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A"
+            ],
+            "mutable": true
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+
+To deploy your new my-wasm-dapp smart contract on OKTC mainnet, run the following command in the terminal with extral flag `--network mainnet`.
+
+```
+ bytecraft deploy mydapp --signer test --network mainnet
+```
+
+In this case, `test`, as our signer. The signer account will be responsible for paying the gas fee associated with deploying the contract to the exchain blockchain and will be assigned as the owner of the project.
+
+The network is specified with `mainnet`. your  contract will be deployed to OKTC `mainnet`
+
+### Deploying on OKTC Testnet
+
+You should  add a personal account to the `keys.js` file by adding the account name as well as its corresponding private key. You can then use that account as the signer specifying the account name after the `--signer` flag in the `bytecraft deploy` command.
+
+**Warning:** *Utilizing a personal account for deployment requires the use of a private key or mnemonic. These are private keys that are generated upon the creation of your personal wallet. Saving or utilizing these keys on your personal computer may expose them to malicious actors who could gain access to your personal wallet if they are able to obtain them. You can create a wallet solely for testing purposes to eliminate risk. Alternatively, you can store your private keys as secret environment variables which you can then reference utilizing `process.env.SECRET_VAR` in `keys.json`. Use your private key or mnemonic at your own discretion.*
+
+```
+// can use `process.env.SECRET_MNEMONIC` or `process.env.SECRET_PRIV_KEY`
+// to populate secret in CI environment instead of hardcoding
+
+module.exports = {
+  test: {
+    mnemonic:
+      "abstract milk alien mosquito consider swarm write outside detail faith peanut feel",
+  },
+  alice: {
+    privateKey: "43792143508f053a8b82dd83e1d56c82dc04cd0fcc86220175ef591911fa65c1",
+  },
+};
+```
+
+Prior to deploying your contract, ensure that your signer wallet contains the funds needed to pay for associated transaction fees.
+
+You can retrieve the wallet address associated with the `alice` account by executing the `bytecraft console` command in your terminal while in your project directory.
+
+```
+bytecraft console 
+
+bytecraft > wallets.alice.address
+'ex1g0xzwvmm7mwxck5fw9y8pygq98gep9lx6m2l6e'
+```
+
+Then, exit the bytecraft console and deploy the `mydapp` smart contract to testnet with the `test` account as the signer.
+
+```
+bytecraft deploy mydapp --signer test --network mainnet
+```
+
+After deployment, the `refs.json` file will be updated in the project directory. These files contain references to all contracts inside of your project which have been stored on any exchain network. This information is utilized by bytecraft's utility functions. An example of `refs.json` can be found below:
+
+```
+{
+  "localnet": {
+    "counter": {
+      "codeId": "1",
+      "contractAddresses": {
+        "default": "0xC95c37310b4376Bd70158e34004467715af31a29"
+      }
+    }
+  },
+  "testnet": {
+    "mydapp": {
+      "codeId": "18160",
+      "contractAddresses": {
+        "default": "0x7384cd0a90Ff50368a917779B1824d7738Ad90e5"
+      }
+    }
+  }
 }
 ```
 
-## Migrating the Contract
+### Run Contract Functions with Bytecraft
 
-Adding the MigrateMsg to the smart contract allows the contract's administrator to migrate the contract in the future.  When we deploy our contract, the wallet address of the signer will be automatically designated as the contract administrator.  In the following command, the contract is deployed with the preconfigured Localnet `test1` wallet as the signer and administrator of our counter contract. 
+Once you have successfully deployed your project, you can interact with the deployed contract and the underlying blockchain by utilizing functions defined in the `lib/index.js` file. You may also create your own abstractions in this file for querying or executing transactions. 
+
+You can call the functions defined in `lib/index.js` inside of the `bytecraft console`. An example using the template counter smart contract is shown below.
+
+```
+bytecraft console --signer test --network mainnet
+bytecraft > lib.freeze()
+{
+  logs: [ { msg_index: 0, log: '', events: [Array] } ],
+  height: 789,
+  transactionHash: '204F26178715664FE3B3E3660961D0A5C3517C4710258005F65D189EE68CE87E',
+  gasWanted: 281616,
+  gasUsed: 152504
+}
+```
+
+### Creating Tasks
+
+You can utilize the functions available inside of the `lib/index.ts` file to create tasks. Tasks are utilized in order to automate the execution of sequential functions or commands. An example task is provided for you in the `tasks/example-with-lib.ts` file in your project directory.
+
+```
+// tasks/template.ts
+
+import { Env, task } from "@okexchain/bytecraft";
+
+task(async (env:Env) => {
+  await env.client.execute(env.client.refs.mydapp.contractAddresses.default, env.defaultWallet, {
+    freeze: {},
+  });
+  console.log("freeze done!")
+});
+
+
+```
+
+To run the example task shown above, which is located in the `tasks/example-with-lib.js` file, run the following command in the terminal.
+
+```
+bytecraft task:run template --signer test --network mainnet
+```
+
+In order to create a new task, run the following command replacing `<task-name>` with the desired name for your new task.
+
+```
+bytecraft task:new <task-name>
+```
+
+### Scripting deployments
+
+It is possible to deploy and instantiate contracts from tasks. This can be useful for multi-contract, or multi-stage deployments. 
+
+```
+const { task } = require("@okexchain/bytecraft");
+
+task(async ({ defaultWallet, client, deploy }) => {
+    // First deploy the counter smart contract.
+    await deploy.storeCode('mydapp', defaultWallet);
+    const accounts = await defaultWallet.getAccounts()
+    
+  
+    let initMsg = {"admins":[accounts[0].address],"mutable":true}
+    
+    const counterAddress = await deploy.instantiate(
+        // Contract name
+        'mydapp',
+        // Signer
+        defaultWallet,
+        {
+            // Contract admin
+            admin: accounts[0].address,
+            init: initMsg,
+        },
+    );
+
+    // Now deploy a CW20 with the counter contract set as the minter in instantiation
+    await deploy.storeCode('cw20-base', defaultWallet);
+    const cw20Address = await deploy.instantiate(
+        // Contract name
+        'cw20-base',
+        // Signer
+        defaultWallet,
+        {
+            // Contract admin
+            admin: accounts[0].address,
+            init: {
+                name: "counter",
+                symbol: "CTR",
+                decimals: 6,
+                initial_balances: [],
+                mint: {
+                    minter: counterAddress,
+                },
+            },
+        },
+    );
+
+    await client.execute(counterAddress, defaultWallet, {
+        update_token: { token: cw20Address },
+    });
+
+    console.log(`CW20 Address: ${cw20Address}`);
+});
+```
+
+It is possible to tell ByteCraft to use a custom deploy task instead of the default deploy process. To do this, add the following to the section in `config.json`:
+
+```
+"contracts": {
+  "mydapp": {
+    "deployTask": "deploy_counter"
+  }
+}
+```
+
+Now instead of running `bytecraft task:run deploy_counter --signer test --network mainnet` you can run `bytecraft deploy mydapp --signer test --network mainnet`.
+
+## ByteCraft console
+
+Bytecraft console provide a javascript repl environment, you can interact with the deployed contract and the underlying blockchain by utilizing functions defined in the `lib/index.js` file. You may also create your own abstractions in this file for querying or executing transactions. 
+
+You can call the functions defined in `lib/index.js` inside of the `bytecraft console`. An example using the template counter smart contract is shown below.
 
 ```sh
-bytecraft deploy counter --signer test
+bytecraft console --signer test --network testnet
+bytecraft > await lib.getCount()
+{ count: 0 }
+bytecraft > await lib.increment()
+bytecraft > await lib.getCount()
+{ count: 1 }
 ```
 
-If you decide to make changes to the deployed contract, you can migrate to the updated code by executing the following command.
-
-```sh
-bytecraft contract:migrate counter --signer test
-```
-
-If you would like to specify the address of the desired administrator for your smart contract, you may utilize the `--admin-address` flag in the deploy command followed by the wallet address of the desired administrator.
-
-```sh
-bytecraft deploy counter --signer test --admin-address <insert-admin-wallet-address>
-```
-
-# Use ByteCraft Main Branch Locally
-
-In some cases, the latest features or bug fixes may be integrated into the main branch of the <a href="https://github.com/okx/bytecraft" target="_blank">ByteCraft Github repo</a>, but not yet released to the corresponding <a href="https://www.npmjs.com/package/@okexchain/bytecraft" target="_blank">npm package</a>. Subsequently, you may want to use the latest version of  ByteCraft available on Github before it has been released to npm. The below described method may also be utilized if you are interested in developing on and contributing to ByteCraft.
-
-<sub>**Warning:** _Features and bug fixes that are implemented on the latest version of ByteCraft may still be subject to testing. As such, you should only use the main branch of the ByteCraft github repo in exceptional circumstances. In all other cases, use the npm package._</sub>
-
-To use the main branch of the ByteCraft repo on your local machine, follow the procedure below.
-
-1. Clone the repo.
+You may also specify which network you would like to interact with by utilizing the `--network` flag with the `bytecraft console` command.
 
 ```
-git clone --branch main --depth 1 https://github.com/okx/bytecraft
+bytecraft console --network NETWORK
 ```
 
-2. Navigate to the project folder.
 
-```
-cd bytecraft
-```
+## ByteCraft Commands
 
-3. Inside the project folder, install all necessary node dependencies.
-
-```
-npm install
-```
-
-4.  Run the `npm link` command to set up the local repository as your global bytecraft instance.
-
-```
-npm link
-```
-
-If you would like to witness your changes immediately upon saving them, you may execute the following command while in your local ByteCraft directory and allow it to run in a tab in your terminal.
-
-```
-npm run watch
-```
-
-To unlink the bytecraft command from the cloned repository and revert back to the default functionality, you can execute the below command.
-
-```
-npm unlink bytecraft
-```
-
----
-
-# ByteCraft Commands
+Here are details about bytecarft commands you can read when you are confused about using it
 
 <!-- commands -->
 * [`bytecraft console`](#bytecraft-console)
@@ -529,7 +821,7 @@ DESCRIPTION
   contracts.
 ```
 
-_See code: [src/commands/console.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/console.ts)_
+_See code: [src/commands/console.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/console.ts)_
 
 ## `bytecraft contract:build CONTRACT`
 
@@ -546,7 +838,7 @@ DESCRIPTION
   Build wasm bytecode.
 ```
 
-_See code: [src/commands/contract/build.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/build.ts)_
+_See code: [src/commands/contract/build.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/build.ts)_
 
 ## `bytecraft contract:generateClient CONTRACT`
 
@@ -564,7 +856,7 @@ DESCRIPTION
   Generate a Chain TypeScript client.
 ```
 
-_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/generateClient.ts)_
+_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/generateClient.ts)_
 
 ## `bytecraft contract:instantiate CONTRACT`
 
@@ -589,7 +881,7 @@ DESCRIPTION
   Instantiate the contract.
 ```
 
-_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/instantiate.ts)_
+_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/instantiate.ts)_
 
 ## `bytecraft contract:migrate CONTRACT`
 
@@ -613,7 +905,7 @@ DESCRIPTION
   Migrate the contract.
 ```
 
-_See code: [src/commands/contract/migrate.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/migrate.ts)_
+_See code: [src/commands/contract/migrate.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/migrate.ts)_
 
 ## `bytecraft contract:new NAME`
 
@@ -626,7 +918,7 @@ USAGE
 FLAGS
   --authors=<value>  [default: OKX okc <core@okg.com>]
   --path=<value>     [default: contracts] path to keep the contracts
-  --version=<value>  [default: 1.0]
+  --version=<value>  [default: 0.0.1]
 
 DESCRIPTION
   Generate new contract.
@@ -639,7 +931,7 @@ EXAMPLES
   $ bytecraft code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/contract/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/new.ts)_
+_See code: [src/commands/contract/new.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/new.ts)_
 
 ## `bytecraft contract:optimize CONTRACT`
 
@@ -656,7 +948,7 @@ DESCRIPTION
   Optimize wasm bytecode.
 ```
 
-_See code: [src/commands/contract/optimize.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/optimize.ts)_
+_See code: [src/commands/contract/optimize.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/optimize.ts)_
 
 ## `bytecraft contract:store CONTRACT`
 
@@ -679,7 +971,7 @@ DESCRIPTION
   Store code on chain.
 ```
 
-_See code: [src/commands/contract/store.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/store.ts)_
+_See code: [src/commands/contract/store.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/store.ts)_
 
 ## `bytecraft contract:updateAdmin CONTRACT ADMIN`
 
@@ -702,7 +994,7 @@ DESCRIPTION
   Update the admin of a contract.
 ```
 
-_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/contract/updateAdmin.ts)_
+_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/contract/updateAdmin.ts)_
 
 ## `bytecraft deploy CONTRACT`
 
@@ -727,7 +1019,7 @@ DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/deploy.ts)_
 
 ## `bytecraft help [COMMAND]`
 
@@ -760,7 +1052,7 @@ USAGE
 FLAGS
   --authors=<value>  [default: OKC <okc@okg.com>]
   --path=<value>     [default: .] Path to create the workspace
-  --version=<value>  [default: 1.0]
+  --version=<value>  [default: 0.0.1]
 
 DESCRIPTION
   Create new dapp from template.
@@ -773,7 +1065,7 @@ EXAMPLES
   $ bytecraft new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/new.ts)_
 
 ## `bytecraft task:new [TASK]`
 
@@ -787,7 +1079,7 @@ DESCRIPTION
   create new task
 ```
 
-_See code: [src/commands/task/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/task/new.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/task/new.ts)_
 
 ## `bytecraft task:run [TASK]`
 
@@ -809,7 +1101,7 @@ DESCRIPTION
   run predefined task
 ```
 
-_See code: [src/commands/task/run.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/task/run.ts)_
+_See code: [src/commands/task/run.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/task/run.ts)_
 
 ## `bytecraft test CONTRACT-NAME`
 
@@ -831,7 +1123,7 @@ EXAMPLES
   $ bytecraft test counter --no-fail-fast
 ```
 
-_See code: [src/commands/test.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/test.ts)_
 
 ## `bytecraft test:coverage [CONTRACT-NAME]`
 
@@ -850,7 +1142,7 @@ EXAMPLES
   $ bytecraft test:coverage counter
 ```
 
-_See code: [src/commands/test/coverage.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/test/coverage.ts)_
+_See code: [src/commands/test/coverage.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/test/coverage.ts)_
 
 ## `bytecraft wallet:new`
 
@@ -867,5 +1159,5 @@ DESCRIPTION
   Generate a new wallet to use for signing contracts
 ```
 
-_See code: [src/commands/wallet/new.ts](https://github.com/okx/bytecraft/blob/v0.1.8/src/commands/wallet/new.ts)_
+_See code: [src/commands/wallet/new.ts](https://github.com/okx/bytecraft/blob/v0.1.9/src/commands/wallet/new.ts)_
 <!-- commandsstop -->

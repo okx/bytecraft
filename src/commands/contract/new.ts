@@ -21,7 +21,7 @@ export default class CodeNew extends Command {
       default: 'contracts',
     }),
     version: flags.string({
-      default: '1.0',
+      default: '0.0.1',
     }),
     authors: flags.string({
       default: 'OKX okc <core@okg.com>',
@@ -42,8 +42,8 @@ export default class CodeNew extends Command {
       cli.action.start('- contract');
 
       await TemplateScaffolding.from({
-        remoteUrl: `https://codeload.github.com/InterWasm/cw-template/zip/refs/heads/${flags.version}`,
-        subFolder: `cw-template-${flags.version}`,
+        remoteUrl: `https://codeload.github.com/okx/wasm-sylvia-template/zip/refs/tags/v${flags.version}`,
+        subFolder: `wasm-sylvia-template-${flags.version}`,
         localOptions: {
           folderUrl: join(process.cwd(), flags.path, args.name),
         },
