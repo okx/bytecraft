@@ -755,6 +755,57 @@ It is possible to tell ByteCraft to use a custom deploy task instead of the defa
 
 Now instead of running `bytecraft task:run deploy_counter --signer test --network mainnet` you can run `bytecraft deploy mydapp --signer test --network mainnet`.
 
+## Migrating CosmWasm Contracts
+
+On Exchain, it is possible to initialize a contract as migratable. This functionality allows the administrator to upload a new version of the contract and then send a migrate message to move to the new code. Contracts that have been deployed before implementing the following changes will not be able to be migrated and implemented changes will only be realized when redeploying the contract.
+
+### Adding MigrateMsg to the Contract
+
+In order for a contract to be migratable, it must be able to handle a `MigrateMsg` transaction.
+
+To implement support for `MigrateMsg`, add the message to the `msg.rs` file. To do so, navigate to `msg.rs` and place the following code just above the `InstantiateMsg` struct.
+
+```rust
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct MigrateMsg {}
+```
+
+With `MigrateMsg` defined, update the `contract.rs` file. First, update the import from `crate::msg` to include `MigrateMsg`.
+
+```rust
+use crate::msg::{CountResponse, ExecuteMsg, InstantiateMsg, QueryMsg, MigrateMsg};
+```
+
+Next, add the following method above `instantiate`.
+
+```rust
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn migrate(_deps: DepsMut, _env: Env, _msg: MigrateMsg) -> StdResult<Response> {
+    Ok(Response::default())
+}
+```
+
+### Migrating the Contract
+
+Adding the MigrateMsg to the smart contract allows the contract's administrator to migrate the contract in the future.  When we deploy our contract, the wallet address of the signer will be automatically designated as the contract administrator.  In the following command, the contract is deployed with the preconfigured Localnet `test1` wallet as the signer and administrator of our counter contract.
+
+```sh
+bytecraft deploy counter --signer test
+```
+
+If you decide to make changes to the deployed contract, you can migrate to the updated code by executing the following command.
+
+```sh
+bytecraft contract:migrate counter --signer test
+```
+
+If you would like to specify the address of the desired administrator for your smart contract, you may utilize the `--admin-address` flag in the deploy command followed by the wallet address of the desired administrator.
+
+```sh
+bytecraft deploy counter --signer test --admin-address <insert-admin-wallet-address>
+```
+
+
 ## ByteCraft console
 
 Bytecraft console provide a javascript repl environment, you can interact with the deployed contract and the underlying blockchain by utilizing functions defined in the `lib/index.js` file. You may also create your own abstractions in this file for querying or executing transactions. 
