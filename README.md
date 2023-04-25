@@ -872,7 +872,7 @@ DESCRIPTION
   contracts.
 ```
 
-_See code: [src/commands/console.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/console.ts)_
+_See code: [src/commands/console.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/console.ts)_
 
 ## `bytecraft contract:build CONTRACT`
 
@@ -889,7 +889,7 @@ DESCRIPTION
   Build wasm bytecode.
 ```
 
-_See code: [src/commands/contract/build.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/build.ts)_
+_See code: [src/commands/contract/build.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/build.ts)_
 
 ## `bytecraft contract:generateClient CONTRACT`
 
@@ -907,7 +907,7 @@ DESCRIPTION
   Generate a Chain TypeScript client.
 ```
 
-_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/generateClient.ts)_
+_See code: [src/commands/contract/generateClient.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/generateClient.ts)_
 
 ## `bytecraft contract:instantiate CONTRACT`
 
@@ -932,7 +932,7 @@ DESCRIPTION
   Instantiate the contract.
 ```
 
-_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/instantiate.ts)_
+_See code: [src/commands/contract/instantiate.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/instantiate.ts)_
 
 ## `bytecraft contract:migrate CONTRACT`
 
@@ -956,7 +956,7 @@ DESCRIPTION
   Migrate the contract.
 ```
 
-_See code: [src/commands/contract/migrate.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/migrate.ts)_
+_See code: [src/commands/contract/migrate.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/migrate.ts)_
 
 ## `bytecraft contract:new NAME`
 
@@ -982,7 +982,7 @@ EXAMPLES
   $ bytecraft code:new awesome_contract --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/contract/new.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/new.ts)_
+_See code: [src/commands/contract/new.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/new.ts)_
 
 ## `bytecraft contract:optimize CONTRACT`
 
@@ -999,7 +999,7 @@ DESCRIPTION
   Optimize wasm bytecode.
 ```
 
-_See code: [src/commands/contract/optimize.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/optimize.ts)_
+_See code: [src/commands/contract/optimize.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/optimize.ts)_
 
 ## `bytecraft contract:store CONTRACT`
 
@@ -1022,7 +1022,7 @@ DESCRIPTION
   Store code on chain.
 ```
 
-_See code: [src/commands/contract/store.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/store.ts)_
+_See code: [src/commands/contract/store.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/store.ts)_
 
 ## `bytecraft contract:updateAdmin CONTRACT ADMIN`
 
@@ -1045,7 +1045,7 @@ DESCRIPTION
   Update the admin of a contract.
 ```
 
-_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/contract/updateAdmin.ts)_
+_See code: [src/commands/contract/updateAdmin.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/contract/updateAdmin.ts)_
 
 ## `bytecraft deploy CONTRACT`
 
@@ -1070,7 +1070,7 @@ DESCRIPTION
   Build wasm bytecode, store code on chain and instantiate.
 ```
 
-_See code: [src/commands/deploy.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/deploy.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/deploy.ts)_
 
 ## `bytecraft help [COMMAND]`
 
@@ -1116,7 +1116,7 @@ EXAMPLES
   $ bytecraft new awesome-dapp --path path/to/dapp --authors "ExampleAuthor<example@email.domain>"
 ```
 
-_See code: [src/commands/new.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/new.ts)_
 
 ## `bytecraft task:new [TASK]`
 
@@ -1130,7 +1130,7 @@ DESCRIPTION
   create new task
 ```
 
-_See code: [src/commands/task/new.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/task/new.ts)_
+_See code: [src/commands/task/new.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/task/new.ts)_
 
 ## `bytecraft task:run [TASK]`
 
@@ -1152,7 +1152,7 @@ DESCRIPTION
   run predefined task
 ```
 
-_See code: [src/commands/task/run.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/task/run.ts)_
+_See code: [src/commands/task/run.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/task/run.ts)_
 
 ## `bytecraft test CONTRACT-NAME`
 
@@ -1174,7 +1174,7 @@ EXAMPLES
   $ bytecraft test counter --no-fail-fast
 ```
 
-_See code: [src/commands/test.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/test.ts)_
 
 ## `bytecraft test:coverage [CONTRACT-NAME]`
 
@@ -1193,7 +1193,7 @@ EXAMPLES
   $ bytecraft test:coverage counter
 ```
 
-_See code: [src/commands/test/coverage.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/test/coverage.ts)_
+_See code: [src/commands/test/coverage.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/test/coverage.ts)_
 
 ## `bytecraft wallet:new`
 
@@ -1210,5 +1210,5 @@ DESCRIPTION
   Generate a new wallet to use for signing contracts
 ```
 
-_See code: [src/commands/wallet/new.ts](https://github.com/okx/bytecraft/blob/v0.2.2/src/commands/wallet/new.ts)_
+_See code: [src/commands/wallet/new.ts](https://github.com/okx/bytecraft/blob/v0.2.3/src/commands/wallet/new.ts)_
 <!-- commandsstop -->

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "@okexchain/bytecraft": "0.2.2"
+    "@okexchain/bytecraft": "0.2.3"
   },
   "workspaces": [
 
