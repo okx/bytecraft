@@ -2,6 +2,8 @@
 declare module '@okexchain/javascript-sdk';
 // declare module ' @okexchain/javascript-sdk ';
 export const getPrivateKeyFromMnemonic: (mnemonic: string, coinType: string) => string;
+export const getAddressFromPubKey: (publicKey: string, prefix: string) => string;
+export const encodePubKeyToCompressedBuffer: (pubKey) => Buffer;
 
 export class OKCSecp256k1Wallet implements OfflineAminoSigner {
   /**

@@ -258,8 +258,8 @@ You can retrieve the wallet address associated with the `alice` account by execu
 ```sh
 bytecraft console 
 
-bytecraft > wallets.alice.address
-'ex1g0xzwvmm7mwxck5fw9y8pygq98gep9lx6m2l6e'
+bytecraft > wallets.test.address
+'0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A'
 ```
 
 Then, exit the bytecraft console and deploy the `mydapp` smart contract to testnet with the `test` account as the signer.
@@ -321,7 +321,7 @@ import { Env, task } from "@okexchain/bytecraft";
 task(async (env:Env) => {
   await env.client.execute(env.client.refs.mydapp.contractAddresses.default, env.defaultWallet, {
     freeze: {},
-  });
+  },'auto');
   console.log("freeze done!")
 });
 
@@ -604,8 +604,8 @@ You can retrieve the wallet address associated with the `alice` account by execu
 ```
 bytecraft console 
 
-bytecraft > wallets.alice.address
-'ex1g0xzwvmm7mwxck5fw9y8pygq98gep9lx6m2l6e'
+bytecraft > wallets.test.address
+'0x7aB9aC66DdA0D1b8F22275262DAcACb10185CA3A'
 ```
 
 Then, exit the bytecraft console and deploy the `mydapp` smart contract to testnet with the `test` account as the signer.
@@ -667,7 +667,7 @@ import { Env, task } from "@okexchain/bytecraft";
 task(async (env:Env) => {
   await env.client.execute(env.client.refs.mydapp.contractAddresses.default, env.defaultWallet, {
     freeze: {},
-  });
+  },'auto');
   console.log("freeze done!")
 });
 

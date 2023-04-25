@@ -1,6 +1,4 @@
 import {SigningCosmWasmClient } from "cosmwasm";
-// @ts-ignore
-import { crypto, OKCSecp256k1Wallet } from '@okexchain/javascript-sdk';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { OfflineAminoSigner } from '@cosmjs/amino/build/signer';
@@ -22,6 +20,7 @@ import {
 } from "./deployment";
 import { ExchainClientExtra } from "./ExchainClientExtra";
 import { DefaulrGasPrice, Key } from "./key";
+import { OKSecp256k1HdWallet } from '../signer/OKSecp256k1Wallet';
 
 
 export type DeployHelpers = {
@@ -79,17 +78,10 @@ export const getEnv = async (
   for (let k in keys) {
     let wallet: OfflineAminoSigner;
     if (keys[k].privateKey === '') {
-      // const path = stringToPath("m/44'/118'/0'/0/0");
-      // eslint-disable-next-line no-await-in-loop
-      // wallet = await Secp256k1HdWallet.fromMnemonic(keys[k].mnemonic, {
-      //   // hdPaths: [path],
-      //   prefix: 'ex',
-      // });
-      const privateKey = crypto.getPrivateKeyFromMnemonic(keys[k].mnemonic);
-      wallet = await OKCSecp256k1Wallet.fromKey(Buffer.from(privateKey,'hex'), 'ex');
+      wallet = await OKSecp256k1HdWallet.fromMnemonic(keys[k].mnemonic);
     } else {
       // eslint-disable-next-line no-await-in-loop
-      wallet = await OKCSecp256k1Wallet.fromKey(Buffer.from(keys[k].privateKey, 'hex'), 'ex');
+      wallet = await OKSecp256k1HdWallet.fromKey(keys[k].privateKey);
     }
 
     userDefinedWallets[k] = wallet;

@@ -3,7 +3,8 @@ import { stringToPath } from '@cosmjs/crypto';
 import { loadKeys } from '../config';
 import CLI from '../CLI';
 // @ts-ignore
-import { crypto, OKCSecp256k1Wallet } from '@okexchain/javascript-sdk';
+// import { crypto, OKCSecp256k1Wallet } from '@okexchain/javascript-sdk';
+import { OKSecp256k1HdWallet} from '../signer/OKSecp256k1Wallet';
 
 export const getSigner = async ({
   network,
@@ -13,7 +14,7 @@ export const getSigner = async ({
   network: string;
   signerId: string;
   keysPath: string;
-}): Promise<OKCSecp256k1Wallet> => {
+}): Promise<OKSecp256k1HdWallet> => {
   const keys = loadKeys(path.join(process.cwd(), keysPath));
 
   if (!keys[signerId]) {
@@ -22,13 +23,15 @@ export const getSigner = async ({
       'Signer Not Found',
     );
   }
-  let privateKey = '';
+  // let privateKey = '';
   if (!keys[signerId].mnemonic) {
-    privateKey = keys[signerId].privateKey;
+    // const privateKey = keys[signerId].privateKey;
+    return OKSecp256k1HdWallet.fromKey(keys[signerId].privateKey);
   } else {
     // @ts-ignore
-    privateKey = crypto.getPrivateKeyFromMnemonic(keys[signerId].mnemonic);
+    // privateKey = crypto.getPrivateKeyFromMnemonic(keys[signerId].mnemonic);
+    return OKSecp256k1HdWallet.fromMnemonic(keys[signerId].mnemonic);
   }
-  const signer = OKCSecp256k1Wallet.fromKey(Buffer.from(privateKey, 'hex'), 'ex');
-  return signer;
+  // const signer = OKSecp256k1HdWallet.fromKey(privateKey);
+  // return signer;
 };
