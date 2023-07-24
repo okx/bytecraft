@@ -1,7 +1,7 @@
 import { Command } from '@oclif/command';
 import { join } from 'path';
 import { existsSync } from 'fs';
-import { build } from '../../lib/deployment';
+import { build, check } from '../../lib/deployment';
 import * as flag from '../../lib/flag';
 import CLI from '../../CLI';
 import runCommand from '../../lib/runCommand';
@@ -13,7 +13,10 @@ export default class Build extends Command {
     'config-path': flag.configPath,
   };
 
-  static args = [{ name: 'contract', required: true }];
+  static args = [{
+    name: 'contract',
+    required: true,
+  }];
 
   async run() {
     const { args } = this.parse(Build);
@@ -26,6 +29,7 @@ export default class Build extends Command {
       await build({
         contract: args.contract,
       });
+      await check({ contract: args.contract });
     };
 
     // Error check to be performed upon each backtrack iteration.

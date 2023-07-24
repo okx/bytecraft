@@ -32,6 +32,18 @@ export const build = async ({ contract }: BuildParams) => {
   process.chdir(startingDirectory);
 };
 
+type CheckParams = {
+  contract: string;
+}
+
+export const check = async ({ contract }: CheckParams) => {
+  let wasmByteCodeFilename = `${contract.replace(/-/g, '_')}`;
+  wasmByteCodeFilename += '.wasm';
+  const artifactFileName = path.join('contracts', contract, 'target/wasm32-unknown-unknown/release', wasmByteCodeFilename);
+  cli.log('Check contract: ');
+  execSync(`cosmwasm-check ${artifactFileName}`, { stdio: 'inherit' });
+};
+
 const execDockerOptimization = (image: string, cache: string) => {
   const dir = Os.platform() === 'win32' ? '%cd%' : '$(pwd)';
 
